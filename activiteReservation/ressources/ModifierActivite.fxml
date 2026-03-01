@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ModifierActivite"
+            prefWidth="500"
+            prefHeight="400"
+            stylesheets="@style.css">
+
+    <children>
+
+        <VBox spacing="15"
+              alignment="CENTER"
+              AnchorPane.topAnchor="20"
+              AnchorPane.bottomAnchor="20"
+              AnchorPane.leftAnchor="40"
+              AnchorPane.rightAnchor="40">
+
+            <Label text="Modifier Activité Écologique"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+            <GridPane hgap="10" vgap="15">
+
+                <Label text="ID :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="idField"
+                           editable="false"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Nom :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="nomField"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Description :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="descriptionField"
+                           GridPane.rowIndex="2"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Date :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="dateField"
+                           promptText="YYYY-MM-DD"
+                           GridPane.rowIndex="3"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Capacité :" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="capaciteField"
+                           GridPane.rowIndex="4"
+                           GridPane.columnIndex="1"/>
+
+            </GridPane>
+
+            <HBox spacing="20" alignment="CENTER">
+
+                <Button text="Modifier"
+                        onAction="#modifierActivite"
+                        style="-fx-background-color: #6a0dad; -fx-text-fill: white; -fx-font-weight: bold;"
+                        prefWidth="120"/>
+
+                <Button text="Annuler"
+                        onAction="#annuler"
+                        style="-fx-background-color: #a0a0a0; -fx-text-fill: white; -fx-font-weight: bold;"
+                        prefWidth="120"/>
+
+            </HBox>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>

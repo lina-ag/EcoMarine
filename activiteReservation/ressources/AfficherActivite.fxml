@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/18.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AfficherActivite"
+            prefWidth="1300"
+            prefHeight="700"
+            stylesheets="@style.css">
+
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10"
+              AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+
+            <!-- Titre -->
+            <Label text="Liste des Activités" styleClass="page-title"/>
+
+            <!-- Barre de recherche -->
+            <HBox spacing="10" alignment="CENTER" maxWidth="900">
+                <TextField fx:id="searchField" 
+                           promptText="Rechercher par nom, description, date..." 
+                           HBox.hgrow="ALWAYS"
+                           styleClass="search-field">
+                    <HBox.margin>
+                        <Insets left="10" right="10"/>
+                    </HBox.margin>
+                </TextField>
+                <Button fx:id="searchButton" 
+                        text="🔍 Rechercher" 
+                        onAction="#handleSearch"
+                        styleClass="btn-search"/>
+                <Button fx:id="clearButton" 
+                        text="✖ Effacer" 
+                        onAction="#clearSearch"
+                        styleClass="btn-clear"/>
+            </HBox>
+
+            <!-- Filtres rapides -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0;">
+                <Label text="Filtres:" styleClass="filter-label"/>
+                <Button text="Aujourd'hui" onAction="#filterToday" styleClass="btn-filter"/>
+                <Button text="Cette semaine" onAction="#filterThisWeek" styleClass="btn-filter"/>
+                <Button text="Ce mois" onAction="#filterThisMonth" styleClass="btn-filter"/>
+                <Button text="Capacité > 10" onAction="#filterCapacity" styleClass="btn-filter"/>
+            </HBox>
+
+            <!-- Label pour le nombre de résultats -->
+            <HBox alignment="CENTER_RIGHT">
+                <Label fx:id="resultCountLabel" text="0 activité(s) trouvée(s)" 
+                       styleClass="result-count"/>
+            </HBox>
+
+            <!-- Tableau des activités -->
+            <TableView fx:id="tableActivite" prefHeight="450" VBox.vgrow="ALWAYS"
+                       styleClass="activities-table">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colNom" text="Nom" prefWidth="200"/>
+                    <TableColumn fx:id="colDescription" text="Description" prefWidth="300"/>
+                    <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                    <TableColumn fx:id="colCapacite" text="Capacité" prefWidth="100"/>
+                    <TableColumn fx:id="colModifier" text="Modifier" prefWidth="120"/>
+                    <TableColumn fx:id="colSupprimer" text="Supprimer" prefWidth="120"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+            </TableView>
+
+            <!-- Bouton Ajouter -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="➕ Ajouter Nouvelle Activité" 
+                        onAction="#handleAjouter"
+                        styleClass="btn-add"/>
+            </HBox>
+
+        </VBox>
+    </children>
+
+</AnchorPane>
