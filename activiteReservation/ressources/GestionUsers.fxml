@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.GestionUsers"
+            stylesheets="@style.css"
+            styleClass="root-pane"
+            prefWidth="1100"
+            prefHeight="600">
+
+   <!-- ======================== -->
+   <!-- 🔵 MENU LATÉRAL MODERNE  -->
+   <!-- ======================== -->
+   <left>
+      <VBox spacing="10"
+            prefWidth="260"
+            styleClass="sidebar">
+
+         <!-- En-tête avec logo -->
+         <StackPane styleClass="sidebar-header">
+            <Region styleClass="header-background" />
+            <Label text="🌊"
+                   style="-fx-font-size: 48px; 
+                          -fx-text-fill: white;" />
+         </StackPane>
+
+         <!-- TITRES -->
+         <Label text="ECOMARINE"
+                styleClass="sidebar-title"
+                style="-fx-text-fill: white;" />
+
+         <Label text="Gestion des Utilisateurs"
+                styleClass="sidebar-subtitle"
+                style="-fx-text-fill: rgba(255,255,255,0.9);" />
+
+         <Separator styleClass="sidebar-separator" />
+
+         <!-- SECTION MENU PRINCIPAL -->
+         <Label text="UTILISATEURS"
+                styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);" />
+
+         <Button text="Ajouter Utilisateur"
+                 onAction="#ouvrirAjouterUser"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="➕"
+                      styleClass="button-icon"
+                      style="-fx-text-fill: white;" />
+            </graphic>
+         </Button>
+
+         <Button text="Liste des Utilisateurs"
+                 onAction="#ouvrirAfficherUsers"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="📋"
+                      styleClass="button-icon"
+                      style="-fx-text-fill: white;" />
+            </graphic>
+         </Button>
+
+         <!-- Statistiques des rôles -->
+         <Separator styleClass="sidebar-separator" />
+         
+         <Label text="STATISTIQUES DES RÔLES"
+                styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);" />
+
+         <!-- 3 statistiques : Admin, Chercheur, Utilisateur -->
+         <VBox spacing="10" styleClass="stats-container">
+            
+            <!-- Admin -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5 10;">
+                <Label text="👑" style="-fx-font-size: 20px; -fx-min-width: 30;"/>
+                <Label text="Admins:" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="adminsLabel" 
+                       text="0" 
+                       style="-fx-text-fill: #ff6b6b; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </HBox>
+            
+            <!-- Chercheur -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5 10;">
+                <Label text="🔬" style="-fx-font-size: 20px; -fx-min-width: 30;"/>
+                <Label text="Chercheurs:" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="chercheursLabel" 
+                       text="0" 
+                       style="-fx-text-fill: #4ecdc4; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </HBox>
+            
+            <!-- Utilisateur simple -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5 10;">
+                <Label text="👤" style="-fx-font-size: 20px; -fx-min-width: 30;"/>
+                <Label text="Utilisateurs:" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="utilisateursLabel" 
+                       text="0" 
+                       style="-fx-text-fill: #ffe66d; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </HBox>
+         </VBox>
+
+         <Region VBox.vgrow="ALWAYS" />
+      </VBox>
+   </left>
+
+   <!-- ======================== -->
+   <!-- CONTENU PRINCIPAL        -->
+   <!-- ======================== -->
+   <center>
+      <StackPane style="-fx-background-color: transparent;">
+         <VBox alignment="CENTER" spacing="20">
+
+            <Label text="Bienvenue 👋"
+                   style="-fx-font-size: 28px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #ffffff;" />
+
+            <Label text="Gérez vos utilisateurs facilement et efficacement."
+                   style="-fx-font-size: 16px;
+                          -fx-text-fill: #ffffff;" />
+
+         </VBox>
+      </StackPane>
+   </center>
+
+</BorderPane>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.AfficherUsers"
+      spacing="10"
+      prefWidth="900" prefHeight="600"
+      stylesheets="@style.css">
+
+    <!-- Titre -->
+    <Label text="Liste des utilisateurs" 
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    
+    <!-- Barre de recherche avancée -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Rechercher :" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="searchField" 
+                   promptText="Entrez votre recherche..." 
+                   HBox.hgrow="ALWAYS"
+                   style="-fx-pref-width: 300px;"/>
+        
+        <ComboBox fx:id="searchCriteriaCombo" 
+                  style="-fx-pref-width: 150px;"/>
+        
+        <Button fx:id="searchButton" 
+                text="Rechercher" 
+                onAction="#handleSearch"
+                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+        
+        <Button fx:id="resetButton" 
+                text="Réinitialiser" 
+                onAction="#resetSearch"
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+    </HBox>
+    
+    <!-- Tableau des utilisateurs -->
+    <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="100"/>
+            <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="100"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="150"/>
+            <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="100"/>
+            <TableColumn fx:id="colRole" text="Rôle" prefWidth="100"/>
+            <TableColumn fx:id="colDateNaissance" text="Date Naiss." prefWidth="100"/>
+            <TableColumn fx:id="colModifier" text="Modifier" prefWidth="80"/>
+            <TableColumn fx:id="colSupprimer" text="Supprimer" prefWidth="80"/>
+        </columns>
+    </TableView>
+    
+    <!-- Label pour le nombre de résultats -->
+    <HBox alignment="CENTER_RIGHT">
+        <Label fx:id="resultCountLabel" 
+               text="Total: 0 utilisateurs"
+               style="-fx-font-style: italic; -fx-text-fill: #7f8c8d;"/>
+    </HBox>
+    
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+</VBox>
