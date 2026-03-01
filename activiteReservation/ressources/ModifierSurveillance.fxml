@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ModifierSurveillance"
+      spacing="15"
+      alignment="CENTER"
+      prefWidth="420"
+      prefHeight="400"
+      style="-fx-padding: 25;"
+      stylesheets="@style.css">
+
+    <Label text="Modifier Surveillance"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+    
+    <TextField fx:id="idSurvField"
+               promptText="ID Surveillance"
+               editable="false"
+               prefWidth="250"/>
+
+   
+    <TextField fx:id="dateField"
+               promptText="Date (YYYY-MM-DD)"
+               prefWidth="250"/>
+
+    
+    <TextField fx:id="observationField"
+               promptText="Observation"
+               prefWidth="250"/>
+
+  
+    <TextField fx:id="idZoneField"
+               promptText="ID Zone"
+               prefWidth="250"/>
+
+    
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Enregistrer"
+                onAction="#modifierSurveillance"
+                prefWidth="120"
+                style="-fx-background-color: linear-gradient(to bottom, #89CFF0, #4682B4);
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 8;" />
+
+        <Button text="Annuler"
+                onAction="#annuler"
+                prefWidth="120"
+                style="-fx-background-color: #B22222;
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 8;" />
+    </HBox>
+
+</VBox>

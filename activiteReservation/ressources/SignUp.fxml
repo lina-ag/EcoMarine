@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.SignUpController"
+           stylesheets="@style.css">
+
+    <VBox alignment="CENTER" spacing="25">
+
+        <!-- Carte inscription -->
+        <VBox spacing="20" alignment="CENTER"
+              style="-fx-background-color: white;
+                     -fx-padding: 40;
+                     -fx-border-radius: 15;
+                     -fx-background-radius: 15;
+                     -fx-min-width: 420;">
+
+            <Label text="📝 Créer un compte"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #0f4c75;" />
+
+            <TextField fx:id="nomField" promptText="Nom" />
+            <TextField fx:id="prenomField" promptText="Prénom" />
+            <TextField fx:id="emailField" promptText="Email" />
+            <PasswordField fx:id="passwordField" promptText="Mot de passe" />
+            <TextField fx:id="telephoneField" promptText="Téléphone" prefWidth="300"/>
+            <ComboBox fx:id="roleCombo" prefWidth="300" promptText="Rôle"/>
+            <DatePicker fx:id="dateNaissancePicker" prefWidth="300" promptText="Date de naissance"/>
+
+            <Button text="S'inscrire"
+                    onAction="#signUp"
+                    style="-fx-background-color: #0f4c75;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 10;
+                           -fx-padding: 10 20;" />
+
+            <Label text="Déjà un compte ? Se connecter"
+                   onMouseClicked="#openSignIn"
+                   style="-fx-text-fill: #3282b8; -fx-underline: true; -fx-cursor: hand;" />
+
+        </VBox>
+
+    </VBox>
+
+</StackPane>

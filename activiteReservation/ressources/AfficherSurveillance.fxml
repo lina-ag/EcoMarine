@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AfficherSurveillance"
+            prefWidth="800"
+            prefHeight="500"
+            stylesheets="@style.css">
+
+    <children>
+
+        <VBox spacing="15"
+              AnchorPane.topAnchor="20"
+              AnchorPane.leftAnchor="20"
+              AnchorPane.rightAnchor="20"
+              AnchorPane.bottomAnchor="20">
+
+            <Label text="Liste des Surveillances"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <TextField fx:id="txtRecherche"
+                   promptText="Rechercher par ID Zone..."
+                   prefWidth="250" />
+            <TableView fx:id="tableSurv" prefHeight="400">
+
+                <columns>
+
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="80"/>
+
+                    <TableColumn fx:id="colDate"
+                                 text="Date"
+                                 prefWidth="150"/>
+
+                    <TableColumn fx:id="colObservation"
+                                 text="Observation"
+                                 prefWidth="250"/>
+
+                    <TableColumn fx:id="colIdZone"
+                                 text="ID Zone"
+                                 prefWidth="100"/>
+
+                    <TableColumn fx:id="colModifier"
+                                 text="Modifier"
+                                 prefWidth="100"/>
+ 
+                    <TableColumn fx:id="colSupprimer"
+                                 text="Supprimer"
+                                 prefWidth="100"/>
+
+                </columns>
+
+            </TableView>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.SignInController"
+           stylesheets="@style.css">
+
+    <VBox alignment="CENTER" spacing="25">
+
+        <!-- Carte de connexion -->
+        <VBox spacing="20" alignment="CENTER"
+              style="-fx-background-color: white;
+                     -fx-padding: 40;
+                     -fx-border-radius: 15;
+                     -fx-background-radius: 15;
+                     -fx-min-width: 400;">
+
+            <Label text="🔐 Connexion"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #0f4c75;" />
+
+            <TextField fx:id="emailField"
+                       promptText="Email"
+                       style="-fx-background-radius: 10;" />
+
+            <PasswordField fx:id="passwordField"
+                           promptText="Mot de passe"
+                           style="-fx-background-radius: 10;" />
+
+            <Button text="Se connecter"
+                    onAction="#login"
+                    style="-fx-background-color: #0f4c75;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 10;
+                           -fx-padding: 10 20;" />
+
+            <Label text="Pas de compte ? S'inscrire"
+                   onMouseClicked="#openSignUp"
+                   style="-fx-text-fill: #3282b8; -fx-underline: true; -fx-cursor: hand;" />
+
+        </VBox>
+
+    </VBox>
+
+</StackPane>

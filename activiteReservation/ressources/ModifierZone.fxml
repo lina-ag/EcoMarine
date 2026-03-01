@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ModifierZone"
+      spacing="25"
+      
+      alignment="CENTER"
+      styleClass="root"
+      stylesheets="@style.css">
+
+    <Label text="Modifier Zone Protégée" style="-fx-font-size:18px;" />
+
+    <!-- ID (readonly) -->
+    <TextField fx:id="idField" promptText="ID Zone" editable="false"/>
+
+    <!-- Nom -->
+    <TextField fx:id="nomField" promptText="Nom de la zone"/>
+
+    <!-- Catégorie -->
+    <TextField fx:id="categorieField" promptText="Catégorie"/>
+
+    <!-- Statut -->
+    <ComboBox fx:id="statutCombo" promptText="Statut"/>
+
+    <!-- Boutons -->
+    <HBox spacing="10" alignment="CENTER">
+
+        <Button text="Enregistrer" onAction="#modifierZone"/>
+        <Button text="Annuler" onAction="#annuler"/>
+
+    </HBox>
+
+</VBox>

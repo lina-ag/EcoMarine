@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AjouterZone"
+            prefWidth="500"
+            prefHeight="400"
+             stylesheets="@style.css"
+            >
+
+    <children>
+
+        <VBox spacing="15"
+              alignment="CENTER"
+              AnchorPane.topAnchor="20"
+              AnchorPane.bottomAnchor="20"
+              AnchorPane.leftAnchor="40"
+              AnchorPane.rightAnchor="40">
+
+            <Label text="Ajouter une Zone Protégée"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+            <GridPane hgap="10" vgap="15">
+
+                <Label text="Nom Zone :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfNom"
+                           promptText="Entrer le nom"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Catégorie :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfCategorie"
+                           promptText="Entrer la catégorie"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Statut :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbStatut"
+                          prefWidth="200"
+                          GridPane.rowIndex="2"
+                          GridPane.columnIndex="1"/>
+
+            </GridPane>
+
+            <Button text="Ajouter"
+                    onAction="#ajouterZone"
+                    prefWidth="150"
+                    style="-fx-background-color: linear-gradient(to bottom, #89CFF0, #4682B4);
+                           -fx-text-fill: white; 
+                          -fx-font-weight: bold;">
+
+               <graphic>
+                   <ImageView fitWidth="20"
+                              fitHeight="20"
+                              preserveRatio="true">
+                      <image>
+                         <Image url="file:/C:/Users/WSI/Downloads/ajout.png"/>
+                      </image>
+                   </ImageView>
+               </graphic>
+
+           </Button>
+                  
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AfficherZones"
+            prefWidth="900"
+            prefHeight="500"
+            stylesheets="@style.css"
+            >
+
+    <children>
+
+        <VBox spacing="15"
+              AnchorPane.topAnchor="20"
+              AnchorPane.leftAnchor="20"
+              AnchorPane.rightAnchor="20"
+              AnchorPane.bottomAnchor="20">
+
+           
+          
+             <Label text="Liste des Zones Protégées"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            
+            <TextField fx:id="txtRecherche"
+                   promptText="Rechercher par nom..."
+                   prefWidth="300" />
+           
+
+            <TableView fx:id="tableZones" prefHeight="400">
+
+                <columns>
+
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="80"/>
+
+                    <TableColumn fx:id="colNom"
+                                 text="Nom Zone"
+                                 prefWidth="180"/>
+
+                    <TableColumn fx:id="colCategorie"
+                                 text="Catégorie"
+                                 prefWidth="180"/>
+
+                    <TableColumn fx:id="colStatut"
+                                 text="Statut"
+                                 prefWidth="120"/>
+
+                    <TableColumn fx:id="colModifier"
+                                 text="Modifier"
+                                 prefWidth="120"/>
+
+                    <TableColumn fx:id="colSupprimer"
+                                 text="Supprimer"
+                                 prefWidth="120"/>
+
+                </columns>
+
+            </TableView>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>

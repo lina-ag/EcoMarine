@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ModifierUser"
+            prefWidth="500" prefHeight="520"
+            stylesheets="@style.css">
+
+    <children>
+        <VBox spacing="12" alignment="CENTER" layoutX="50" layoutY="10"
+              prefWidth="400">
+
+            <Label text="Modifier Utilisateur"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+            <TextField fx:id="idField" promptText="ID" prefWidth="300" editable="false"/>
+
+            <TextField fx:id="nomField" promptText="Nom" prefWidth="300"/>
+            <TextField fx:id="prenomField" promptText="Prénom" prefWidth="300"/>
+            <TextField fx:id="emailField" promptText="Email" prefWidth="300"/>
+            <PasswordField fx:id="motDePasseField" promptText="Mot de passe" prefWidth="300"/>
+            <TextField fx:id="telephoneField" promptText="Téléphone" prefWidth="300"/>
+
+            <ComboBox fx:id="roleCombo" prefWidth="300" promptText="Rôle"/>
+
+            <DatePicker fx:id="dateNaissancePicker" prefWidth="300" promptText="Date de naissance"/>
+
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="Enregistrer" onAction="#modifierUser"
+                        style="-fx-background-color: #3a7bd5; -fx-text-fill: white;"/>
+                <Button text="Annuler" onAction="#annuler"/>
+            </HBox>
+        </VBox>
+    </children>
+
+</AnchorPane>
