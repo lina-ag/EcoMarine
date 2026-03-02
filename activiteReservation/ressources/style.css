@@ -9,7 +9,7 @@
 }
 
 .root-pane {
-    -fx-background-image: url("file:/C:/Users/PCS/Downloads/1234.png");
+    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
@@ -82,7 +82,7 @@
 	    -fx-alignment: CENTER_LEFT;
 	    -fx-border-color: transparent;
 	}
-}	/* ===== LISTE DES ACTIVITÉS - STYLE CALENDRIER ===== */
+	/* ===== LISTE DES ACTIVITÉS - STYLE CALENDRIER ===== */
 
 	/* Titre de page */
 	.page-title {
@@ -1301,10 +1301,10 @@
     -fx-animation: fadeInUp 0.5s ease-out forwards;
 }
 
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
     0% { -fx-opacity: 0; -fx-translate-y: 20; }
     100% { -fx-opacity: 1; -fx-translate-y: 0; }
-}
+}*/
 
 /* Animation séquentielle */
 .month-card:nth-child(1) { -fx-animation-delay: 0.05s; }
@@ -1347,10 +1347,10 @@
     -fx-translate-y: -3;
 }
 
-@keyframes floatIn {
+/* @keyframes floatIn {
     0% { -fx-opacity: 0; -fx-translate-y: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0); }
     100% { -fx-opacity: 1; -fx-translate-y: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2); }
-}
+}*/
 
 .activity-date {
     -fx-background-color: #e0f2fe;
