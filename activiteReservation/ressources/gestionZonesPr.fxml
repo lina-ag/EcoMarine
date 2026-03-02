@@ -11,8 +11,8 @@
             fx:controller="controllers.GestionZonesPr"
             stylesheets="@style.css"
             styleClass="root-pane"
-            prefWidth="1100"
-            prefHeight="600">
+            prefWidth="1500"
+            prefHeight="800">
 
    
    <left>

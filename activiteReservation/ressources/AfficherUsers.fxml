@@ -14,7 +14,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.AfficherUsers"
       spacing="10"
-      prefWidth="900" prefHeight="600"
+      prefWidth="1500" prefHeight="800"
       stylesheets="@style.css">
 
     <!-- Titre -->

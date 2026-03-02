@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AcceuilController"
+            stylesheets="@style.css"
+            styleClass="root-pane"
+            prefWidth="1500"
+            prefHeight="800">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox spacing="12" prefWidth="220" styleClass="sidebar">
+
+            <StackPane alignment="CENTER">
+                <Region styleClass="header-background"/>
+                <ImageView fitWidth="150"
+                           fitHeight="150"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+
+            <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-font-size: 20px; -fx-font-weight: none; -fx-text-fill: white;"/>
+            <Label text="Accueil" styleClass="sidebar-subtitle" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
+
+            <Separator styleClass="sidebar-separator"/>
+
+            <!-- Menu Principal -->
+            <Label text="MENU PRINCIPAL" styleClass="sidebar-section-label" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
+
+            <Button text="🏠 Accueil"
+                    onAction="#ouvrirAccueil"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white;"/>
+
+            <!-- SECTION 1 : GESTION ACTIVITÉS & RÉSERVATIONS -->
+           <!-- SECTION 1 : GESTION ACTIVITÉS & RÉSERVATIONS (UN SEUL BOUTON) -->
+<Label text="📊 MODULE COMPLET" 
+       styleClass="sidebar-section-label" 
+       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;">
+    <VBox.margin>
+        <Insets top="15"/>
+    </VBox.margin>
+</Label>
+
+<Button text="📊 Gestion Activités et Réservations"
+        onAction="#ouvrirModuleActivitesReservations"
+        maxWidth="Infinity"
+        styleClass="sidebar-button"
+        style="-fx-background-color: rgba(255,255,255,0.1); -fx-font-size: 14px;"/>
+            <!-- SECTION 2 : GESTION ZONES -->
+            <Label text="🗺️ GESTION ZONES"
+                   styleClass="sidebar-section-label"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;">
+                <VBox.margin>
+                    <Insets top="15"/>
+                </VBox.margin>
+            </Label>
+
+            <Button text="🗺️ Gestion Zones"
+                    onAction="#ouvrirGestionZones"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"/>
+
+            <!-- SECTION 3 : GESTION UTILISATEURS -->
+            <Label text="👥 GESTION UTILISATEURS"
+                   styleClass="sidebar-section-label"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;">
+                <VBox.margin>
+                    <Insets top="15"/>
+                </VBox.margin>
+            </Label>
+
+            <Button text="👤 Gestion Utilisateurs"
+                    onAction="#ouvrirGestionUser"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+        </VBox>
+    </left>
+
+    <!-- CONTENU PRINCIPAL -->
+    <center>
+        <StackPane styleClass="acceuil-center">
+            <VBox alignment="CENTER" spacing="25">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+                
+                <Label text="Bienvenue sur EcoMarine 🌊" 
+                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                
+                <Label text="Votre solution de gestion touristique intégrée"
+                       style="-fx-font-size: 18px; -fx-text-fill: #0284c7;"/>
+                
+                <Separator styleClass="acceuil-separator" maxWidth="350"/>
+                
+                <!-- Cartes des 3 fonctionnalités principales -->
+                <HBox spacing="20" alignment="CENTER">
+                    
+                    <!-- Carte Activités & Réservations -->
+                    <VBox styleClass="acceuil-card" onMouseClicked="#ouvrirAfficherActivites">
+                        <Label text="📊" styleClass="acceuil-card-icon"/>
+                        <Label text="Activités " styleClass="acceuil-card-title"/>
+                        <Label text="Réservations" styleClass="acceuil-card-title"/>
+                        <Label text="Gérer les activités et réservations" styleClass="acceuil-card-desc"/>
+                    </VBox>
+                    
+                    <!-- Carte Zones -->
+                    <VBox styleClass="acceuil-card" onMouseClicked="#ouvrirGestionZones">
+                        <Label text="🗺️" styleClass="acceuil-card-icon"/>
+                        <Label text="Zones" styleClass="acceuil-card-title"/>
+                        <Label text="Protégées" styleClass="acceuil-card-title"/>
+                        <Label text="Gérer les zones protégées" styleClass="acceuil-card-desc"/>
+                    </VBox>
+                    
+                    <!-- Carte Utilisateurs -->
+                    <VBox styleClass="acceuil-card" onMouseClicked="#ouvrirGestionUser">
+                        <Label text="👥" styleClass="acceuil-card-icon"/>
+                        <Label text="Utilisateurs" styleClass="acceuil-card-title"/>
+                        <Label text="et comptes" styleClass="acceuil-card-title"/>
+                        <Label text="Gérer les utilisateurs" styleClass="acceuil-card-desc"/>
+                    </VBox>
+                    
+                </HBox>
+                
+                <!-- Message de bienvenue -->
+                <Label text="Sélectionnez une option dans le menu ou cliquez sur une carte"
+                       style="-fx-font-size: 14px; -fx-text-fill: #64748b; -fx-font-style: italic;"/>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>

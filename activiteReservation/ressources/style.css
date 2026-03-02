@@ -9,7 +9,7 @@
 }
 
 .root-pane {
-    -fx-background-image: url("file:/C:/Users/PCS/Downloads/1234.png");
+    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
@@ -82,7 +82,7 @@
 	    -fx-alignment: CENTER_LEFT;
 	    -fx-border-color: transparent;
 	}
-}	/* ===== LISTE DES ACTIVITÉS - STYLE CALENDRIER ===== */
+	/* ===== LISTE DES ACTIVITÉS - STYLE CALENDRIER ===== */
 
 	/* Titre de page */
 	.page-title {
@@ -1301,10 +1301,10 @@
     -fx-animation: fadeInUp 0.5s ease-out forwards;
 }
 
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
     0% { -fx-opacity: 0; -fx-translate-y: 20; }
     100% { -fx-opacity: 1; -fx-translate-y: 0; }
-}
+}*/
 
 /* Animation séquentielle */
 .month-card:nth-child(1) { -fx-animation-delay: 0.05s; }
@@ -1347,10 +1347,7 @@
     -fx-translate-y: -3;
 }
 
-@keyframes floatIn {
-    0% { -fx-opacity: 0; -fx-translate-y: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0); }
-    100% { -fx-opacity: 1; -fx-translate-y: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2); }
-}
+
 
 .activity-date {
     -fx-background-color: #e0f2fe;
@@ -1713,7 +1710,95 @@
     -fx-text-fill: white !important;
     -fx-font-weight: bold !important;
 }
+/* ===== PAGE ACCUEIL ===== */
 
+.acceuil-center {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.2, 0, 5);
+    -fx-padding: 20;
+}
+
+.acceuil-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-padding: 30;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER;
+    -fx-min-width: 180;
+    -fx-min-height: 180;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+    -fx-transition: all 0.3s ease;
+}
+
+.acceuil-card:hover {
+    -fx-background-color: #e0f2fe;
+    -fx-border-color: #0284c7;
+    -fx-border-width: 2;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.3), 15, 0.3, 0, 3);
+}
+
+.acceuil-card-icon {
+    -fx-font-size: 48px;
+}
+
+.acceuil-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0a4d7a;
+}
+
+.acceuil-card-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+    -fx-text-alignment: center;
+}
+
+.acceuil-stats-box {
+    -fx-background-color: linear-gradient(135deg, #e0f2fe, #bae6fd);
+    -fx-background-radius: 30;
+    -fx-padding: 20 40;
+}
+
+.acceuil-stat-number {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0a4d7a;
+}
+
+.acceuil-stat-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #0369a1;
+}
+
+.acceuil-refresh-btn {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 12 25;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.3), 10, 0.3, 0, 2);
+}
+
+.acceuil-refresh-btn:hover {
+    -fx-background-color: #0a4d7a;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.acceuil-separator {
+    -fx-background-color: linear-gradient(to right, transparent, #0284c7, transparent);
+    -fx-padding: 1;
+}
 /* ===== JOUR COURANT (AUJOURD'HUI) - STYLE BLEU ===== */
 .day-cell.today {
     -fx-background-color: #e6f0ff;

@@ -5,8 +5,8 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.AfficherZones"
-            prefWidth="900"
-            prefHeight="500"
+            prefWidth="1500"
+            prefHeight="800"
             stylesheets="@style.css"
             >
 

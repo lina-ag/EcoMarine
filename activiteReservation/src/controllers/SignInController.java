@@ -74,9 +74,10 @@ public class SignInController {
     private void ouvrirGestionActiviteReservation() {
         try {
             Stage stage = (Stage) emailField.getScene().getWindow();
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/GestionActiviteReservation.fxml")));
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/acceuil.fxml")));
             stage.setScene(scene);
             stage.setTitle("Accueil");
+            stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Erreur", "Impossible d'ouvrir l'accueil : " + e.getMessage());
