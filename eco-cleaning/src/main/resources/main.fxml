@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.MainApp$Controller">
+
+    <top>
+        <HBox spacing="10" style="-fx-padding: 12;">
+            <Button text="⬅ Accueil" onAction="#goHome"/>
+            <Label text="Nettoyage &amp; Volontaires" style="-fx-font-size: 18;"/>        </HBox>
+    </top>
+
+    <center>
+        <TabPane>
+            <Tab text="Actions" closable="false">
+                <fx:include source="actions.fxml"/>
+            </Tab>
+            <Tab text="Volontaires" closable="false">
+                <fx:include source="volontaires.fxml"/>
+            </Tab>
+        </TabPane>
+    </center>
+
+</BorderPane>

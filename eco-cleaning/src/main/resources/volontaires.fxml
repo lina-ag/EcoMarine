@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="app.VolontairesController"
+      spacing="10" style="-fx-padding: 12;">
+
+    <HBox spacing="10">
+        <Label text="Action :" />
+        <ComboBox fx:id="cbActions" prefWidth="500" onAction="#loadVolontaires"/>
+    </HBox>
+
+    <TableView fx:id="tableVol">
+        <columns>
+            <TableColumn fx:id="colIdVol" text="ID" prefWidth="70"/>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="260"/>
+            <TableColumn fx:id="colContact" text="Contact" prefWidth="260"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="txtNom" promptText="Nom" prefWidth="260"/>
+        <TextField fx:id="txtContact" promptText="Contact" prefWidth="260"/>
+        <Button text="Ajouter" onAction="#addVol"/>
+        <Button text="Modifier" onAction="#updateVol"/>
+        <Button text="Supprimer" onAction="#deleteVol"/>
+        <Button text="Vider" onAction="#clearVol"/>
+    </HBox>
+</VBox>
