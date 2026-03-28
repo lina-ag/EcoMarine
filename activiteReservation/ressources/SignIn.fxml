@@ -3,44 +3,139 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="controllers.SignInController"
-           stylesheets="@style.css">
+           prefWidth="1500"
+           prefHeight="800"
+           stylesheets="@style.css"
+           styleClass="root-pane">
 
     <VBox alignment="CENTER" spacing="25">
 
-        <!-- Carte de connexion -->
-        <VBox spacing="20" alignment="CENTER"
+        <!-- Carte de connexion avec bordure fixe -->
+        <VBox spacing="25" alignment="CENTER"
               style="-fx-background-color: white;
-                     -fx-padding: 40;
-                     -fx-border-radius: 15;
-                     -fx-background-radius: 15;
-                     -fx-min-width: 400;">
+                     -fx-padding: 50 50 60 50;
+                     -fx-border-radius: 30;
+                     -fx-background-radius: 30;
+                     -fx-min-width: 450;
+                     -fx-max-width: 450;
+                     -fx-min-height: 600;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 40, 0.3, 0, 10);
+                     -fx-border-color: rgba(0,0,0,0.1);
+                     -fx-border-width: 2;
+                     -fx-border-style: solid outside;">
 
-            <Label text="🔐 Connexion"
-                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #0f4c75;" />
+            <!-- En-tête avec icône et titre -->
+            
+       <HBox alignment="CENTER" spacing="15">
+          <ImageView fitWidth="40" fitHeight="40">
+             <Image url="file:/C:/Users/WSI/Downloads/login.png" />
+         </ImageView>
+         <Label text="Connexion"
+           style="-fx-font-size: 32px; 
+                  -fx-font-weight: 300;
+                  -fx-text-fill: #1e3c72;
+                  -fx-padding: 0 0 10 0;
+                  -fx-border-color: transparent transparent #1e3c72 transparent;
+                  -fx-border-width: 0 0 2 0;
+                  -fx-border-style: segments(10, 10, 10, 10);" />
+</HBox>
 
-            <TextField fx:id="emailField"
-                       promptText="Email"
-                       style="-fx-background-radius: 10;" />
+            <Label text="Accédez à votre espace personnel"
+                   style="-fx-font-size: 14px;
+                          -fx-text-fill: #666666;
+                          -fx-font-weight: 300;
+                          -fx-padding: 0 0 10 0;" />
 
-            <PasswordField fx:id="passwordField"
-                           promptText="Mot de passe"
-                           style="-fx-background-radius: 10;" />
+            <!-- Champ Email -->
+            <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                <Label text="Email"
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;
+                              -fx-padding: 0 0 0 5;"/>
+                <TextField fx:id="emailField"
+                           promptText="exemple@email.com"
+                           style="-fx-background-radius: 12;
+                                  -fx-border-radius: 12;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-width: 1.5;
+                                  -fx-background-color: #f8f9fa;
+                                  -fx-padding: 12 15;
+                                  -fx-font-size: 14px;
+                                  -fx-focus-color: #1e3c72;
+                                  -fx-faint-focus-color: transparent;"/>
+            </VBox>
 
+            <!-- Champ Mot de passe -->
+            <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                <Label text="Mot de passe"
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;
+                              -fx-padding: 0 0 0 5;"/>
+                <PasswordField fx:id="passwordField"
+                               promptText="••••••••"
+                               style="-fx-background-radius: 12;
+                                      -fx-border-radius: 12;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.5;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-padding: 12 15;
+                                      -fx-font-size: 14px;
+                                      -fx-focus-color: #1e3c72;
+                                      -fx-faint-focus-color: transparent;"/>
+            </VBox>
+
+            <!-- Lien "Mot de passe oublié" -->
+            <HBox alignment="CENTER_RIGHT" maxWidth="Infinity">
+                <Label text="Mot de passe oublié ?"
+                       style="-fx-text-fill: #666666;
+                              -fx-font-size: 12px;
+                              -fx-underline: true;
+                              -fx-cursor: hand;
+                              -fx-padding: 0 5 0 0;"/>
+            </HBox>
+
+            <!-- Bouton de connexion -->
             <Button text="Se connecter"
                     onAction="#login"
-                    style="-fx-background-color: #0f4c75;
+                    prefHeight="55"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
                            -fx-text-fill: white;
                            -fx-font-weight: bold;
-                           -fx-background-radius: 10;
-                           -fx-padding: 10 20;" />
+                           -fx-font-size: 16px;
+                           -fx-background-radius: 15;
+                           -fx-padding: 15 20;
+                           -fx-cursor: hand;
+                           -fx-effect: dropshadow(gaussian, #1e3c72, 15, 0.3, 0, 5);"/>
 
-            <Label text="Pas de compte ? S'inscrire"
-                   onMouseClicked="#openSignUp"
-                   style="-fx-text-fill: #3282b8; -fx-underline: true; -fx-cursor: hand;" />
+            <!-- Séparateur "ou" -->
+            <HBox alignment="CENTER" spacing="10" maxWidth="Infinity">
+                <Region style="-fx-background-color: #e0e0e0; -fx-min-height: 1; -fx-max-height: 1; -fx-min-width: 80;"/>
+                <Label text="ou" style="-fx-text-fill: #666666; -fx-font-size: 13px;"/>
+                <Region style="-fx-background-color: #e0e0e0; -fx-min-height: 1; -fx-max-height: 1; -fx-min-width: 80;"/>
+            </HBox>
+
+            <!-- Lien d'inscription -->
+            <HBox alignment="CENTER" spacing="5" maxWidth="Infinity">
+                <Label text="Pas encore de compte ?"
+                       style="-fx-text-fill: #666666;
+                              -fx-font-size: 14px;"/>
+                <Label text="S'inscrire"
+                       onMouseClicked="#openSignUp"
+                       style="-fx-text-fill: #1e3c72;
+                              -fx-font-weight: bold;
+                              -fx-font-size: 14px;
+                              -fx-underline: true;
+                              -fx-cursor: hand;"/>
+            </HBox>
 
         </VBox>
 

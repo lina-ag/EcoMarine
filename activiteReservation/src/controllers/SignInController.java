@@ -32,22 +32,33 @@ public class SignInController {
             return;
         }
 
+        // 🔥 ADMIN PAR DÉFAUT (hardcoded)
+        if (email.equals("admin@gmail.com") && mdp.equals("admin")) {
+            User admin = new User();
+            admin.setNom("Admin");
+            admin.setPrenom("System");
+            admin.setEmail("admin@gmail.com");
+            admin.setRole("admin");
+
+            utilisateurConnecte = admin;
+
+            ouvrirGestionUsers();
+            return;
+        }
+
+        // 🔽 login normal
         User u = service.login(email, mdp);
 
         if (u == null) {
             showAlert("Connexion échouée", "Email ou mot de passe incorrect !");
             return;
         }
-        
-        // Sauvegarder l'utilisateur connecté
+
         utilisateurConnecte = u;
 
-        // ✅ Redirection selon le rôle
         if (estAdmin(u)) {
-            // Si admin → ouvrir GestionUsers (gestion des utilisateurs)
             ouvrirGestionUsers();
         } else {
-            // Si utilisateur normal ou chercheur → ouvrir Home
             ouvrirGestionActiviteReservation();
         }
     }
@@ -104,7 +115,7 @@ public class SignInController {
         return role.equals("admin") || 
                role.equals("administrateur") || 
                role.contains("admin");
-    }
+    } 
     
     // Getter static pour accéder à l'utilisateur connecté
     public static User getUtilisateurConnecte() {

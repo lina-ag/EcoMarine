@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import tn.edu.esprit.services.ServiceZoneP;
 import tn.edu.esprit.services.ServiceSurv;
 import javafx.scene.chart.PieChart;
@@ -85,12 +86,21 @@ public class GestionZonesPr {
 
 	    private void ouvrirFenetre(String chemin, String titre) {
 	        try {
-	            Parent root = FXMLLoader.load(getClass().getResource(chemin));
-	            Stage stage = new Stage();
-	            stage.setTitle(titre);
-	            stage.setScene(new Scene(root));
-	            stage.showAndWait(); 
-	            updateStats();
+	        	FXMLLoader loader = new FXMLLoader(getClass().getResource(chemin));
+	            Parent root = loader.load();
+	            
+	            // Créer le nouveau stage
+	            Stage newStage = new Stage();
+	            newStage.setTitle(titre);
+	            newStage.setScene(new Scene(root));
+	            
+	            // Récupérer et fermer la fenêtre actuelle
+	            Stage currentStage = (Stage) lblNbZones.getScene().getWindow();
+	            currentStage.close();
+	            
+	            // Afficher la nouvelle fenêtre
+	            newStage.show();
+	            
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -201,6 +211,24 @@ public class GestionZonesPr {
 	                                    + lastSurv.getDateSurveillance());
 	        } else {
 	            lblDerniereSurv.setText(" Aucune surveillance");
+	        }
+	    }
+	    
+	    @FXML
+	    private void ouvrirAccueil() {
+	    	ouvrirFenetre("/acceuil.fxml", "Ajouter une activité");
+	    }
+	    
+	    @FXML
+	    private StackPane centerPane;
+	    
+	    @FXML
+	    void ouvrirCarte() {
+	        try {
+	            Parent root = FXMLLoader.load(getClass().getResource("/CarteZones.fxml"));
+	            centerPane.getChildren().setAll(root);
+	        } catch (Exception e) {
+	            e.printStackTrace();
 	        }
 	    }
 

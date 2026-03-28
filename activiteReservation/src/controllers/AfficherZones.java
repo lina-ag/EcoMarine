@@ -2,189 +2,208 @@ package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import tn.edu.esprit.entities.ZoneProtegee;
 import tn.edu.esprit.services.ServiceZoneP;
-import javafx.scene.control.TextField;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import java.io.IOException;
+
 import java.sql.SQLException;
-
-
 
 public class AfficherZones {
 
-    @FXML
-    private TableView<ZoneProtegee> tableZones;
+    @FXML private TableView<ZoneProtegee> tableZones;
+    @FXML private TableColumn<ZoneProtegee, Integer> colId;
+    @FXML private TableColumn<ZoneProtegee, String> colNom;
+    @FXML private TableColumn<ZoneProtegee, String> colCategorie;
+    @FXML private TableColumn<ZoneProtegee, String> colStatut;
+    @FXML private TableColumn<ZoneProtegee, Void> colModifier;
+    @FXML private TableColumn<ZoneProtegee, Void> colSupprimer;
 
-    @FXML
-    private TableColumn<ZoneProtegee, Integer> colId;
-
-    @FXML
-    private TableColumn<ZoneProtegee, String> colNom;
-
-    @FXML
-    private TableColumn<ZoneProtegee, String> colCategorie;
-
-    @FXML
-    private TableColumn<ZoneProtegee, String> colStatut;
-
-    @FXML
-    private TableColumn<ZoneProtegee, Void> colModifier;
-
-    @FXML
-    private TableColumn<ZoneProtegee, Void> colSupprimer;
+    @FXML private TextField txtRecherche;
+    @FXML private ComboBox<String> comboTri;
 
     private ServiceZoneP zs = new ServiceZoneP();
     private ObservableList<ZoneProtegee> zonesList;
-    
-    @FXML
-    private TextField txtRecherche;
+    private FilteredList<ZoneProtegee> filteredData;
 
     @FXML
     public void initialize() throws SQLException {
 
-       
         colId.setCellValueFactory(new PropertyValueFactory<>("idZone"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nomZone"));
         colCategorie.setCellValueFactory(new PropertyValueFactory<>("categorieZone"));
         colStatut.setCellValueFactory(new PropertyValueFactory<>("statut"));
 
-        // Ajouter boutons
         addButtonToTableModifier();
-        
         addButtonToTableSupprimer();
-        zonesList =FXCollections.observableArrayList(zs.getAll(null));
 
-		System.out.println("Nombre de zones récupérées : " + zonesList.size());
-		tableZones.setItems(zonesList); 
-        
-		//recherche
-		FilteredList<ZoneProtegee> filteredData = new FilteredList<>(zonesList, b -> true);
+        zonesList = FXCollections.observableArrayList(zs.getAll(null));
 
-		txtRecherche.textProperty().addListener((observable, oldValue, newValue) -> {
-		    filteredData.setPredicate(zone -> {
+        filteredData = new FilteredList<>(zonesList, b -> true);
 
-		        if (newValue == null || newValue.isEmpty()) {
-		            return true;
-		        }
+        // recherche
+        txtRecherche.textProperty().addListener((obs, oldVal, newVal) -> {
+            filteredData.setPredicate(zone -> {
 
-		        String lowerCaseFilter = newValue.toLowerCase();
+                if (newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
 
-		        if (zone.getNomZone().toLowerCase().startsWith(lowerCaseFilter)) {
-		            return true;
-		        } else {
-		            return false;
-		        }
-		    });
-		});
+                return zone.getNomZone().toLowerCase().contains(newVal.toLowerCase());
+            });
+        });
 
-		SortedList<ZoneProtegee> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tableZones.comparatorProperty());
-		tableZones.setItems(sortedData);
+        SortedList<ZoneProtegee> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableZones.comparatorProperty());
+        tableZones.setItems(sortedData);
 
-        
-
+        comboTri.setItems(FXCollections.observableArrayList(
+                "Nom",
+                "Catégorie",
+                "Statut"
+        ));
     }
 
-    // Bouton Modifier
+    // ================= FILTRES =================
+
+    @FXML
+    private void filtrerActive() {
+        filteredData.setPredicate(zone ->
+                zone.getStatut().equalsIgnoreCase("active"));
+    }
+
+    @FXML
+    private void filtrerInactive() {
+        filteredData.setPredicate(zone ->
+                zone.getStatut().equalsIgnoreCase("inactive"));
+    }
+
+    @FXML
+    private void filtrerSurveillance() {
+        filteredData.setPredicate(zone ->
+                zone.getStatut().equalsIgnoreCase("sous surveillance"));
+    }
+
+    @FXML
+    private void filtrerMenacee() {
+        filteredData.setPredicate(zone ->
+                zone.getStatut().equalsIgnoreCase("menacee")
+                || zone.getStatut().equalsIgnoreCase("menacée"));
+    }
+
+    @FXML
+    private void resetFiltres() {
+        filteredData.setPredicate(zone -> true);
+    }
+
+    // ================= TRI =================
+
+    @FXML
+    private void trier() {
+
+        String choix = comboTri.getValue();
+
+        if (choix == null) return;
+
+        switch (choix) {
+
+            case "Nom":
+                tableZones.getSortOrder().setAll(colNom);
+                colNom.setSortType(TableColumn.SortType.ASCENDING);
+                break;
+
+            case "Catégorie":
+                tableZones.getSortOrder().setAll(colCategorie);
+                colCategorie.setSortType(TableColumn.SortType.ASCENDING);
+                break;
+
+            case "Statut":
+                tableZones.getSortOrder().setAll(colStatut);
+                colStatut.setSortType(TableColumn.SortType.ASCENDING);
+                break;
+        }
+    }
+
+    // ================= BOUTONS =================
+
     private void addButtonToTableModifier() {
 
         Callback<TableColumn<ZoneProtegee, Void>, TableCell<ZoneProtegee, Void>> cellFactory =
                 param -> new TableCell<>() {
 
-            private final Button btn = new Button("Modifier");
+                    private final Button btn = new Button("Modifier");
 
-            {
-                btn.setOnAction(event -> {
+                    {
+                        btn.setOnAction(event -> {
+                            ZoneProtegee data = getTableView().getItems().get(getIndex());
 
-                    ZoneProtegee data = getTableView().getItems().get(getIndex());
+                            try {
+                                FXMLLoader loader = new FXMLLoader(
+                                        getClass().getResource("/ModifierZone.fxml"));
 
-                    try {
-                        // 🔹 Charger la fenêtre Modifier
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("/ModifierZone.fxml")
-                        );
+                                Parent root = loader.load();
 
-                        Parent root = loader.load();
+                                ModifierZone controller = loader.getController();
+                                controller.setZone(data);
 
-                        // 🔹 Récupérer le controller 
-                        ModifierZone controller = loader.getController();
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(root));
+                                stage.showAndWait();
 
-                        // 🔹 Envoyer les données sélectionnées
-                        controller.setZone(data);
+                                refreshTable();
 
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(root));
-                        stage.setTitle("Modifier Zone");
-                        stage.showAndWait();
-                        refreshTable(); 
-                        
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
-                });
-                
-            }
 
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
-            }
-        };
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(empty ? null : btn);
+                    }
+                };
 
         colModifier.setCellFactory(cellFactory);
     }
 
-    
-
-    //  Bouton Supprimer
     private void addButtonToTableSupprimer() {
 
-        Callback<TableColumn<ZoneProtegee, Void>, TableCell<ZoneProtegee, Void>> cellFactory = param -> new TableCell<>() {
+        Callback<TableColumn<ZoneProtegee, Void>, TableCell<ZoneProtegee, Void>> cellFactory =
+                param -> new TableCell<>() {
 
-            private final Button btn = new Button("Supprimer");
+                    private final Button btn = new Button("Supprimer");
 
-            {
-                btn.setOnAction(event -> {
-                    ZoneProtegee data = getTableView().getItems().get(getIndex());
+                    {
+                        btn.setOnAction(event -> {
+                            ZoneProtegee data = getTableView().getItems().get(getIndex());
 
-                    zs.supprimer(data.getIdZone());
-                    zonesList.remove(data); 
+                            zs.supprimer(data.getIdZone());
+                            zonesList.remove(data);
+                        });
+                    }
 
-                    System.out.println("Zone supprimée: " + data.getIdZone());
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
-            }
-        };
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(empty ? null : btn);
+                    }
+                };
 
         colSupprimer.setCellFactory(cellFactory);
     }
-    
-    private void refreshTable() {
-    	
-    	zonesList.clear();
-    	zonesList.addAll(zs.getAll(null));
-    }
-    
-    
 
+    private void refreshTable() {
+        zonesList.clear();
+        zonesList.addAll(zs.getAll(null));
+    }
 }
