@@ -3,15 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+
+<?import javafx.scene.image.*?>
+
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.GestionUsers"
             stylesheets="@style.css"
             styleClass="root-pane"
-            prefWidth="1100"
-            prefHeight="600">
+            prefWidth="1500"
+            prefHeight="800">
 
  
    <left>
@@ -25,11 +29,12 @@
             <ImageView fitWidth="150"
                        fitHeight="150"
                        preserveRatio="true">
-              <image>
+               <image>
                  <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
               </image>
-            </ImageView>
-         </StackPane>
+          </ImageView>
+
+           </StackPane>
 
          <!-- TITRES -->
          <Label text="ECOMARINE"

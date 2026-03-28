@@ -2,32 +2,136 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.AjouterSurveillance"
-      spacing="15"
+      spacing="25"
       alignment="CENTER"
-      prefWidth="400"
-      prefHeight="350"
-      style="-fx-padding: 20;"
-      stylesheets="@style.css">
+      prefWidth="1500"
+      prefHeight="800"
+      stylesheets="@style.css"
+      styleClass="root-pane">
 
-    <Label text="Ajouter Surveillance"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
 
-    <TextField fx:id="tfDate"
-               promptText="Date (YYYY-MM-DD)" />
+    <!-- Carte centrée -->
+    <VBox spacing="25"
+          alignment="CENTER"
+          maxWidth="500"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 30;
+                 -fx-border-radius: 30;
+                 -fx-border-color: rgba(0,0,0,0.08);
+                 -fx-border-width: 1.5;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 25, 0.2, 0, 8);
+                 -fx-padding: 40 40 50 40;">
 
-    <TextField fx:id="tfObservation"
-               promptText="Observation" />
+        <!-- En-tête avec icône -->
+        <HBox alignment="CENTER" spacing="15">
+            <children>
+                <ImageView fitWidth="40"
+                           fitHeight="40"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="file:/C:/Users/WSI/Downloads/surv.png" />
+                    </image>
+                </ImageView>
+                <Label text="Ajouter une Surveillance"
+                       style="-fx-font-size: 24px; 
+                              -fx-font-weight: 300;
+                              -fx-text-fill: #1e3c72;
+                              -fx-border-color: transparent transparent #1e3c72 transparent;
+                              -fx-border-width: 0 0 2 0;
+                              -fx-padding: 0 0 8 0;"/>
+            </children>
+        </HBox>
 
-    <TextField fx:id="tfIdZone" 
-               promptText="ID Zone" />
+        <Label text="Renseignez les informations de surveillance"
+               style="-fx-font-size: 14px;
+                      -fx-text-fill: #666666;
+                      -fx-font-weight: 300;
+                      -fx-padding: 0 0 5 0;"/>
 
-    <Button text="Ajouter"
-            onAction="#ajouterSurveillance"
-            style="-fx-background-color: linear-gradient(to bottom, #89CFF0, #4682B4);
-                   -fx-text-fill: white;
-                   -fx-font-weight: bold;" />
+        <!-- Champ Date -->
+        <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+            <Label text="Date"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1e3c72;
+                          -fx-padding: 0 0 0 5;"/>
+            <TextField fx:id="tfDate"
+                       promptText="AAAA-MM-JJ"
+                       maxWidth="Infinity"
+                       style="-fx-background-radius: 12;
+                              -fx-border-radius: 12;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-width: 1.5;
+                              -fx-background-color: #f8f9fa;
+                              -fx-padding: 12 15;
+                              -fx-font-size: 14px;
+                              -fx-focus-color: #1e3c72;
+                              -fx-faint-focus-color: transparent;"/>
+        </VBox>
+
+        <!-- Champ Observation -->
+        <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+            <Label text="Observation"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1e3c72;
+                          -fx-padding: 0 0 0 5;"/>
+            <TextField fx:id="tfObservation"
+                       promptText="Description de la surveillance"
+                       maxWidth="Infinity"
+                       style="-fx-background-radius: 12;
+                              -fx-border-radius: 12;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-width: 1.5;
+                              -fx-background-color: #f8f9fa;
+                              -fx-padding: 12 15;
+                              -fx-font-size: 14px;
+                              -fx-focus-color: #1e3c72;
+                              -fx-faint-focus-color: transparent;"/>
+        </VBox>
+
+        <!-- Champ ID Zone -->
+        <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+            <Label text="ID de la Zone"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1e3c72;
+                          -fx-padding: 0 0 0 5;"/>
+            <TextField fx:id="tfIdZone"
+                       promptText="Ex: Z001"
+                       maxWidth="Infinity"
+                       style="-fx-background-radius: 12;
+                              -fx-border-radius: 12;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-width: 1.5;
+                              -fx-background-color: #f8f9fa;
+                              -fx-padding: 12 15;
+                              -fx-font-size: 14px;
+                              -fx-focus-color: #1e3c72;
+                              -fx-faint-focus-color: transparent;"/>
+        </VBox>
+
+        <!-- Bouton Ajouter -->
+        <Button text="Ajouter la surveillance"
+                onAction="#ajouterSurveillance"
+                prefHeight="55"
+                maxWidth="Infinity"
+                >
+
+            
+
+        </Button>
+
+        
+    </VBox>
 
 </VBox>

@@ -2,66 +2,197 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.AfficherZones"
-            prefWidth="900"
-            prefHeight="500"
+            prefWidth="1500"
+            prefHeight="800"
             stylesheets="@style.css"
-            >
+            styleClass="root-pane">
 
     <children>
 
-        <VBox spacing="15"
-              AnchorPane.topAnchor="20"
-              AnchorPane.leftAnchor="20"
-              AnchorPane.rightAnchor="20"
-              AnchorPane.bottomAnchor="20">
+        <!-- Carte principale -->
+        <VBox spacing="20"
+              style="-fx-background-color: white;
+                     -fx-background-radius: 25;
+                     -fx-border-radius: 25;
+                     -fx-border-color: rgba(0,0,0,0.08);
+                     -fx-border-width: 1.5;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.15, 0, 5);"
+              AnchorPane.topAnchor="30"
+              AnchorPane.leftAnchor="30"
+              AnchorPane.rightAnchor="30"
+              AnchorPane.bottomAnchor="30">
 
-           
-          
-             <Label text="Liste des Zones Protégées"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-            
-            <TextField fx:id="txtRecherche"
-                   promptText="Rechercher par nom..."
-                   prefWidth="300" />
-           
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
 
-            <TableView fx:id="tableZones" prefHeight="400">
+            <!-- Header -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <Label text="📋 Liste des Zones Protégées"
+                       style="-fx-font-size: 24px; 
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;
+                              -fx-border-color: transparent transparent #1e3c72 transparent;
+                              -fx-border-width: 0 0 2 0;
+                              -fx-padding: 0 0 8 0;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <TextField fx:id="txtRecherche"
+                           promptText="🔍 Rechercher une zone..."
+                           prefWidth="280"
+                           style="-fx-background-radius: 20;
+                                  -fx-border-radius: 20;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-width: 1.2;
+                                  -fx-background-color: #f8f9fa;
+                                  -fx-padding: 8 15;
+                                  -fx-font-size: 13px;
+                                  -fx-focus-color: #1e3c72;
+                                  -fx-faint-focus-color: transparent;"/>
+            </HBox>
+
+            <!-- FILTRES améliorés -->
+            <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
+                <Label text="Filtres :" 
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;"/>
+
+                <Button text="Active" 
+                        onAction="#filtrerActive"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 5 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button text="Inactive" 
+                        onAction="#filtrerInactive"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 5 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button text="Sous surveillance" 
+                        onAction="#filtrerSurveillance"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 5 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button text="Menacée" 
+                        onAction="#filtrerMenacee"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 5 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button text="Reset" 
+                        onAction="#resetFiltres"
+                        style="-fx-background-color: #6c757d;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 5 15;
+                               -fx-cursor: hand;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Label text="Tri :" 
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;"/>
+
+                <ComboBox fx:id="comboTri" 
+                          prefWidth="180"
+                          style="-fx-background-radius: 12;
+                                 -fx-border-radius: 12;
+                                 -fx-border-color: #e0e0e0;
+                                 -fx-border-width: 1.2;
+                                 -fx-background-color: #f8f9fa;
+                                 -fx-padding: 5 10;
+                                 -fx-font-size: 13px;
+                                 -fx-focus-color: #1e3c72;
+                                 -fx-faint-focus-color: transparent;"/>
+                
+                <Button text="Appliquer" 
+                        onAction="#trier"
+                        style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 5 20;
+                               -fx-cursor: hand;
+                               -fx-effect: dropshadow(gaussian, #1e3c72, 6, 0.2, 0, 2);"/>
+            </HBox>
+
+            <!-- TABLE améliorée -->
+            <TableView fx:id="tableZones" 
+                       VBox.vgrow="ALWAYS"
+                       style="-fx-background-radius: 12;
+                              -fx-border-radius: 12;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-width: 1;
+                              -fx-background-color: white;">
 
                 <columns>
-
-                    <TableColumn fx:id="colId"
-                                 text="ID"
-                                 prefWidth="80"/>
-
-                    <TableColumn fx:id="colNom"
-                                 text="Nom Zone"
-                                 prefWidth="180"/>
-
-                    <TableColumn fx:id="colCategorie"
-                                 text="Catégorie"
-                                 prefWidth="180"/>
-
-                    <TableColumn fx:id="colStatut"
-                                 text="Statut"
-                                 prefWidth="120"/>
-
-                    <TableColumn fx:id="colModifier"
-                                 text="Modifier"
-                                 prefWidth="120"/>
-
-                    <TableColumn fx:id="colSupprimer"
-                                 text="Supprimer"
-                                 prefWidth="120"/>
-
+                    <TableColumn fx:id="colId" 
+                                 text="ID" 
+                                 prefWidth="80"
+                                 style="-fx-alignment: CENTER;
+                                        -fx-font-weight: bold;
+                                        -fx-font-size: 13px;"/>
+                    
+                    <TableColumn fx:id="colNom" 
+                                 text="Nom" 
+                                 prefWidth="180"
+                                 style="-fx-alignment: CENTER_LEFT;
+                                        -fx-font-size: 13px;"/>
+                    
+                    <TableColumn fx:id="colCategorie" 
+                                 text="Catégorie" 
+                                 prefWidth="180"
+                                 style="-fx-alignment: CENTER_LEFT;
+                                        -fx-font-size: 13px;"/>
+                    
+                    <TableColumn fx:id="colStatut" 
+                                 text="Statut" 
+                                 prefWidth="120"
+                                 style="-fx-alignment: CENTER;
+                                        -fx-font-size: 13px;"/>
+                    
+                    <TableColumn fx:id="colModifier" 
+                                 text="Modifier" 
+                                 prefWidth="120"
+                                 style="-fx-alignment: CENTER;
+                                        -fx-font-size: 13px;"/>
+                    
+                    <TableColumn fx:id="colSupprimer" 
+                                 text="Supprimer" 
+                                 prefWidth="120"
+                                 style="-fx-alignment: CENTER;
+                                        -fx-font-size: 13px;"/>
                 </columns>
 
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
             </TableView>
 
+            
         </VBox>
 
     </children>
-
 </AnchorPane>

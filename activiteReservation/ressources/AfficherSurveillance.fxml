@@ -2,56 +2,180 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.AfficherSurveillance"
-            prefWidth="800"
-            prefHeight="500"
-            stylesheets="@style.css">
+            prefWidth="1500"
+            prefHeight="800"
+            stylesheets="@style.css"
+            styleClass="root-pane">
 
     <children>
 
-        <VBox spacing="15"
-              AnchorPane.topAnchor="20"
-              AnchorPane.leftAnchor="20"
-              AnchorPane.rightAnchor="20"
-              AnchorPane.bottomAnchor="20">
+        <!-- Conteneur principal avec marge intérieure -->
+        <VBox spacing="20"
+              style="-fx-background-color: white;
+                     -fx-background-radius: 25;
+                     -fx-border-radius: 25;
+                     -fx-border-color: rgba(0,0,0,0.08);
+                     -fx-border-width: 1.5;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0.2, 0, 5);"
+              AnchorPane.topAnchor="30"
+              AnchorPane.leftAnchor="30"
+              AnchorPane.rightAnchor="30"
+              AnchorPane.bottomAnchor="30">
 
-            <Label text="Liste des Surveillances"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-            <TextField fx:id="txtRecherche"
-                   promptText="Rechercher par ID Zone..."
-                   prefWidth="250" />
-            <TableView fx:id="tableSurv" prefHeight="400">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25" />
+            </padding>
 
+            <!-- En-tête avec titre -->
+            <Label text="📋 Liste des Surveillances"
+                   style="-fx-font-size: 24px; 
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1e3c72;
+                          -fx-border-color: transparent transparent #1e3c72 transparent;
+                          -fx-border-width: 0 0 2 0;
+                          -fx-padding: 0 0 8 0;"/>
+
+            <!-- Filtres rapides par période -->
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 5 0;">
+                <Label text="Filtres rapides :" 
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;"/>
+                
+                <Button fx:id="btnAujourdhui" 
+                        text="📅 Aujourd'hui"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 6 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnCeMois" 
+                        text="📆 Ce mois"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 6 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnCetteAnnee" 
+                        text="📅 Cette année"
+                        style="-fx-background-color: #e8f0fe;
+                               -fx-text-fill: #1e3c72;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 6 15;
+                               -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnResetFiltres" 
+                        text="✖ Réinitialiser"
+                        style="-fx-background-color: #6c757d;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 15;
+                               -fx-padding: 6 15;
+                               -fx-cursor: hand;"/>
+            </HBox>
+
+            <!-- Barre de recherche et tri -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <TextField fx:id="txtRecherche"
+                           promptText="🔍 Rechercher par ID Zone..."
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-background-radius: 20;
+                                  -fx-border-radius: 20;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-width: 1.2;
+                                  -fx-background-color: #f8f9fa;
+                                  -fx-padding: 8 15;
+                                  -fx-font-size: 13px;
+                                  -fx-focus-color: #1e3c72;
+                                  -fx-faint-focus-color: transparent;"/>
+                
+                <ComboBox fx:id="comboFiltrePeriode" 
+                          prefWidth="140"
+                          style="-fx-background-radius: 12;
+                                 -fx-border-radius: 12;
+                                 -fx-border-color: #e0e0e0;
+                                 -fx-border-width: 1.2;
+                                 -fx-background-color: #f8f9fa;
+                                 -fx-padding: 5 10;
+                                 -fx-font-size: 13px;"/>
+            </HBox>
+            
+            <!-- Tri et compteur -->
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 5 0;">
+                <Label text="Trier par :" 
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #1e3c72;"/>
+                
+                <ComboBox fx:id="comboFiltreTri" 
+                          prefWidth="180"
+                          style="-fx-background-radius: 12;
+                                 -fx-border-radius: 12;
+                                 -fx-border-color: #e0e0e0;
+                                 -fx-border-width: 1.2;
+                                 -fx-background-color: #f8f9fa;
+                                 -fx-padding: 5 10;
+                                 -fx-font-size: 13px;"/>
+                
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <Label fx:id="lblResultCount" 
+                       text="0 surveillance(s) trouvée(s)"
+                       style="-fx-font-size: 12px;
+                              -fx-text-fill: #666666;
+                              -fx-font-weight: bold;"/>
+            </HBox>
+
+            <!-- TableView -->
+            <TableView fx:id="tableSurv" 
+                       prefHeight="500"
+                       VBox.vgrow="ALWAYS"
+                       style="-fx-background-radius: 15;
+                              -fx-border-radius: 15;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-width: 1;
+                              -fx-background-color: white;">
+                
                 <columns>
-
                     <TableColumn fx:id="colId"
                                  text="ID"
-                                 prefWidth="80"/>
+                                 prefWidth="80"
+                                 style="-fx-alignment: CENTER;" />
 
                     <TableColumn fx:id="colDate"
                                  text="Date"
-                                 prefWidth="150"/>
+                                 prefWidth="250"
+                                 style="-fx-alignment: CENTER;" />
 
                     <TableColumn fx:id="colObservation"
                                  text="Observation"
-                                 prefWidth="250"/>
+                                 prefWidth="350"
+                                 style="-fx-alignment: CENTER_LEFT;" />
 
                     <TableColumn fx:id="colIdZone"
                                  text="ID Zone"
-                                 prefWidth="100"/>
+                                 prefWidth="200"
+                                 style="-fx-alignment: CENTER;" />
 
                     <TableColumn fx:id="colModifier"
                                  text="Modifier"
-                                 prefWidth="100"/>
- 
+                                 prefWidth="200"
+                                 style="-fx-alignment: CENTER;" />
+
                     <TableColumn fx:id="colSupprimer"
                                  text="Supprimer"
-                                 prefWidth="100"/>
-
+                                 prefWidth="200"
+                                 style="-fx-alignment: CENTER;" />
                 </columns>
-
             </TableView>
 
         </VBox>

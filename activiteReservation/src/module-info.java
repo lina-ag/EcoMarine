@@ -13,4 +13,8 @@ module activiteReservation {
     opens tn.edu.esprit.entities to javafx.base;
     requires com.calendarfx.view;
     requires org.controlsfx.controls;
+	requires javafx.web;
+	requires com.sothawo.mapjfx;
+	requires com.google.protobuf;
+	requires kotlin.stdlib;
 }

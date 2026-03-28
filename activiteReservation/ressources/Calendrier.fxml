@@ -8,7 +8,7 @@
             fx:controller="controllers.GestionCalendrier"
             stylesheets="@style.css"
             styleClass="root-pane"
-            prefWidth="1300" prefHeight="800">
+            prefWidth="1500" prefHeight="800">
     
     <top>
         <VBox spacing="15" alignment="CENTER">

@@ -11,7 +11,11 @@ public class MainFx extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
+
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+
             Scene scene = new Scene(loader.load());
 
             primaryStage.setTitle("Gestion des Activités");
