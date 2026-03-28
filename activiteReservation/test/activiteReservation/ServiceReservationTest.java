@@ -1,5 +1,6 @@
 package activiteReservation;
 
+import org.junit.Test;
 import org.junit.jupiter.api.*;
 import tn.edu.esprit.entities.Reservation;
 import tn.edu.esprit.services.ServiceActivite;
@@ -8,6 +9,8 @@ import tn.edu.esprit.entities.ActiviteEcologique;
 
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

@@ -16,7 +16,7 @@
     -fx-background-blend-mode: overlay;
     -fx-background-color: rgba(255, 255, 255, 0.7);
 	}
-	/* ===== LISTE DES RÉSERVATIONS - STYLE CALENDRIER ===== */
+
 
 	/* Tableau des réservations */
 .reservations-table {
@@ -1761,7 +1761,7 @@
 }
 
 .acceuil-stats-box {
-    -fx-background-color: linear-gradient(135deg, #e0f2fe, #bae6fd);
+    -fx-background-color: linear-gradient(to bottom right, #e0f2fe, #bae6fd);
     -fx-background-radius: 30;
     -fx-padding: 20 40;
 }
@@ -1812,7 +1812,84 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+/* ============================= */
+/* BOUTONS ACTION CALENDRIER     */
+/* ============================= */
 
+.btn-action-export {
+    -fx-background-color: linear-gradient(to bottom, #10b981, #059669);
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    -fx-min-width: 130;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 8, 0.3, 0, 3);
+}
+
+.btn-action-export:hover {
+    -fx-background-color: linear-gradient(to bottom, #059669, #047857);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.5), 12, 0.3, 0, 4);
+}
+
+.btn-action-export:pressed {
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-background-color: #047857;
+}
+
+.btn-action-dispo {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    -fx-min-width: 130;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 8, 0.3, 0, 3);
+}
+
+.btn-action-dispo:hover {
+    -fx-background-color: linear-gradient(to bottom, #2563eb, #1d4ed8);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.5), 12, 0.3, 0, 4);
+}
+
+.btn-action-dispo:pressed {
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-background-color: #1d4ed8;
+}
+
+.btn-action-rappel {
+    -fx-background-color: linear-gradient(to bottom, #f59e0b, #d97706);
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    -fx-min-width: 130;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 8, 0.3, 0, 3);
+}
+
+.btn-action-rappel:hover {
+    -fx-background-color: linear-gradient(to bottom, #d97706, #b45309);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 12, 0.3, 0, 4);
+}
+
+.btn-action-rappel:pressed {
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+    -fx-background-color: #b45309;
+}
 .week-day-header.today {
     -fx-background-color: #3b82f6;
     -fx-text-fill: white;

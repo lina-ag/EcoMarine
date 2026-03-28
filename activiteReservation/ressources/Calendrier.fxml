@@ -9,44 +9,55 @@
             stylesheets="@style.css"
             styleClass="root-pane"
             prefWidth="1300" prefHeight="800">
-    
+
     <top>
-        <VBox spacing="15" alignment="CENTER">
+        <VBox spacing="12" alignment="CENTER">
             <padding>
                 <Insets top="20" right="30" bottom="10" left="30"/>
             </padding>
-            
+
             <Label text="Calendrier des activités" styleClass="header"/>
-            
-            <HBox alignment="CENTER" spacing="30">
+
+            <HBox alignment="CENTER" spacing="10">
                 <Button fx:id="prevMonthBtn" text="←" styleClass="nav-button"/>
                 <Label fx:id="monthYearLabel" styleClass="month-year-label"/>
                 <Button fx:id="nextMonthBtn" text="→" styleClass="nav-button"/>
             </HBox>
-            
+
+            <!-- Vues -->
             <HBox alignment="CENTER" spacing="10" styleClass="page-selector">
-                <Button fx:id="jourBtn" text="Jour" styleClass="page-button"/>
+                <Button fx:id="jourBtn"    text="Jour"    styleClass="page-button"/>
                 <Button fx:id="semaineBtn" text="Semaine" styleClass="page-button"/>
-                <Button fx:id="moisBtn" text="Mois" styleClass="page-button"/>
-                <Button fx:id="anneeBtn" text="Année" styleClass="page-button"/>
+                <Button fx:id="moisBtn"    text="Mois"    styleClass="page-button"/>
+                <Button fx:id="anneeBtn"   text="Année"   styleClass="page-button"/>
+            </HBox>
+
+            <!-- Actions -->
+            <HBox alignment="CENTER" spacing="15">
+                <Button text="Exporter iCal"
+                        styleClass="btn-action-export"
+                        onAction="#exporterICal"/>
+                <Button text="Disponibilités"
+                        styleClass="btn-action-dispo"
+                        onAction="#afficherDisponibilites"/>
+                <Button text="Rappels"
+                        styleClass="btn-action-rappel"
+                        onAction="#afficherRappels"/>
             </HBox>
         </VBox>
     </top>
-    
+
     <center>
         <HBox spacing="20">
             <padding>
                 <Insets top="10" right="30" bottom="30" left="30"/>
             </padding>
-            
-            <!-- Calendrier -->
+
             <VBox spacing="15" HBox.hgrow="ALWAYS" styleClass="calendar-container">
                 <GridPane fx:id="calendarGrid" hgap="2" vgap="2" HBox.hgrow="ALWAYS"/>
             </VBox>
-            
-            <!-- Panneau droit - seulement les activités -->
+
             <VBox spacing="20" minWidth="280">
-                <!-- Activités du mois -->
                 <VBox styleClass="activities-panel" VBox.vgrow="ALWAYS">
                     <Label text="Activités" styleClass="activities-title"/>
                     <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
@@ -56,5 +67,5 @@
             </VBox>
         </HBox>
     </center>
-    
+
 </BorderPane>
