@@ -6,21 +6,23 @@ import jakarta.mail.internet.*;
 
 public class EmailService {
     
-	 private static final String SMTP_HOST = "smtp.elasticemail.com";
-	    private static final String SMTP_PORT = "2525";  // Utilisez le port 2525
-	    private static final String USERNAME = "ecomarine2026@outlook.com";
-	    private static final String PASSWORD = "BFA653B99329A076D1EC066343A5E534B3A7";
-	    private static final String EMAIL_EXPEDITEUR = "ecomarine2026@outlook.com";
-	    
+    private static final String SMTP_HOST = "smtp.elasticemail.com";
+    private static final String SMTP_PORT = "2525";
+    private static final String USERNAME = "ecomarine2026@outlook.com";
+    private static final String PASSWORD = "BFA653B99329A076D1EC066343A5E534B3A7";
+    private static final String EMAIL_EXPEDITEUR = "ecomarine2026@outlook.com";
     
-    // Mode développement (true = pas d'envoi réel, false = envoi réel)
-    private static final boolean MODE_DEV = false; // Mettre à true pour tester sans email
- // AJOUTEZ CETTE MÉTHODE
+    // Mode développement (true = simulation, false = envoi réel)
+    private static final boolean MODE_DEV = true; // Mettez à false pour les envois réels
+    
     public void testerConnexion() {
         if (MODE_DEV) {
             System.out.println("🔧 [DEV MODE] Test de connexion désactivé");
             return;
-        }}
+        }
+        System.out.println("🔧 Test de connexion SMTP...");
+    }
+    
     public void envoyerConfirmationReservation(String destinataire, String nomClient, 
                                                String nomActivite, String dateReservation, 
                                                int nombrePersonnes) {
@@ -40,24 +42,22 @@ public class EmailService {
         // Mode production : envoi réel
         Properties props = new Properties();
         
-        // Configuration SMTP pour Outlook
+        // Configuration SMTP
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", SMTP_HOST);
         props.put("mail.smtp.port", SMTP_PORT);
         props.put("mail.smtp.ssl.trust", SMTP_HOST);
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        
-        // Timeouts plus longs
         props.put("mail.smtp.connectiontimeout", "30000");
         props.put("mail.smtp.timeout", "30000");
         props.put("mail.smtp.writetimeout", "30000");
         
         // Créer la session
-        Session session = Session.getInstance(props, new Authenticator() {
+        Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(EMAIL_EXPEDITEUR, PASSWORD);
+                return new PasswordAuthentication(USERNAME, PASSWORD);
             }
         });
         

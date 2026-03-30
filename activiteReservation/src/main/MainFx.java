@@ -14,7 +14,7 @@ public class MainFx extends Application {
 
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionactivitereservation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
 
             Scene scene = new Scene(loader.load());
 

@@ -1,6 +1,6 @@
 package controllers;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,6 +33,7 @@ import javafx.stage.FileChooser;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
 // Import pour PDF
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -43,7 +44,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 // Import pour JSON
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1166,16 +1166,18 @@ public class GestionCalendrier {
                 Workbook workbook = new XSSFWorkbook();
                 Sheet sheet = workbook.createSheet("Activités EcoMarine");
                 
-                Row header = sheet.createRow(0);
+                // Création de l'en-tête
+                org.apache.poi.ss.usermodel.Row header = sheet.createRow(0);  // Utilisation du nom complet
                 String[] colonnes = {"ID", "Nom", "Description", "Date", "Capacité"};
                 for (int i = 0; i < colonnes.length; i++) {
                     Cell cell = header.createCell(i);
                     cell.setCellValue(colonnes[i]);
                 }
                 
+                // Remplissage des données
                 int rowNum = 1;
                 for (ActiviteEcologique a : toutes) {
-                    Row row = sheet.createRow(rowNum++);
+                    org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowNum++);  // Utilisation du nom complet
                     row.createCell(0).setCellValue(a.getIdActivite());
                     row.createCell(1).setCellValue(a.getNom());
                     row.createCell(2).setCellValue(a.getDescription() != null ? a.getDescription() : "");
@@ -1200,7 +1202,6 @@ public class GestionCalendrier {
             afficherErreur("Erreur d'export Excel", e.getMessage());
         }
     }
-    
     @FXML
     private void exporterPDF() {
         List<ActiviteEcologique> toutes = service.getAll();

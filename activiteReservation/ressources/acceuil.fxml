@@ -93,7 +93,6 @@
                     maxWidth="Infinity"
                     styleClass="sidebar-button"
                     style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
->>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
 
             <Region VBox.vgrow="ALWAYS"/>
 
