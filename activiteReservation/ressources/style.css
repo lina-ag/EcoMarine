@@ -9,7 +9,7 @@
 }
 
 .root-pane {
-    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
+    -fx-background-image: url("file:/C:/Users/PCS/Downloads/1234.png");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
@@ -1347,6 +1347,10 @@
     -fx-translate-y: -3;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
 .activity-date {
     -fx-background-color: #e0f2fe;
     -fx-background-radius: 20;

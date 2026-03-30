@@ -11,13 +11,15 @@ public class User {
     private String telephone;
     private String role;
     private LocalDate dateNaissance;
+    private String faceImage;
+    private byte[] faceEncoding;
 
     // ----- Constructeurs -----
     public User() {}
     
     
     public User(int idUtilisateur, String nom, String prenom, String email, String motDePasse, String telephone,
-			String role, LocalDate dateNaissance) {
+			String role, LocalDate dateNaissance, String faceImage, byte[] faceEncoding) {
 		super();
 		this.idUtilisateur = idUtilisateur;
 		this.nom = nom;
@@ -27,6 +29,8 @@ public class User {
 		this.telephone = telephone;
 		this.role = role;
 		this.dateNaissance = dateNaissance;
+		this.faceImage = faceImage;
+		this.faceEncoding = faceEncoding;
 	}
 
 
@@ -95,6 +99,19 @@ public class User {
     public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
+    public String getFaceImage() {
+    	return faceImage; 
+    }
+    public void setFaceImage(String faceImage) {
+    	this.faceImage = faceImage; 
+    }
+    
+    public byte[] getFaceEncoding() {
+    	return faceEncoding; 
+    }
+    public void setFaceEncoding(byte[] faceEncoding) {
+    	this.faceEncoding = faceEncoding; 
+    }
 
     // ----- Méthode utilitaire : vérification email -----
     public boolean emailValide() {
@@ -128,5 +145,16 @@ public class User {
     public int hashCode() {
         return Objects.hash(idUtilisateur);
     }
+    public User(int id, String nom, String prenom, String email, String motDePasse, 
+            String telephone, String role, LocalDate dateNaissance) {
+    this.idUtilisateur = idUtilisateur;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.email = email;
+    this.motDePasse = motDePasse;
+    this.telephone = telephone;
+    this.role = role;
+    this.dateNaissance = dateNaissance;
+}
 }
 

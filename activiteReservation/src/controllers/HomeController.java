@@ -1,14 +1,19 @@
 package controllers;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tn.edu.esprit.entities.User;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 
 public class HomeController {
+
+    // 🔥 Déclarer le champ utilisateurConnecte
+    private User utilisateurConnecte;
 
     // 🔹 Bouton : Sign In
     @FXML
@@ -41,4 +46,20 @@ public class HomeController {
             e.printStackTrace();
         }
     }
+    
+    // 🔥 Setter pour utilisateurConnecte
+    public void setUtilisateurConnecte(User user) {
+        this.utilisateurConnecte = user;
+        System.out.println("Utilisateur connecté: " + (user != null ? user.getEmail() : "null"));
+        
+        // Optionnel: Mettre à jour l'interface avec le nom de l'utilisateur
+        // Si vous avez un Label dans votre FXML, vous pouvez l'afficher
+        // labelNomUtilisateur.setText(user.getPrenom() + " " + user.getNom());
+    }
+    
+    // 🔥 Getter pour utilisateurConnecte
+    public User getUtilisateurConnecte() {
+        return utilisateurConnecte;
+    }
+
 }

@@ -1,10 +1,9 @@
 package controllers;
 
 import java.io.IOException;
-
 import java.util.List;
 import java.util.stream.Collectors;
-import tn.edu.esprit.services.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
