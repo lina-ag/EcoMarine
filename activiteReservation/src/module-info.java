@@ -19,7 +19,11 @@ module activiteReservation {
 	requires com.sothawo.mapjfx;
 	requires com.google.protobuf;
 	requires kotlin.stdlib;
+
 	requires opencv;
 
 	
 }
+
+
+

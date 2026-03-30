@@ -1376,4 +1376,271 @@ public class GestionCalendrier {
             alert.showAndWait();
         }
     }
+ // ==================== EXPORT iCAL ====================
+    @FXML
+    private void exporterICal() {
+        List<ActiviteEcologique> toutes = service.getAll();
+
+        StringBuilder ics = new StringBuilder();
+        ics.append("BEGIN:VCALENDAR\r\n");
+        ics.append("VERSION:2.0\r\n");
+        ics.append("PRODID:-//EcoMarine//FR\r\n");
+        ics.append("CALSCALE:GREGORIAN\r\n");
+        ics.append("METHOD:PUBLISH\r\n");
+
+        DateTimeFormatter icsDate = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String now = LocalDate.now().format(icsDate) + "T000000Z";
+
+        for (ActiviteEcologique a : toutes) {
+            LocalDate date = LocalDate.parse(a.getDate());
+            String uid = "ecomarine-" + a.getIdActivite() + "@kuriat.tn";
+            String dtstart = date.format(icsDate);
+            String dtend   = date.plusDays(1).format(icsDate);
+            String desc = (a.getDescription() != null ? a.getDescription() : "")
+                          .replace("\n", "\\n").replace(",", "\\,");
+
+            ics.append("BEGIN:VEVENT\r\n");
+            ics.append("UID:").append(uid).append("\r\n");
+            ics.append("DTSTAMP:").append(now).append("\r\n");
+            ics.append("DTSTART;VALUE=DATE:").append(dtstart).append("\r\n");
+            ics.append("DTEND;VALUE=DATE:").append(dtend).append("\r\n");
+            ics.append("SUMMARY:").append(a.getNom()).append("\r\n");
+            ics.append("DESCRIPTION:").append(desc)
+               .append(" - Capacité: ").append(a.getCapacite()).append(" pers.").append("\r\n");
+            ics.append("LOCATION:Kuriat\\, Monastir\\, Tunisie\r\n");
+            ics.append("END:VEVENT\r\n");
+        }
+
+        ics.append("END:VCALENDAR\r\n");
+
+        // Sauvegarder le fichier
+        javafx.stage.FileChooser chooser = new javafx.stage.FileChooser();
+        chooser.setTitle("Exporter le calendrier");
+        chooser.setInitialFileName("ecomarine-activites.ics");
+        chooser.getExtensionFilters().add(
+            new javafx.stage.FileChooser.ExtensionFilter("iCalendar (*.ics)", "*.ics")
+        );
+
+        java.io.File fichier = chooser.showSaveDialog(calendarGrid.getScene().getWindow());
+        if (fichier != null) {
+            try (java.io.FileWriter fw = new java.io.FileWriter(fichier)) {
+                fw.write(ics.toString());
+                Alert ok = new Alert(Alert.AlertType.INFORMATION);
+                ok.setTitle("Export réussi");
+                ok.setHeaderText(null);
+                ok.setContentText("Calendrier exporté : " + fichier.getName()
+                    + "\n" + toutes.size() + " activité(s) exportée(s).\n\n"
+                    + "Importez ce fichier dans Google Calendar, Outlook ou Apple Calendar.");
+                ok.showAndWait();
+            } catch (java.io.IOException ex) {
+                new Alert(Alert.AlertType.ERROR, "Erreur export : " + ex.getMessage()).show();
+            }
+        }
+    }
+
+    // ==================== DISPONIBILITÉS TEMPS RÉEL ====================
+    @FXML
+    private void afficherDisponibilites() {
+        // Fenêtre popup avec les créneaux libres de la semaine courante
+        javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.setTitle("Disponibilités — Semaine du "
+            + weekStart.format(DateTimeFormatter.ofPattern("dd/MM")));
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+        VBox content = new VBox(12);
+        content.setPadding(new Insets(20));
+        content.setStyle("-fx-background-color: white;");
+
+        Label titre = new Label("Créneaux disponibles cette semaine");
+        titre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;");
+        content.getChildren().add(titre);
+
+        // Capacité max par jour (configurable selon tes besoins)
+        int CAPACITE_MAX_JOUR = 50;
+
+        for (int i = 0; i < 7; i++) {
+            LocalDate date = weekStart.plusDays(i);
+            List<ActiviteEcologique> activites = getActivitesForDate(date);
+
+            int placesOccupees = activites.stream()
+                .mapToInt(ActiviteEcologique::getCapacite).sum();
+            int placesLibres = Math.max(0, CAPACITE_MAX_JOUR - placesOccupees);
+            double tauxRemplissage = (double) placesOccupees / CAPACITE_MAX_JOUR;
+
+            HBox ligne = new HBox(15);
+            ligne.setAlignment(Pos.CENTER_LEFT);
+            ligne.setStyle("-fx-padding: 10; -fx-background-radius: 8;"
+                + "-fx-background-color: " + (date.equals(LocalDate.now()) ? "#eff6ff" : "#f8fafc") + ";");
+
+            // Jour
+            VBox jourBox = new VBox(2);
+            Label jourLabel = new Label(
+                date.getDayOfWeek().getDisplayName(java.time.format.TextStyle.SHORT, Locale.FRENCH).toUpperCase());
+            jourLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b;");
+            Label dateLabel = new Label(date.format(DateTimeFormatter.ofPattern("dd/MM")));
+            dateLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e293b;");
+            jourBox.getChildren().addAll(jourLabel, dateLabel);
+            jourBox.setPrefWidth(60);
+
+            // Barre de remplissage
+            VBox barreBox = new VBox(4);
+            barreBox.setPrefWidth(200);
+            javafx.scene.layout.StackPane barre = new javafx.scene.layout.StackPane();
+            Region fond = new Region();
+            fond.setPrefHeight(10);
+            fond.setStyle("-fx-background-color: #e2e8f0; -fx-background-radius: 5;");
+            Region rempli = new Region();
+            rempli.setPrefHeight(10);
+            rempli.setPrefWidth(200 * tauxRemplissage);
+            String couleurBarre = tauxRemplissage < 0.5 ? "#10b981"
+                                : tauxRemplissage < 0.8 ? "#f59e0b" : "#ef4444";
+            rempli.setStyle("-fx-background-color: " + couleurBarre + "; -fx-background-radius: 5;");
+            barre.getChildren().addAll(fond, rempli);
+            barre.setAlignment(Pos.CENTER_LEFT);
+
+            Label pourcent = new Label(Math.round(tauxRemplissage * 100) + "% rempli");
+            pourcent.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b;");
+            barreBox.getChildren().addAll(barre, pourcent);
+
+            // Infos places
+            VBox placesBox = new VBox(2);
+            placesBox.setAlignment(Pos.CENTER_RIGHT);
+            Label placesLibresLabel = new Label(placesLibres + " places libres");
+            placesLibresLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;"
+                + "-fx-text-fill: " + (placesLibres > 10 ? "#10b981" : "#ef4444") + ";");
+            Label activitesLabel = new Label(activites.size() + " activité(s)");
+            activitesLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #94a3b8;");
+            placesBox.getChildren().addAll(placesLibresLabel, activitesLabel);
+
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            ligne.getChildren().addAll(jourBox, barreBox, spacer, placesBox);
+            content.getChildren().add(ligne);
+        }
+
+        // Légende
+        HBox legende = new HBox(20);
+        legende.setPadding(new Insets(10, 0, 0, 0));
+        legende.setAlignment(Pos.CENTER);
+        for (String[] item : new String[][]{
+            {"#10b981", "< 50% — Disponible"},
+            {"#f59e0b", "50-80% — Limité"},
+            {"#ef4444", "> 80% — Complet"}
+        }) {
+            HBox dot = new HBox(6);
+            dot.setAlignment(Pos.CENTER_LEFT);
+            Region circle = new Region();
+            circle.setPrefSize(10, 10);
+            circle.setStyle("-fx-background-color: " + item[0] + "; -fx-background-radius: 5;");
+            Label lbl = new Label(item[1]);
+            lbl.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b;");
+            dot.getChildren().addAll(circle, lbl);
+            legende.getChildren().add(dot);
+        }
+        content.getChildren().add(legende);
+
+        ScrollPane scroll = new ScrollPane(content);
+        scroll.setFitToWidth(true);
+        scroll.setPrefSize(520, 480);
+        popup.setScene(new javafx.scene.Scene(scroll));
+        popup.show();
+    }
+
+    // ==================== RAPPELS AUTOMATIQUES ====================
+    @FXML
+    private void afficherRappels() {
+        LocalDate aujourd = LocalDate.now();
+        LocalDate dans7j  = aujourd.plusDays(7);
+
+        List<ActiviteEcologique> prochaines = service.getAll().stream()
+            .filter(a -> {
+                LocalDate d = LocalDate.parse(a.getDate());
+                return !d.isBefore(aujourd) && !d.isAfter(dans7j);
+            })
+            .sorted((a1, a2) -> a1.getDate().compareTo(a2.getDate()))
+            .toList();
+
+        javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.setTitle("Rappels — 7 prochains jours");
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+        VBox content = new VBox(12);
+        content.setPadding(new Insets(20));
+        content.setStyle("-fx-background-color: white;");
+
+        Label titre = new Label("Activités à venir (7 jours)");
+        titre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;");
+
+        Label sous = new Label(prochaines.size() + " activité(s) planifiée(s)");
+        sous.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
+
+        content.getChildren().addAll(titre, sous);
+
+        if (prochaines.isEmpty()) {
+            Label vide = new Label("Aucune activité dans les 7 prochains jours.");
+            vide.setStyle("-fx-font-size: 13px; -fx-text-fill: #94a3b8; -fx-padding: 20;");
+            content.getChildren().add(vide);
+        } else {
+            for (ActiviteEcologique a : prochaines) {
+                LocalDate date = LocalDate.parse(a.getDate());
+                long joursRestants = aujourd.until(date, java.time.temporal.ChronoUnit.DAYS);
+
+                String urgence = joursRestants == 0 ? "#ef4444"   // Aujourd'hui
+                               : joursRestants <= 2 ? "#f59e0b"   // Très proche
+                               : "#10b981";                        // Ok
+
+                String joursLabel = joursRestants == 0 ? "Aujourd'hui !"
+                                  : joursRestants == 1 ? "Demain"
+                                  : "Dans " + joursRestants + " jours";
+
+                HBox rappel = new HBox(15);
+                rappel.setAlignment(Pos.CENTER_LEFT);
+                rappel.setPadding(new Insets(12));
+                rappel.setStyle("-fx-background-color: #f8fafc; -fx-background-radius: 10;"
+                    + "-fx-border-color: " + urgence + "; -fx-border-width: 0 0 0 4;"
+                    + "-fx-border-radius: 0;");
+
+                // Indicateur de jours
+                VBox countBox = new VBox(2);
+                countBox.setAlignment(Pos.CENTER);
+                countBox.setPrefWidth(70);
+                Label countLabel = new Label(joursLabel);
+                countLabel.setStyle("-fx-font-size: 11px; -fx-font-weight: bold;"
+                    + "-fx-text-fill: " + urgence + "; -fx-wrap-text: true;");
+                countLabel.setWrapText(true);
+                countBox.getChildren().add(countLabel);
+
+                // Détails activité
+                VBox detailBox = new VBox(4);
+                Label nomLabel = new Label(a.getNom());
+                nomLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;");
+
+                Label dateDetailLabel = new Label(
+                    date.format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy", Locale.FRENCH)));
+                dateDetailLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b;");
+
+                Label capLabel = new Label("Capacité : " + a.getCapacite() + " participants");
+                capLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #94a3b8;");
+
+                detailBox.getChildren().addAll(nomLabel, dateDetailLabel, capLabel);
+
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                // Icône urgence
+                Label iconeUrgence = new Label(joursRestants == 0 ? "🔴" : joursRestants <= 2 ? "🟡" : "🟢");
+                iconeUrgence.setStyle("-fx-font-size: 16px;");
+
+                rappel.getChildren().addAll(countBox, detailBox, spacer, iconeUrgence);
+                content.getChildren().add(rappel);
+            }
+        }
+
+        ScrollPane scroll = new ScrollPane(content);
+        scroll.setFitToWidth(true);
+        scroll.setPrefSize(480, 420);
+        popup.setScene(new javafx.scene.Scene(scroll));
+        popup.show();
+    }
 }
