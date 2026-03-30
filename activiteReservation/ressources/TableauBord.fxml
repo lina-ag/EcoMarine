@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.TableauBordController"
+            stylesheets="@style.css"
+            styleClass="root-pane"
+            prefWidth="1100" prefHeight="750">
+
+    <!-- HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="dashboard-header">
+            <padding><Insets top="18" right="30" bottom="18" left="30"/></padding>
+            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                <Label text="📊 Tableau de bord" styleClass="dashboard-title"/>
+                <Label fx:id="lblDateJour" text="" styleClass="dashboard-subtitle"/>
+            </VBox>
+            <Button fx:id="btnRefresh" text="↻  Actualiser" onAction="#rafraichir" styleClass="btn-dashboard-refresh"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="root-pane" hbarPolicy="NEVER">
+            <VBox spacing="22">
+                <padding><Insets top="20" right="28" bottom="30" left="28"/></padding>
+
+                <!-- KPI CARDS -->
+                <HBox spacing="16">
+                    <!-- Activités -->
+                    <VBox styleClass="kpi-card-v2,kpi-blue" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="🏄" style="-fx-font-size:28px;"/>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Activités" styleClass="kpi-label-v2"/>
+                                <Label fx:id="lblTotalActivites" text="0" styleClass="kpi-value-v2"/>
+                            </VBox>
+                            <Label text="↑" styleClass="kpi-trend-up"/>
+                        </HBox>
+                        <Label text="total créées" styleClass="kpi-sub-v2"/>
+                        <Region prefHeight="10"/>
+                        <StackPane styleClass="kpi-progress-bg">
+                            <Region fx:id="progressActivites" styleClass="kpi-progress-fill,kpi-fill-blue" prefHeight="4" maxHeight="4"/>
+                            <StackPane.margin><Insets/></StackPane.margin>
+                        </StackPane>
+                    </VBox>
+
+                    <!-- Réservations -->
+                    <VBox styleClass="kpi-card-v2,kpi-green" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📋" style="-fx-font-size:28px;"/>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Réservations" styleClass="kpi-label-v2"/>
+                                <Label fx:id="lblTotalReservations" text="0" styleClass="kpi-value-v2"/>
+                            </VBox>
+                            <Label text="↑" styleClass="kpi-trend-up"/>
+                        </HBox>
+                        <Label text="total enregistrées" styleClass="kpi-sub-v2"/>
+                        <Region prefHeight="10"/>
+                        <StackPane styleClass="kpi-progress-bg">
+                            <Region fx:id="progressReservations" styleClass="kpi-progress-fill,kpi-fill-green" prefHeight="4" maxHeight="4"/>
+                        </StackPane>
+                    </VBox>
+
+                    <!-- Participants -->
+                    <VBox styleClass="kpi-card-v2,kpi-purple" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="👥" style="-fx-font-size:28px;"/>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Participants" styleClass="kpi-label-v2"/>
+                                <Label fx:id="lblTotalParticipants" text="0" styleClass="kpi-value-v2"/>
+                            </VBox>
+                            <Label text="↑" styleClass="kpi-trend-up"/>
+                        </HBox>
+                        <Label text="total inscrits" styleClass="kpi-sub-v2"/>
+                        <Region prefHeight="10"/>
+                        <StackPane styleClass="kpi-progress-bg">
+                            <Region fx:id="progressParticipants" styleClass="kpi-progress-fill,kpi-fill-purple" prefHeight="4" maxHeight="4"/>
+                        </StackPane>
+                    </VBox>
+
+                    <!-- Taux remplissage -->
+                    <VBox styleClass="kpi-card-v2,kpi-orange" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📈" style="-fx-font-size:28px;"/>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Taux de remplissage" styleClass="kpi-label-v2"/>
+                                <Label fx:id="lblTauxRemplissage" text="0%" styleClass="kpi-value-v2"/>
+                            </VBox>
+                        </HBox>
+                        <Label text="participants / capacité" styleClass="kpi-sub-v2"/>
+                        <Region prefHeight="10"/>
+                        <StackPane styleClass="kpi-progress-bg">
+                            <Region fx:id="progressTaux" styleClass="kpi-progress-fill,kpi-fill-orange" prefHeight="4" maxHeight="4"/>
+                        </StackPane>
+                    </VBox>
+                </HBox>
+
+                <!-- GRAPHIQUES LIGNE 1 -->
+                <HBox spacing="16">
+                    <!-- Réservations par mois -->
+                    <VBox styleClass="chart-card-v2" HBox.hgrow="ALWAYS" spacing="14">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="📅  Réservations par mois" styleClass="chart-title-v2" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblTotalMois" text="" styleClass="chart-badge"/>
+                        </HBox>
+                        <Separator/>
+                        <VBox fx:id="chartReservations" spacing="12"/>
+                    </VBox>
+
+                    <!-- Top activités -->
+                    <VBox styleClass="chart-card-v2" HBox.hgrow="ALWAYS" spacing="14">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="🏆  Top 5 activités" styleClass="chart-title-v2" HBox.hgrow="ALWAYS"/>
+                            <Label text="par réservations" styleClass="chart-badge"/>
+                        </HBox>
+                        <Separator/>
+                        <VBox fx:id="chartActivites" spacing="10"/>
+                    </VBox>
+                </HBox>
+
+                <!-- SECTION TAUX OCCUPATION (DONUT) -->
+                <HBox spacing="16">
+                    <VBox styleClass="chart-card-v2" HBox.hgrow="ALWAYS" spacing="14">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="🎯  Taux d'occupation global" styleClass="chart-title-v2" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                        <Separator/>
+                        <HBox alignment="CENTER" spacing="40">
+                            <!-- Donut Canvas -->
+                            <StackPane alignment="CENTER">
+                                <Canvas fx:id="donutCanvas" width="160" height="160"/>
+                                <VBox alignment="CENTER" spacing="2" mouseTransparent="true">
+                                    <Label fx:id="lblDonutPct" text="0%" style="-fx-font-size:24px;-fx-font-weight:800;-fx-text-fill:#0a4d7a;"/>
+                                    <Label text="occupé" style="-fx-font-size:11px;-fx-text-fill:#94a3b8;"/>
+                                </VBox>
+                            </StackPane>
+
+                            <!-- Légende -->
+                            <VBox spacing="16" alignment="CENTER_LEFT">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Region styleClass="legend-dot-blue" minWidth="14" minHeight="14"/>
+                                    <VBox spacing="1">
+                                        <Label text="Participants inscrits" style="-fx-font-size:12px;-fx-font-weight:700;-fx-text-fill:#1e293b;"/>
+                                        <Label fx:id="lblLegendPart" text="0 / 0 places" style="-fx-font-size:11px;-fx-text-fill:#64748b;"/>
+                                    </VBox>
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Region styleClass="legend-dot-gray" minWidth="14" minHeight="14"/>
+                                    <VBox spacing="1">
+                                        <Label text="Places disponibles" style="-fx-font-size:12px;-fx-font-weight:700;-fx-text-fill:#1e293b;"/>
+                                        <Label fx:id="lblLegendDispo" text="0 restantes" style="-fx-font-size:11px;-fx-text-fill:#64748b;"/>
+                                    </VBox>
+                                </HBox>
+                                <Separator/>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="📌" style="-fx-font-size:16px;"/>
+                                    <Label fx:id="lblStatutOccupation" text="" style="-fx-font-size:12px;-fx-font-weight:700;"/>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Mini stats rapides -->
+                    <VBox styleClass="chart-card-v2" prefWidth="280" minWidth="240" spacing="14">
+                        <Label text="⚡  Infos rapides" styleClass="chart-title-v2"/>
+                        <Separator/>
+                        <VBox fx:id="boxInfosRapides" spacing="10"/>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

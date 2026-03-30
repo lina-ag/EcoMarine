@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-
 public class AfficherReservation {
 
     @FXML
@@ -50,11 +49,14 @@ public class AfficherReservation {
     @FXML
     private Button clearButton;
     @FXML
+    private Button microphoneButton;  // AJOUTÉ : bouton microphone
+    @FXML
     private Label resultCountLabel;
 
     private ServiceReservation service = new ServiceReservation();
     private ObservableList<Reservation> reservationList;
     private FilteredList<Reservation> filteredData;
+    private VoiceSearchController voiceSearch;  // AJOUTÉ : contrôleur vocal
 
     @FXML
     private void handleAjouter() {
@@ -103,6 +105,12 @@ public class AfficherReservation {
         
         // Mettre à jour le compteur
         updateResultCount();
+        
+        // ========== INITIALISATION DE LA RECHERCHE VOCALE ==========
+        voiceSearch = new VoiceSearchController();
+        voiceSearch.setSearchField(searchField);
+        voiceSearch.setVoiceButton(microphoneButton);
+        voiceSearch.initialize();
     }
 
     private void setupSearchListener() {
@@ -208,6 +216,15 @@ public class AfficherReservation {
     }
     // ========== FIN FILTRES RAPIDES ==========
 
+    // ========== RECHERCHE VOCALE ==========
+    @FXML
+    private void rechercheVocale() {
+        if (voiceSearch != null) {
+            voiceSearch.startVoiceRecognition();
+        }
+    }
+    // ========== FIN RECHERCHE VOCALE ==========
+
     private void addButtonToTableModifier() {
         Callback<TableColumn<Reservation, Void>, TableCell<Reservation, Void>> cellFactory =
                 param -> new TableCell<>() {
@@ -215,10 +232,8 @@ public class AfficherReservation {
                     private final Button btn = new Button("Modifier");
 
                     {
-                    	// Dans addButtonToTableModifier()
-                    	btn.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 5 15; -fx-font-weight: bold; -fx-cursor: hand;");
+                        btn.setStyle("-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 5 15; -fx-font-weight: bold; -fx-cursor: hand;");
 
-                    	// Effet au survol
                         btn.setOnMouseEntered(e -> 
                             btn.setStyle("-fx-background-color: #2563eb; -fx-text-fill: white; -fx-background-radius: 15; -fx-cursor: hand; -fx-padding: 5 15; -fx-font-weight: bold;")
                         );
@@ -269,15 +284,14 @@ public class AfficherReservation {
 
                     private final Button btn = new Button("Supprimer");
 
-                    {// Dans addButtonToTableSupprimer()
-                    	btn.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 5 15; -fx-font-weight: bold; -fx-cursor: hand;");
+                    {
+                        btn.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 5 15; -fx-font-weight: bold; -fx-cursor: hand;");
                         
-                        // Effet au survol
                         btn.setOnMouseEntered(e -> 
-                            btn.setStyle("-fx-background-color: #c82333; -fx-text-fill: white; -fx-background-radius: 15; -fx-cursor: hand; -fx-padding: 5 15; -fx-font-weight: bold;")
+                            btn.setStyle("-fx-background-color: #dc2626; -fx-text-fill: white; -fx-background-radius: 15; -fx-cursor: hand; -fx-padding: 5 15; -fx-font-weight: bold;")
                         );
                         btn.setOnMouseExited(e -> 
-                            btn.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-background-radius: 15; -fx-cursor: hand; -fx-padding: 5 15; -fx-font-weight: bold;")
+                            btn.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 15; -fx-cursor: hand; -fx-padding: 5 15; -fx-font-weight: bold;")
                         );
                         
                         btn.setOnAction(event -> {

@@ -107,6 +107,61 @@ public class ServiceReservation {
         return list;
     }
     
+    public int getTotalReservations() {
+        try {
+            ResultSet rs = cnx.createStatement()
+                .executeQuery("SELECT COUNT(*) FROM reservation");
+            if (rs.next()) return rs.getInt(1);
+        } catch (Exception e) { e.printStackTrace(); }
+        return 0;
+    }
 
+    public int getTotalParticipants() {
+        try {
+            ResultSet rs = cnx.createStatement()
+                .executeQuery("SELECT SUM(nombre_personnes) FROM reservation");
+            if (rs.next()) return rs.getInt(1);
+        } catch (Exception e) { e.printStackTrace(); }
+        return 0;
+    }
+
+    public List<String[]> getReservationsParMois() {
+        List<String[]> list = new ArrayList<>();
+        try {
+            String sql = """
+                SELECT DATE_FORMAT(date_reservation, '%M') as mois,
+                       MONTH(date_reservation) as num_mois,
+                       COUNT(*) as total
+                FROM reservation
+                WHERE YEAR(date_reservation) = YEAR(CURDATE())
+                GROUP BY num_mois, mois
+                ORDER BY num_mois
+                """;
+            ResultSet rs = cnx.createStatement().executeQuery(sql);
+            while (rs.next())
+                list.add(new String[]{rs.getString("mois"),
+                                       rs.getString("total")});
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+
+    public List<String[]> getTopActivites() {
+        List<String[]> list = new ArrayList<>();
+        try {
+            String sql = """
+                SELECT a.nom_activite, COUNT(r.id_reservation) as nb
+                FROM reservation r
+                JOIN activite_ecologique a ON r.id_activite = a.id_activite
+                GROUP BY a.nom_activite
+                ORDER BY nb DESC
+                LIMIT 5
+                """;
+            ResultSet rs = cnx.createStatement().executeQuery(sql);
+            while (rs.next())
+                list.add(new String[]{rs.getString("nom_activite"),
+                                       rs.getString("nb")});
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
 
 }

@@ -1,94 +1,141 @@
 package controllers;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import tn.edu.esprit.entities.ActiviteEcologique;
 import tn.edu.esprit.services.ServiceActivite;
 
 public class AjouterActivite {
 
-    @FXML
-    private TextField tfNom;
-    @FXML
-    private TextField tfDescription;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField tfCapacite;
+    @FXML private TextField tfNom, tfDescription, tfCapacite;
+    @FXML private DatePicker datePicker, datePickerFin;
+    @FXML private CheckBox cbRecurrence;
+    @FXML private CheckBox cbLun, cbMar, cbMer, cbJeu, cbVen, cbSam, cbDim;
+    @FXML private VBox panneauRecurrence;
+    @FXML private Label lblApercu;
+
+    private final ServiceActivite service = new ServiceActivite();
 
     @FXML
     public void initialize() {
         datePicker.setValue(LocalDate.now());
-        
-        datePicker.setConverter(new javafx.util.StringConverter<LocalDate>() {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return formatter.format(date);
-                }
-                return "";
-            }
-            
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, formatter);
-                }
-                return null;
-            }
+        datePickerFin.setValue(LocalDate.now().plusMonths(1));
+
+        for (CheckBox cb : getJoursChecks()) {
+            cb.setOnAction(e -> mettreAJourApercu());
+        }
+        datePickerFin.valueProperty().addListener(
+            (o, ov, nv) -> mettreAJourApercu());
+
+        tfCapacite.textProperty().addListener((obs, old, nv) -> {
+            if (!nv.matches("\\d*"))
+                tfCapacite.setText(nv.replaceAll("[^\\d]", ""));
         });
-        
-        tfCapacite.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                tfCapacite.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
+    }
+
+    @FXML
+    private void toggleRecurrence() {
+        boolean actif = cbRecurrence.isSelected();
+        panneauRecurrence.setVisible(actif);
+        panneauRecurrence.setManaged(actif);
+        if (actif) mettreAJourApercu();
+    }
+
+    private void mettreAJourApercu() {
+        List<String> jours = getJoursSelectionnes();
+        if (jours.isEmpty()) {
+            lblApercu.setText("Aucun jour sélectionné");
+            return;
+        }
+        LocalDate fin   = datePickerFin.getValue();
+        LocalDate debut = datePicker.getValue() != null
+            ? datePicker.getValue() : LocalDate.now();
+
+        long nb = compterOccurrences(debut, fin, jours);
+        lblApercu.setText(String.join(", ", jours)
+            + " — " + nb + " occurrence(s)");
+    }
+
+    private long compterOccurrences(LocalDate debut, LocalDate fin,
+                                     List<String> jours) {
+        if (fin == null || fin.isBefore(debut)) return 0;
+        long count = 0;
+        LocalDate d = debut;
+        while (!d.isAfter(fin)) {
+            if (jours.contains(nomJour(d.getDayOfWeek()))) count++;
+            d = d.plusDays(1);
+        }
+        return count;
     }
 
     @FXML
     private void ajouterActivite() {
         try {
-            // Validation
             if (tfNom.getText() == null || tfNom.getText().trim().isEmpty()) {
-                showAlert("Erreur", "Le nom de l'activité est requis");
-                return;
+                showAlert("Erreur", "Le nom est requis"); return;
             }
-
             if (datePicker.getValue() == null) {
-                showAlert("Erreur", "La date est requise");
-                return;
+                showAlert("Erreur", "La date est requise"); return;
             }
-
             if (tfCapacite.getText() == null || tfCapacite.getText().trim().isEmpty()) {
-                showAlert("Erreur", "La capacité est requise");
-                return;
+                showAlert("Erreur", "La capacité est requise"); return;
             }
 
-            // Récupération des données
-            String nom = tfNom.getText();
-            String description = tfDescription.getText();
-            LocalDate date = datePicker.getValue();
-            int capacite = Integer.parseInt(tfCapacite.getText().trim());
+            String nom         = tfNom.getText().trim();
+            String description = tfDescription.getText().trim();
+            LocalDate debut    = datePicker.getValue();
+            int capacite       = Integer.parseInt(tfCapacite.getText().trim());
 
-            String dateString = date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            if (cbRecurrence.isSelected()) {
+                List<String> jours = getJoursSelectionnes();
+                if (jours.isEmpty()) {
+                    showAlert("Erreur",
+                        "Sélectionnez au moins un jour de récurrence");
+                    return;
+                }
+                LocalDate fin = datePickerFin.getValue();
+                if (fin == null || fin.isBefore(debut)) {
+                    showAlert("Erreur",
+                        "La date de fin doit être après la date de début");
+                    return;
+                }
 
-            ActiviteEcologique activite = new ActiviteEcologique(nom, description, dateString, capacite);
+                int nbCreees = 0;
+                LocalDate d = debut;
+                while (!d.isAfter(fin)) {
+                    if (jours.contains(nomJour(d.getDayOfWeek()))) {
+                        ActiviteEcologique a = new ActiviteEcologique(
+                            nom, description,
+                            d.format(DateTimeFormatter.ISO_LOCAL_DATE),
+                            capacite
+                        );
+                        service.ajouter(a);
+                        nbCreees++;
+                    }
+                    d = d.plusDays(1);
+                }
 
-            ServiceActivite service = new ServiceActivite();
-            service.ajouter(activite);
+                showAlert("Succès", nbCreees
+                    + " activité(s) créée(s) avec récurrence !\n"
+                    + "Jours : " + String.join(", ", jours));
 
-            showAlert("Succès", "Activité ajoutée avec succès !");
+            } else {
+                ActiviteEcologique a = new ActiviteEcologique(
+                    nom, description,
+                    debut.format(DateTimeFormatter.ISO_LOCAL_DATE),
+                    capacite
+                );
+                service.ajouter(a);
+                showAlert("Succès", "Activité ajoutée avec succès !");
+            }
 
-            // Fermer la fenêtre - les stats seront rafraîchies automatiquement
             Stage stage = (Stage) tfNom.getScene().getWindow();
             stage.close();
 
@@ -96,8 +143,36 @@ public class AjouterActivite {
             showAlert("Erreur", "La capacité doit être un nombre valide");
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Erreur", "Une erreur est survenue : " + e.getMessage());
+            showAlert("Erreur", "Erreur : " + e.getMessage());
         }
+    }
+
+    private List<CheckBox> getJoursChecks() {
+        return List.of(cbLun, cbMar, cbMer, cbJeu, cbVen, cbSam, cbDim);
+    }
+
+    private List<String> getJoursSelectionnes() {
+        List<String> jours = new ArrayList<>();
+        if (cbLun.isSelected()) jours.add("Lun");
+        if (cbMar.isSelected()) jours.add("Mar");
+        if (cbMer.isSelected()) jours.add("Mer");
+        if (cbJeu.isSelected()) jours.add("Jeu");
+        if (cbVen.isSelected()) jours.add("Ven");
+        if (cbSam.isSelected()) jours.add("Sam");
+        if (cbDim.isSelected()) jours.add("Dim");
+        return jours;
+    }
+
+    private String nomJour(DayOfWeek d) {
+        return switch (d) {
+            case MONDAY    -> "Lun";
+            case TUESDAY   -> "Mar";
+            case WEDNESDAY -> "Mer";
+            case THURSDAY  -> "Jeu";
+            case FRIDAY    -> "Ven";
+            case SATURDAY  -> "Sam";
+            case SUNDAY    -> "Dim";
+        };
     }
 
     private void showAlert(String title, String message) {

@@ -1,5 +1,9 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +27,26 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseButton;
+import javafx.stage.FileChooser;
+
+// Import pour Excel
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+// Import pour PDF
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+// Import pour JSON
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import tn.edu.esprit.entities.ActiviteEcologique;
 import tn.edu.esprit.services.ServiceActivite;
@@ -53,26 +77,22 @@ public class GestionCalendrier {
     private YearMonth currentYearMonth;
     private LocalDate currentDate;
     private ServiceActivite service;
-    private String currentView = "mois"; // "mois", "annee", "semaine", "jour"
+    private String currentView = "mois";
     private int currentYear;
     private LocalDate weekStart;
-    private LocalDate selectedDate; // Jour sélectionné
+    private LocalDate selectedDate;
 
     @FXML
     public void initialize() {
-    	
         currentYearMonth = YearMonth.now();
         currentYear = currentYearMonth.getYear();
         currentDate = LocalDate.now();
         weekStart = currentDate.minusDays(currentDate.getDayOfWeek().getValue() - 1);
         service = new ServiceActivite();
 
-        // Initialiser l'affichage
         showMonthView();
         updateButtonStyles();
-        
 
-        // Gestion des boutons de navigation
         prevMonthBtn.setOnAction(e -> {
             switch (currentView) {
                 case "mois":
@@ -117,7 +137,6 @@ public class GestionCalendrier {
             updateActivitiesList();
         });
 
-        // Boutons de changement de vue
         jourBtn.setOnAction(e -> {
             currentView = "jour";
             showDayView();
@@ -146,7 +165,7 @@ public class GestionCalendrier {
             updateButtonStyles();
         });
         updateActivitiesList();
-        }
+    }
 
     private void updateButtonStyles() {
         String activeStyle = "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 20;";
@@ -158,30 +177,22 @@ public class GestionCalendrier {
         anneeBtn.setStyle(currentView.equals("annee") ? activeStyle : inactiveStyle);
     }
 
- // Ajoutez ces méthodes dans votre controller (remplacez les anciennes méthodes showDayView et showWeekView)
-
- // ==================== VUE JOUR AMÉLIORÉE ====================
- // ==================== VUE JOUR AVEC CADRE BLANC ====================
+    // ==================== VUE JOUR ====================
     private void showDayView() {
         calendarGrid.getChildren().clear();
         calendarGrid.setHgap(0);
         calendarGrid.setVgap(0);
         
-        // Mettre à jour le label principal
         monthYearLabel.setText(currentDate.format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy", Locale.FRENCH)).toUpperCase());
         monthYearLabel.setStyle("-fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
 
-        // Créer un conteneur principal avec cadre blanc
         VBox dayViewContainer = new VBox(20);
-        dayViewContainer.getStyleClass().add("day-view-container"); // Classe pour le cadre blanc
+        dayViewContainer.getStyleClass().add("day-view-container");
         dayViewContainer.setMaxWidth(Double.MAX_VALUE);
         dayViewContainer.setMaxHeight(Double.MAX_VALUE);
         dayViewContainer.setPrefHeight(600);
-        
-        // Padding intérieur
         dayViewContainer.setPadding(new Insets(25));
 
-        // En-tête avec la date (dans le cadre blanc)
         HBox dateHeader = new HBox(15);
         dateHeader.setAlignment(Pos.CENTER_LEFT);
         dateHeader.getStyleClass().add("day-view-header-container");
@@ -194,20 +205,16 @@ public class GestionCalendrier {
         
         dateHeader.getChildren().addAll(dayNameLabel, dateLabel);
         
-        // Séparateur décoratif
         Separator separator = new Separator();
         separator.getStyleClass().add("day-view-separator");
         
-        // Section des activités (dans le cadre blanc)
         VBox activitiesContainer = new VBox(15);
         activitiesContainer.getStyleClass().add("day-view-activities-container");
         
         Label activitiesTitle = new Label("Activités du jour");
         activitiesTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: #1e3c72;");
-        
         activitiesContainer.getChildren().add(activitiesTitle);
         
-        // Récupérer les activités du jour
         List<ActiviteEcologique> activitesDuJour = getActivitesForDate(currentDate);
         
         if (activitesDuJour.isEmpty()) {
@@ -218,17 +225,14 @@ public class GestionCalendrier {
             
             Label emptyIcon = new Label("📅");
             emptyIcon.setStyle("-fx-font-size: 64px;");
-            
             Label emptyText = new Label("Aucune activité prévue ce jour");
             emptyText.setStyle("-fx-font-size: 16px; -fx-text-fill: #64748b; -fx-font-weight: 500;");
-            
             Label addHint = new Label("Cliquez sur le bouton '+' pour ajouter une activité");
             addHint.setStyle("-fx-font-size: 13px; -fx-text-fill: #94a3b8;");
             
             emptyBox.getChildren().addAll(emptyIcon, emptyText, addHint);
             activitiesContainer.getChildren().add(emptyBox);
         } else {
-            // Créer une ScrollPane pour les activités si nombreuses
             ScrollPane scrollPane = new ScrollPane();
             scrollPane.setFitToWidth(true);
             scrollPane.setPrefHeight(400);
@@ -246,10 +250,7 @@ public class GestionCalendrier {
             activitiesContainer.getChildren().add(scrollPane);
         }
         
-        // Assembler tous les éléments dans le conteneur principal
         dayViewContainer.getChildren().addAll(dateHeader, separator, activitiesContainer);
-        
-        // Ajouter le conteneur avec cadre blanc à la grille
         calendarGrid.add(dayViewContainer, 0, 0, 7, 6);
     }
 
@@ -258,7 +259,6 @@ public class GestionCalendrier {
         box.getStyleClass().add("day-view-activity");
         box.setMaxWidth(Double.MAX_VALUE);
         
-        // Ligne 1: Nom et capacité
         HBox topLine = new HBox(15);
         topLine.setAlignment(Pos.CENTER_LEFT);
         topLine.getStyleClass().add("day-view-activity-header");
@@ -269,7 +269,6 @@ public class GestionCalendrier {
         Label capacityLabel = new Label("👥 " + a.getCapacite() + " pers.");
         capacityLabel.getStyleClass().add("day-view-activity-capacity");
         
-        // Badge ID (optionnel)
         Label idLabel = new Label("ID: " + a.getIdActivite());
         idLabel.getStyleClass().add("day-view-activity-id");
         
@@ -278,7 +277,6 @@ public class GestionCalendrier {
         
         topLine.getChildren().addAll(nameLabel, capacityLabel, spacer, idLabel);
         
-        // Ligne 2: Description
         if (a.getDescription() != null && !a.getDescription().isEmpty()) {
             Label descLabel = new Label(a.getDescription());
             descLabel.getStyleClass().add("day-view-activity-desc");
@@ -287,21 +285,17 @@ public class GestionCalendrier {
         }
         
         box.getChildren().add(0, topLine);
-        
-        // Rendre cliquable
         box.setOnMouseClicked(e -> showActivityDetails(a, LocalDate.parse(a.getDate())));
         
         return box;
     }
 
- // ==================== VUE SEMAINE AMÉLIORÉE ====================
- // ==================== VUE SEMAINE AVEC CADRE BLANC ====================
+    // ==================== VUE SEMAINE ====================
     private void showWeekView() {
         calendarGrid.getChildren().clear();
         calendarGrid.setHgap(12);
         calendarGrid.setVgap(12);
         
-        // Mettre à jour le label
         LocalDate weekEnd = weekStart.plusDays(6);
         String weekLabel = String.format("SEMAINE DU %s AU %s",
             weekStart.format(DateTimeFormatter.ofPattern("dd MMMM")),
@@ -309,24 +303,20 @@ public class GestionCalendrier {
         monthYearLabel.setText(weekLabel.toUpperCase());
         monthYearLabel.setStyle("-fx-cursor: hand; -fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Conteneur principal pour toute la semaine
         VBox weekContainer = new VBox(20);
         weekContainer.getStyleClass().add("week-view-container");
         weekContainer.setMaxWidth(Double.MAX_VALUE);
         weekContainer.setMaxHeight(Double.MAX_VALUE);
         weekContainer.setPadding(new Insets(20));
 
-        // En-tête de la semaine
         HBox weekHeader = new HBox(15);
         weekHeader.setAlignment(Pos.CENTER_LEFT);
         weekHeader.getStyleClass().add("week-view-header-container");
         
         Label weekIcon = new Label("📆");
         weekIcon.setStyle("-fx-font-size: 32px;");
-        
         Label weekTitle = new Label("Planning Hebdomadaire");
         weekTitle.getStyleClass().add("week-view-title");
-        
         Label weekDates = new Label(weekStart.format(DateTimeFormatter.ofPattern("dd MMMM")) + " - " + 
                                     weekEnd.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
         weekDates.getStyleClass().add("week-view-dates");
@@ -334,24 +324,20 @@ public class GestionCalendrier {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         
-        // Statistiques rapides de la semaine
         Label statsLabel = new Label(getWeekStats());
         statsLabel.getStyleClass().add("week-view-stats");
         
         weekHeader.getChildren().addAll(weekIcon, weekTitle, weekDates, spacer, statsLabel);
         
-        // Séparateur
         Separator separator = new Separator();
         separator.getStyleClass().add("week-view-separator");
         
-        // Grille des jours (7 colonnes)
         GridPane weekGrid = new GridPane();
         weekGrid.getStyleClass().add("week-grid");
         weekGrid.setHgap(12);
         weekGrid.setVgap(12);
         weekGrid.setMaxWidth(Double.MAX_VALUE);
         
-        // Ajouter les en-têtes des jours (ligne 0)
         String[] jours = {"LUNDI", "MARDI", "MERCREDI", "JEUDI", "VENDREDI", "SAMEDI", "DIMANCHE"};
         String[] joursAbrev = {"LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"};
         
@@ -362,23 +348,15 @@ public class GestionCalendrier {
             headerBox.setAlignment(Pos.CENTER);
             headerBox.getStyleClass().add("week-day-header-box");
             
-            // Si c'est aujourd'hui
             if (date.equals(LocalDate.now())) {
                 headerBox.getStyleClass().add("today");
             }
             
-            // Nom du jour (complet en petit, abrégé en grand)
             Label dayFullName = new Label(jours[i]);
             dayFullName.getStyleClass().add("week-day-fullname");
-            
-            Label dayAbrev = new Label(joursAbrev[i]);
-            dayAbrev.getStyleClass().add("week-day-abrev");
-            
-            // Numéro du jour
             Label dayNumber = new Label(String.valueOf(date.getDayOfMonth()));
             dayNumber.getStyleClass().add("week-day-number");
             
-            // Mois (pour le premier jour et les changements de mois)
             Label monthName = new Label();
             if (i == 0 || date.getMonth() != weekStart.plusDays(i-1).getMonth()) {
                 monthName.setText(date.getMonth().getDisplayName(TextStyle.SHORT, Locale.FRENCH).toUpperCase());
@@ -387,7 +365,6 @@ public class GestionCalendrier {
             
             headerBox.getChildren().addAll(dayFullName, dayNumber, monthName);
             
-            // Rendre l'en-tête cliquable pour aller à la vue jour
             LocalDate finalDate = date;
             headerBox.setOnMouseClicked(e -> {
                 currentDate = finalDate;
@@ -400,14 +377,12 @@ public class GestionCalendrier {
             weekGrid.add(headerBox, i, 0);
         }
 
-        // Ajouter les cellules pour chaque jour (ligne 1)
         for (int i = 0; i < 7; i++) {
             LocalDate date = weekStart.plusDays(i);
             VBox dayCell = createWeekDayCell(date);
             weekGrid.add(dayCell, i, 1);
         }
         
-        // Pied de page avec résumé
         HBox weekFooter = new HBox(20);
         weekFooter.setAlignment(Pos.CENTER_RIGHT);
         weekFooter.getStyleClass().add("week-view-footer");
@@ -417,35 +392,27 @@ public class GestionCalendrier {
         
         Label totalActivitiesLabel = new Label("📊 Total activités: " + totalActivities);
         totalActivitiesLabel.getStyleClass().add("week-footer-label");
-        
         Label totalParticipantsLabel = new Label("👥 Total participants: " + totalParticipants);
         totalParticipantsLabel.getStyleClass().add("week-footer-label");
         
         weekFooter.getChildren().addAll(totalActivitiesLabel, totalParticipantsLabel);
         
-        // Assembler tous les éléments
         weekContainer.getChildren().addAll(weekHeader, separator, weekGrid, weekFooter);
-        
-        // Ajouter le conteneur à la grille principale
         calendarGrid.add(weekContainer, 0, 0, 7, 6);
     }
 
-    // ==================== STATISTIQUES DE LA SEMAINE ====================
     private String getWeekStats() {
         int total = 0;
         LocalDate weekEnd = weekStart.plusDays(6);
-        
         for (LocalDate date = weekStart; !date.isAfter(weekEnd); date = date.plusDays(1)) {
             total += getActivitesForDate(date).size();
         }
-        
         return total + " activité(s) cette semaine";
     }
 
     private int getWeekTotalActivities() {
         int total = 0;
         LocalDate weekEnd = weekStart.plusDays(6);
-        
         for (LocalDate date = weekStart; !date.isAfter(weekEnd); date = date.plusDays(1)) {
             total += getActivitesForDate(date).size();
         }
@@ -455,7 +422,6 @@ public class GestionCalendrier {
     private int getWeekTotalParticipants() {
         int total = 0;
         LocalDate weekEnd = weekStart.plusDays(6);
-        
         for (LocalDate date = weekStart; !date.isAfter(weekEnd); date = date.plusDays(1)) {
             for (ActiviteEcologique a : getActivitesForDate(date)) {
                 total += a.getCapacite();
@@ -464,7 +430,6 @@ public class GestionCalendrier {
         return total;
     }
 
-    // ==================== CELLULE DE JOUR AMÉLIORÉE ====================
     private VBox createWeekDayCell(LocalDate date) {
         VBox cell = new VBox(10);
         cell.getStyleClass().add("week-day-cell");
@@ -477,7 +442,6 @@ public class GestionCalendrier {
         cell.setPrefWidth(180);
         cell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         
-        // En-tête de la cellule avec heure
         HBox cellHeader = new HBox();
         cellHeader.setAlignment(Pos.CENTER_LEFT);
         cellHeader.getStyleClass().add("week-cell-header");
@@ -491,17 +455,14 @@ public class GestionCalendrier {
         Region headerSpacer = new Region();
         HBox.setHgrow(headerSpacer, Priority.ALWAYS);
         
-        // Indicateur de météo (optionnel)
         Label weatherIcon = new Label(getWeatherIcon());
         weatherIcon.getStyleClass().add("week-cell-weather");
         
         cellHeader.getChildren().addAll(dayNum, dayName, headerSpacer, weatherIcon);
         
-        // Ligne de séparation
         Separator cellSeparator = new Separator();
         cellSeparator.getStyleClass().add("week-cell-separator");
         
-        // Conteneur pour les activités
         VBox activitiesContainer = new VBox(8);
         activitiesContainer.getStyleClass().add("week-cell-activities");
         activitiesContainer.setPadding(new Insets(5, 0, 0, 0));
@@ -509,66 +470,52 @@ public class GestionCalendrier {
         List<ActiviteEcologique> activites = getActivitesForDate(date);
         
         if (!activites.isEmpty()) {
-            // Trier les activités par nom ou heure (si disponible)
             int count = 0;
             for (ActiviteEcologique a : activites) {
-                if (count < 4) { // Afficher max 4 activités
+                if (count < 4) {
                     HBox activityItem = createWeekActivityItem(a);
                     activitiesContainer.getChildren().add(activityItem);
                     count++;
                 }
             }
             
-            // S'il y a plus d'activités
             if (activites.size() > 4) {
                 HBox moreBox = new HBox(5);
                 moreBox.setAlignment(Pos.CENTER_LEFT);
-                
                 Label moreIcon = new Label("➕");
                 moreIcon.setStyle("-fx-font-size: 10px;");
-                
                 Label moreLabel = new Label((activites.size() - 4) + " autre(s)");
                 moreLabel.getStyleClass().add("week-cell-more");
-                
                 moreBox.getChildren().addAll(moreIcon, moreLabel);
                 activitiesContainer.getChildren().add(moreBox);
             }
             
-            // Petit badge avec le nombre total
             Label countBadge = new Label(activites.size() + " activité(s)");
             countBadge.getStyleClass().add("week-cell-count");
             activitiesContainer.getChildren().add(countBadge);
-            
         } else {
             VBox emptyBox = new VBox(8);
             emptyBox.setAlignment(Pos.CENTER);
             emptyBox.setPrefHeight(150);
-            
             Label emptyIcon = new Label("🌊");
             emptyIcon.setStyle("-fx-font-size: 32px; -fx-opacity: 0.3;");
-            
             Label emptyText = new Label("Pas d'activité");
             emptyText.getStyleClass().add("week-cell-empty");
-            
             emptyBox.getChildren().addAll(emptyIcon, emptyText);
             activitiesContainer.getChildren().add(emptyBox);
         }
         
         cell.getChildren().addAll(cellHeader, cellSeparator, activitiesContainer);
         
-        // Rendre la cellule cliquable
         cell.setOnMouseClicked(e -> {
             selectedDate = date;
-            
             if (e.getClickCount() == 2) {
-                // Double-clic pour aller à la vue jour
                 currentDate = date;
                 currentView = "jour";
                 showDayView();
                 updateActivitiesList();
                 updateButtonStyles();
             } else {
-                // Simple clic pour mettre à jour la sélection
                 refreshWeekView();
                 showDateActivities(date);
             }
@@ -577,19 +524,16 @@ public class GestionCalendrier {
         return cell;
     }
 
-    // ==================== CRÉATION D'UN ÉLÉMENT D'ACTIVITÉ POUR LA SEMAINE ====================
     private HBox createWeekActivityItem(ActiviteEcologique a) {
         HBox item = new HBox(8);
         item.setAlignment(Pos.CENTER_LEFT);
         item.getStyleClass().add("week-activity-item");
         item.setMaxWidth(Double.MAX_VALUE);
         
-        // Icône selon le type
         String icone = getIconeForActivite(a);
         Label iconLabel = new Label(icone);
         iconLabel.getStyleClass().add("week-activity-icon");
         
-        // Nom de l'activité (tronqué si trop long)
         String nom = a.getNom();
         if (nom.length() > 15) {
             nom = nom.substring(0, 12) + "...";
@@ -597,26 +541,21 @@ public class GestionCalendrier {
         Label nameLabel = new Label(nom);
         nameLabel.getStyleClass().add("week-activity-name");
         
-        // Heure (si disponible dans votre entité)
-        Label timeLabel = new Label("09:00"); // À adapter selon vos données
+        Label timeLabel = new Label("09:00");
         timeLabel.getStyleClass().add("week-activity-time");
         
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         
-        // Petit badge de capacité
         Label capacityBadge = new Label("👥 " + a.getCapacite());
         capacityBadge.getStyleClass().add("week-activity-capacity");
         
         item.getChildren().addAll(iconLabel, nameLabel, spacer, timeLabel, capacityBadge);
-        
-        // Rendre cliquable
         item.setOnMouseClicked(e -> showActivityDetails(a, LocalDate.parse(a.getDate())));
         
         return item;
     }
 
-    // ==================== ICÔNE SELON LE TYPE D'ACTIVITÉ ====================
     private String getIconeForActivite(ActiviteEcologique a) {
         String nom = a.getNom().toLowerCase();
         if (nom.contains("plage")) return "🏖️";
@@ -632,124 +571,33 @@ public class GestionCalendrier {
         return "📌";
     }
 
-    // ==================== ICÔNE MÉTÉO (OPTIONNEL) ====================
     private String getWeatherIcon() {
-        // Vous pouvez implémenter une vraie météo plus tard
         String[] weathers = {"☀️", "⛅", "☁️", "🌧️", "⛈️", "🌤️"};
         return weathers[(int)(Math.random() * weathers.length)];
     }
 
     private void refreshWeekView() {
-        // Recharger la vue semaine pour mettre à jour la sélection
         showWeekView();
     }
 
-/* private VBox createWeekDayCell(LocalDate date) {
-     VBox cell = new VBox(8);
-     cell.getStyleClass().add("week-day-cell");
-     cell.setPrefHeight(350);
-     cell.setPrefWidth(150);
-     cell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-     
-     // Petite en-tête avec le numéro du jour
-     HBox miniHeader = new HBox();
-     miniHeader.setAlignment(Pos.CENTER_RIGHT);
-     
-     Label dayNum = new Label(String.valueOf(date.getDayOfMonth()));
-     dayNum.setStyle("-fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: #64748b;");
-     
-     if (date.equals(LocalDate.now())) {
-         dayNum.setStyle("-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #f59e0b;");
-     }
-     
-     miniHeader.getChildren().add(dayNum);
-     
-     // Activités du jour
-     VBox activitiesBox = new VBox(4);
-     activitiesBox.getStyleClass().add("week-day-activities");
-     
-     List<ActiviteEcologique> activites = getActivitesForDate(date);
-     
-     if (!activites.isEmpty()) {
-         // Afficher max 3 activités
-         int count = 0;
-         for (ActiviteEcologique a : activites) {
-             if (count < 3) {
-                 Label actLabel = new Label("• " + a.getNom());
-                 actLabel.getStyleClass().add("week-activity-item");
-                 actLabel.setMaxWidth(Double.MAX_VALUE);
-                 
-                 String nom = a.getNom().toLowerCase();
-                 if (nom.contains("plage") || nom.contains("mer")) {
-                     actLabel.setStyle(actLabel.getStyle() + "-fx-background-color: #dbeafe; -fx-border-color: #3b82f6;");
-                 } else if (nom.contains("atelier")) {
-                     actLabel.setStyle(actLabel.getStyle() + "-fx-background-color: #fef3c7; -fx-border-color: #f59e0b;");
-                 } else if (nom.contains("sortie")) {
-                     actLabel.setStyle(actLabel.getStyle() + "-fx-background-color: #dcfce7; -fx-border-color: #10b981;");
-                 }
-                 
-                 activitiesBox.getChildren().add(actLabel);
-                 count++;
-             }
-         }
-         
-         // S'il y a plus d'activités
-         if (activites.size() > 3) {
-             Label moreLabel = new Label("+ " + (activites.size() - 3) + " autres");
-             moreLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: #94a3b8; -fx-padding: 2 0 0 5;");
-             activitiesBox.getChildren().add(moreLabel);
-         }
-     } else {
-         Label emptyLabel = new Label("Aucune activité");
-         emptyLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #cbd5e1; -fx-padding: 5;");
-         emptyLabel.setAlignment(Pos.CENTER);
-         emptyLabel.setMaxWidth(Double.MAX_VALUE);
-         activitiesBox.getChildren().add(emptyLabel);
-     }
-     
-     cell.getChildren().addAll(miniHeader, activitiesBox);
-     
-     // Rendre la cellule cliquable
-     cell.setOnMouseClicked(e -> {
-         if (e.getClickCount() == 2) {
-             // Double-clic pour aller à la vue jour
-             currentDate = date;
-             currentView = "jour";
-             showDayView();
-             updateActivitiesList();
-             updateButtonStyles();
-         } else {
-             showDateActivities(date);
-         }
-     });
-     
-     return cell;
- }*/
     // ==================== VUE MOIS ====================
- // ==================== VUE MOIS AVEC CADRE BLANC ====================
- // ==================== VUE MOIS (SEULEMENT LE MOIS COURANT) ====================
     private void showMonthView() {
         currentView = "mois";
         
-        // Mettre à jour le label
-        String monthName = currentYearMonth.getMonth().getDisplayName(
-            TextStyle.FULL, Locale.FRENCH);
+        String monthName = currentYearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.FRENCH);
         monthYearLabel.setText(monthName.toUpperCase() + " " + currentYearMonth.getYear());
         monthYearLabel.setStyle("-fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
 
-        // Vider la grille
         calendarGrid.getChildren().clear();
         calendarGrid.setHgap(0);
         calendarGrid.setVgap(0);
 
-        // Conteneur principal avec cadre blanc
         VBox monthContainer = new VBox(20);
         monthContainer.getStyleClass().add("month-view-container");
         monthContainer.setMaxWidth(Double.MAX_VALUE);
         monthContainer.setMaxHeight(Double.MAX_VALUE);
         monthContainer.setPadding(new Insets(15));
 
-        // En-tête du mois
         HBox monthHeader = new HBox(20);
         monthHeader.setAlignment(Pos.CENTER_LEFT);
         monthHeader.getStyleClass().add("month-view-header");
@@ -760,31 +608,24 @@ public class GestionCalendrier {
         VBox monthTitleBox = new VBox(5);
         Label monthTitle = new Label(monthName.toUpperCase());
         monthTitle.getStyleClass().add("month-view-title");
-        
         Label yearLabel = new Label(String.valueOf(currentYearMonth.getYear()));
         yearLabel.getStyleClass().add("month-view-year");
-        
         monthTitleBox.getChildren().addAll(monthTitle, yearLabel);
         
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         
-        // Statistiques du mois
         HBox monthStats = createMonthStats();
-        
         monthHeader.getChildren().addAll(monthIcon, monthTitleBox, spacer, monthStats);
         
-        // Séparateur décoratif
         Separator separator = new Separator();
         separator.getStyleClass().add("month-view-separator");
         
-        // Grille des jours de la semaine
         GridPane weekDaysGrid = new GridPane();
         weekDaysGrid.getStyleClass().add("month-weekdays-grid");
         weekDaysGrid.setHgap(5);
         weekDaysGrid.setVgap(5);
         
-        // Ajouter les en-têtes des jours
         String[] jours = {"LUNDI", "MARDI", "MERCREDI", "JEUDI", "VENDREDI", "SAMEDI", "DIMANCHE"};
         String[] joursAbrev = {"LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"};
         
@@ -795,11 +636,9 @@ public class GestionCalendrier {
             
             Label dayAbrev = new Label(joursAbrev[i]);
             dayAbrev.getStyleClass().add("month-day-abrev");
-            
             Label dayFull = new Label(jours[i]);
             dayFull.getStyleClass().add("month-day-full");
             
-            // Indicateur de weekend
             if (i >= 5) {
                 dayHeaderBox.getStyleClass().add("weekend");
             }
@@ -808,19 +647,16 @@ public class GestionCalendrier {
             weekDaysGrid.add(dayHeaderBox, i, 0);
         }
 
-        // Grille principale des jours
         GridPane daysGrid = new GridPane();
         daysGrid.getStyleClass().add("month-days-grid");
         daysGrid.setHgap(8);
         daysGrid.setVgap(8);
         daysGrid.setMaxWidth(Double.MAX_VALUE);
 
-        // Obtenir le premier jour du mois
         LocalDate firstDayOfMonth = currentYearMonth.atDay(1);
-        int dayOfWeek = firstDayOfMonth.getDayOfWeek().getValue(); // 1 = Lundi, 7 = Dimanche
+        int dayOfWeek = firstDayOfMonth.getDayOfWeek().getValue();
         int startColumn = dayOfWeek - 1;
 
-        // Remplir les jours du mois courant SEULEMENT
         int daysInMonth = currentYearMonth.lengthOfMonth();
         int row = 0;
         int col = startColumn;
@@ -828,9 +664,7 @@ public class GestionCalendrier {
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate date = currentYearMonth.atDay(day);
             VBox dayCell = createMonthDayCell(date);
-            
             daysGrid.add(dayCell, col, row);
-            
             col++;
             if (col > 6) {
                 col = 0;
@@ -838,66 +672,48 @@ public class GestionCalendrier {
             }
         }
 
-        // Légende du mois
         HBox monthLegend = createMonthLegend();
         
-        // Assembler tous les éléments
         monthContainer.getChildren().addAll(monthHeader, separator, weekDaysGrid, daysGrid, monthLegend);
-        
-        // Ajouter le conteneur à la grille principale
         calendarGrid.add(monthContainer, 0, 0, 7, 6);
         
         updateButtonStyles();
     }
 
-    // ==================== CELLULE DE JOUR POUR LA VUE MOIS ====================
- // ==================== CELLULE DE JOUR POUR LA VUE MOIS ====================
- // ==================== CELLULE DE JOUR POUR LA VUE MOIS ====================
     private VBox createMonthDayCell(LocalDate date) {
-        VBox cell = new VBox(5); // Réduit l'espacement de 8 à 5
+        VBox cell = new VBox(5);
         cell.getStyleClass().add("month-day-cell");
         
-        // Si c'est aujourd'hui
         if (date.equals(LocalDate.now())) {
             cell.getStyleClass().add("today");
         }
-        
-        // Si c'est le jour sélectionné
         if (date.equals(selectedDate)) {
             cell.getStyleClass().add("selected");
         }
         
-        cell.setPrefHeight(60); // Réduit de 80 à 60
+        cell.setPrefHeight(60);
         cell.setMinHeight(60);
         cell.setMaxHeight(60);
         cell.setPrefWidth(100);
         cell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        // En-tête de la cellule avec le numéro du jour
         HBox cellHeader = new HBox();
         cellHeader.setAlignment(Pos.CENTER_RIGHT);
         cellHeader.getStyleClass().add("month-cell-header");
-        cellHeader.setPadding(new Insets(0, 2, 0, 0)); // Réduit le padding
+        cellHeader.setPadding(new Insets(0, 2, 0, 0));
         
         Label dayNumber = new Label(String.valueOf(date.getDayOfMonth()));
         dayNumber.getStyleClass().add("month-day-number");
-        
         cellHeader.getChildren().add(dayNumber);
         
-        // Séparateur subtil (optionnel - peut être supprimé pour gagner de la hauteur)
-        // Separator cellSeparator = new Separator();
-        // cellSeparator.getStyleClass().add("month-cell-separator");
-        
-        // Conteneur pour les activités
-        VBox activitiesContainer = new VBox(2); // Réduit l'espacement de 4 à 2
+        VBox activitiesContainer = new VBox(2);
         activitiesContainer.getStyleClass().add("month-cell-activities");
-        activitiesContainer.setMaxHeight(35); // Réduit de 50 à 35
+        activitiesContainer.setMaxHeight(35);
         activitiesContainer.setPadding(new Insets(1, 0, 0, 0));
         
         List<ActiviteEcologique> activites = getActivitesForDate(date);
         
         if (!activites.isEmpty()) {
-            // Afficher max 2 activités
             int count = 0;
             for (ActiviteEcologique a : activites) {
                 if (count < 2) {
@@ -907,7 +723,6 @@ public class GestionCalendrier {
                 }
             }
             
-            // S'il y a plus d'activités
             if (activites.size() > 2) {
                 Label moreLabel = new Label("+ " + (activites.size() - 2));
                 moreLabel.getStyleClass().add("month-cell-more");
@@ -916,22 +731,17 @@ public class GestionCalendrier {
             }
         }
         
-        // Ajouter sans le séparateur pour gagner de la hauteur
         cell.getChildren().addAll(cellHeader, activitiesContainer);
         
-        // Rendre la cellule cliquable
         cell.setOnMouseClicked(e -> {
             selectedDate = date;
-            
             if (e.getClickCount() == 2) {
-                // Double-clic pour aller à la vue jour
                 currentDate = date;
                 currentView = "jour";
                 showDayView();
                 updateActivitiesList();
                 updateButtonStyles();
             } else {
-                // Simple clic pour sélectionner
                 showMonthView();
                 showDateActivities(date);
             }
@@ -939,19 +749,17 @@ public class GestionCalendrier {
         
         return cell;
     }
-    // ==================== ÉLÉMENT D'ACTIVITÉ POUR LA VUE MOIS ====================
+
     private HBox createMonthActivityItem(ActiviteEcologique a) {
         HBox item = new HBox(6);
         item.setAlignment(Pos.CENTER_LEFT);
         item.getStyleClass().add("month-activity-item");
         item.setMaxWidth(Double.MAX_VALUE);
         
-        // Icône selon le type
         String icone = getIconeForActivite(a);
         Label iconLabel = new Label(icone);
         iconLabel.getStyleClass().add("month-activity-icon");
         
-        // Nom de l'activité (tronqué)
         String nom = a.getNom();
         if (nom.length() > 12) {
             nom = nom.substring(0, 10) + "…";
@@ -962,25 +770,20 @@ public class GestionCalendrier {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         
-        // Petit badge de capacité
         Label capacityBadge = new Label(String.valueOf(a.getCapacite()));
         capacityBadge.getStyleClass().add("month-activity-capacity");
         
         item.getChildren().addAll(iconLabel, nameLabel, spacer, capacityBadge);
-        
-        // Rendre cliquable
         item.setOnMouseClicked(e -> showActivityDetails(a, LocalDate.parse(a.getDate())));
         
         return item;
     }
 
-    // ==================== STATISTIQUES DU MOIS ====================
     private HBox createMonthStats() {
         HBox stats = new HBox(15);
         stats.setAlignment(Pos.CENTER_RIGHT);
         stats.getStyleClass().add("month-stats");
         
-        // Compter les activités du mois
         int totalActivites = 0;
         int totalCapacite = 0;
         
@@ -993,7 +796,6 @@ public class GestionCalendrier {
             }
         }
         
-        // Jours avec activités
         long joursAvecActivites = 0;
         for (int day = 1; day <= currentYearMonth.lengthOfMonth(); day++) {
             if (!getActivitesForDate(currentYearMonth.atDay(day)).isEmpty()) {
@@ -1026,17 +828,14 @@ public class GestionCalendrier {
         stat3.getChildren().addAll(stat3Value, stat3Label);
         
         stats.getChildren().addAll(stat1, stat2, stat3);
-        
         return stats;
     }
 
-    // ==================== LÉGENDE DU MOIS ====================
     private HBox createMonthLegend() {
         HBox legend = new HBox(20);
         legend.setAlignment(Pos.CENTER_LEFT);
         legend.getStyleClass().add("month-legend");
         
-        // Aujourd'hui
         HBox todayItem = new HBox(8);
         todayItem.setAlignment(Pos.CENTER_LEFT);
         Region todayColor = new Region();
@@ -1045,7 +844,6 @@ public class GestionCalendrier {
         todayLabel.getStyleClass().add("legend-label");
         todayItem.getChildren().addAll(todayColor, todayLabel);
         
-        // Sélectionné
         HBox selectedItem = new HBox(8);
         selectedItem.setAlignment(Pos.CENTER_LEFT);
         Region selectedColor = new Region();
@@ -1054,7 +852,6 @@ public class GestionCalendrier {
         selectedLabel.getStyleClass().add("legend-label");
         selectedItem.getChildren().addAll(selectedColor, selectedLabel);
         
-        // Avec activités
         HBox activityItem = new HBox(8);
         activityItem.setAlignment(Pos.CENTER_LEFT);
         Region activityColor = new Region();
@@ -1063,17 +860,7 @@ public class GestionCalendrier {
         activityLabel.getStyleClass().add("legend-label");
         activityItem.getChildren().addAll(activityColor, activityLabel);
         
-        // Autre mois
-        HBox otherMonthItem = new HBox(8);
-        otherMonthItem.setAlignment(Pos.CENTER_LEFT);
-        Region otherMonthColor = new Region();
-        otherMonthColor.getStyleClass().add("legend-color-other");
-        Label otherMonthLabel = new Label("Autre mois");
-        otherMonthLabel.getStyleClass().add("legend-label");
-        otherMonthItem.getChildren().addAll(otherMonthColor, otherMonthLabel);
-        
-        legend.getChildren().addAll(todayItem, selectedItem, activityItem, otherMonthItem);
-        
+        legend.getChildren().addAll(todayItem, selectedItem, activityItem);
         return legend;
     }
 
@@ -1081,16 +868,13 @@ public class GestionCalendrier {
     private void showYearView() {
         currentView = "annee";
         
-        // Mettre à jour le label
         monthYearLabel.setText(String.valueOf(currentYear));
         monthYearLabel.setStyle("-fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
 
-        // Vider la grille
         calendarGrid.getChildren().clear();
         calendarGrid.setHgap(10);
         calendarGrid.setVgap(10);
 
-        // Créer une grille de 4x3 pour les 12 mois
         String[] moisNoms = {"JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN",
                              "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"};
 
@@ -1108,72 +892,17 @@ public class GestionCalendrier {
         updateButtonStyles();
     }
 
-    // ==================== CRÉATION DES CELLULES ====================
-    private VBox createDayCell(LocalDate date, int dayNumber) {
-        VBox dayCell = new VBox(3);
-        dayCell.getStyleClass().add("day-cell");
-        dayCell.setPrefHeight(100);
-        dayCell.setPrefWidth(120);
-        dayCell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        
-        // Si c'est aujourd'hui
-        if (date.equals(LocalDate.now())) {
-            dayCell.getStyleClass().add("today");
-        }
-        
-        // Si c'est le jour sélectionné
-        if (date.equals(selectedDate)) {
-            dayCell.getStyleClass().add("selected");
-        }
-
-        // Numéro du jour
-        Label dayNumLabel = new Label(String.valueOf(dayNumber));
-        dayNumLabel.getStyleClass().add("day-number");
-        
-        HBox numberContainer = new HBox(dayNumLabel);
-        numberContainer.setAlignment(Pos.TOP_RIGHT);
-        dayCell.getChildren().add(numberContainer);
-
-        // Ajouter les activités du jour
-        List<ActiviteEcologique> activitesDuJour = getActivitesForDate(date);
-        for (ActiviteEcologique a : activitesDuJour) {
-            Label activityLabel = createActivityLabel(a);
-            dayCell.getChildren().add(activityLabel);
-        }
-
-        // Rendre la cellule cliquable
-        dayCell.setOnMouseClicked(e -> {
-            // Mettre à jour la sélection
-            selectedDate = date;
-            // Recharger la vue mois pour mettre à jour les styles
-            showMonthView();
-            
-            if (e.getClickCount() == 2) {
-                // Double-clic pour aller à la vue jour
-                currentDate = date;
-                currentView = "jour";
-                showDayView();
-                updateActivitiesList();
-                updateButtonStyles();
-            } else {
-                showDateActivities(date);
-            }
-        });
-
-        return dayCell;
-    }
-
     private VBox createMonthView(int mois, String nomMois) {
-    	
         VBox monthBox = new VBox(5);
         monthBox.getStyleClass().add("month-box");
         monthBox.setPrefSize(200, 180);
         monthBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        
         YearMonth currentMonth = YearMonth.now();
         if (currentMonth.getMonthValue() == mois && currentMonth.getYear() == currentYear) {
             monthBox.getStyleClass().add("current-month");
         }
-        // Rendre le mois cliquable
+        
         YearMonth yearMonth = YearMonth.of(currentYear, mois);
         monthBox.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
@@ -1183,13 +912,11 @@ public class GestionCalendrier {
             }
         });
 
-        // Nom du mois
         Label monthLabel = new Label(nomMois);
         monthLabel.getStyleClass().add("month-name");
         monthLabel.setAlignment(Pos.CENTER);
         monthLabel.setMaxWidth(Double.MAX_VALUE);
 
-        // En-tête des jours
         HBox weekHeader = new HBox(2);
         weekHeader.setAlignment(Pos.CENTER);
         String[] jours = {"L", "M", "M", "J", "V", "S", "D"};
@@ -1201,15 +928,13 @@ public class GestionCalendrier {
             weekHeader.getChildren().add(dayLabel);
         }
 
-        // Grille des jours
         GridPane daysGrid = new GridPane();
         daysGrid.setHgap(2);
         daysGrid.setVgap(2);
         daysGrid.setAlignment(Pos.CENTER);
 
-        // Premier jour du mois
         LocalDate firstDay = yearMonth.atDay(1);
-        int firstDayOfWeek = firstDay.getDayOfWeek().getValue() - 1; // 0 = Lundi
+        int firstDayOfWeek = firstDay.getDayOfWeek().getValue() - 1;
         
         int daysInMonth = yearMonth.lengthOfMonth();
         int gridRow = 0;
@@ -1222,7 +947,6 @@ public class GestionCalendrier {
             dayLabel.setPrefHeight(20);
             dayLabel.setAlignment(Pos.CENTER);
             
-            // Vérifier s'il y a des activités ce jour
             LocalDate date = yearMonth.atDay(day);
             List<ActiviteEcologique> activites = getActivitesForDate(date);
             if (!activites.isEmpty()) {
@@ -1230,7 +954,6 @@ public class GestionCalendrier {
             }
             
             daysGrid.add(dayLabel, gridCol, gridRow);
-            
             gridCol++;
             if (gridCol > 6) {
                 gridCol = 0;
@@ -1240,6 +963,50 @@ public class GestionCalendrier {
 
         monthBox.getChildren().addAll(monthLabel, weekHeader, daysGrid);
         return monthBox;
+    }
+
+    private VBox createDayCell(LocalDate date, int dayNumber) {
+        VBox dayCell = new VBox(3);
+        dayCell.getStyleClass().add("day-cell");
+        dayCell.setPrefHeight(100);
+        dayCell.setPrefWidth(120);
+        dayCell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        
+        if (date.equals(LocalDate.now())) {
+            dayCell.getStyleClass().add("today");
+        }
+        if (date.equals(selectedDate)) {
+            dayCell.getStyleClass().add("selected");
+        }
+
+        Label dayNumLabel = new Label(String.valueOf(dayNumber));
+        dayNumLabel.getStyleClass().add("day-number");
+        
+        HBox numberContainer = new HBox(dayNumLabel);
+        numberContainer.setAlignment(Pos.TOP_RIGHT);
+        dayCell.getChildren().add(numberContainer);
+
+        List<ActiviteEcologique> activitesDuJour = getActivitesForDate(date);
+        for (ActiviteEcologique a : activitesDuJour) {
+            Label activityLabel = createActivityLabel(a);
+            dayCell.getChildren().add(activityLabel);
+        }
+
+        dayCell.setOnMouseClicked(e -> {
+            selectedDate = date;
+            showMonthView();
+            if (e.getClickCount() == 2) {
+                currentDate = date;
+                currentView = "jour";
+                showDayView();
+                updateActivitiesList();
+                updateButtonStyles();
+            } else {
+                showDateActivities(date);
+            }
+        });
+
+        return dayCell;
     }
 
     private Label createActivityLabel(ActiviteEcologique a) {
@@ -1263,7 +1030,6 @@ public class GestionCalendrier {
 
         List<ActiviteEcologique> toutesActivites = service.getAll();
         
-        // Filtrer les activités selon la vue
         List<ActiviteEcologique> activitesAffichees;
         
         switch (currentView) {
@@ -1322,8 +1088,7 @@ public class GestionCalendrier {
         
         LocalDate date = LocalDate.parse(a.getDate());
         
-        Label dateLabel = new Label(
-            date.format(DateTimeFormatter.ofPattern("dd/MM")));
+        Label dateLabel = new Label(date.format(DateTimeFormatter.ofPattern("dd/MM")));
         dateLabel.getStyleClass().add("activity-date");
         
         Label nameLabel = new Label(a.getNom());
@@ -1376,10 +1141,225 @@ public class GestionCalendrier {
             alert.showAndWait();
         }
     }
- // ==================== EXPORT iCAL ====================
+
+    // ==================== EXPORTS ====================
+    
+    @FXML
+    private void exporterExcel() {
+        List<ActiviteEcologique> toutes = service.getAll();
+        
+        if (toutes.isEmpty()) {
+            afficherAlerte("Aucune donnée", "Il n'y a aucune activité à exporter.");
+            return;
+        }
+        
+        try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Exporter en Excel");
+            chooser.setInitialFileName("activites_ecomarine_" + LocalDate.now() + ".xlsx");
+            chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Excel (*.xlsx)", "*.xlsx")
+            );
+            
+            File file = chooser.showSaveDialog(calendarGrid.getScene().getWindow());
+            if (file != null) {
+                Workbook workbook = new XSSFWorkbook();
+                Sheet sheet = workbook.createSheet("Activités EcoMarine");
+                
+                Row header = sheet.createRow(0);
+                String[] colonnes = {"ID", "Nom", "Description", "Date", "Capacité"};
+                for (int i = 0; i < colonnes.length; i++) {
+                    Cell cell = header.createCell(i);
+                    cell.setCellValue(colonnes[i]);
+                }
+                
+                int rowNum = 1;
+                for (ActiviteEcologique a : toutes) {
+                    Row row = sheet.createRow(rowNum++);
+                    row.createCell(0).setCellValue(a.getIdActivite());
+                    row.createCell(1).setCellValue(a.getNom());
+                    row.createCell(2).setCellValue(a.getDescription() != null ? a.getDescription() : "");
+                    row.createCell(3).setCellValue(a.getDate());
+                    row.createCell(4).setCellValue(a.getCapacite());
+                }
+                
+                for (int i = 0; i < colonnes.length; i++) {
+                    sheet.autoSizeColumn(i);
+                }
+                
+                FileOutputStream fos = new FileOutputStream(file);
+                workbook.write(fos);
+                workbook.close();
+                fos.close();
+                
+                afficherSucces("Export Excel réussi", 
+                    "Fichier : " + file.getName() + "\n" + toutes.size() + " activité(s) exportée(s)");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            afficherErreur("Erreur d'export Excel", e.getMessage());
+        }
+    }
+    
+    @FXML
+    private void exporterPDF() {
+        List<ActiviteEcologique> toutes = service.getAll();
+        
+        if (toutes.isEmpty()) {
+            afficherAlerte("Aucune donnée", "Il n'y a aucune activité à exporter.");
+            return;
+        }
+        
+        try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Exporter en PDF");
+            chooser.setInitialFileName("activites_ecomarine_" + LocalDate.now() + ".pdf");
+            chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("PDF (*.pdf)", "*.pdf")
+            );
+            
+            File file = chooser.showSaveDialog(calendarGrid.getScene().getWindow());
+            if (file != null) {
+                Document document = new Document(PageSize.A4.rotate());
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+                document.open();
+                
+                Paragraph title = new Paragraph("🌊 EcoMarine - Liste des Activités",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+                document.add(new Paragraph(" "));
+                
+                document.add(new Paragraph("Date d'export : " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+                document.add(new Paragraph(" "));
+                
+                PdfPTable table = new PdfPTable(5);
+                table.setWidthPercentage(100);
+                table.setSpacingBefore(10);
+                table.setSpacingAfter(10);
+                
+                String[] headers = {"ID", "Nom", "Description", "Date", "Capacité"};
+                for (String h : headers) {
+                    PdfPCell cell = new PdfPCell(new Phrase(h, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cell);
+                }
+                
+                for (ActiviteEcologique a : toutes) {
+                    table.addCell(String.valueOf(a.getIdActivite()));
+                    table.addCell(a.getNom());
+                    table.addCell(a.getDescription() != null ? a.getDescription() : "");
+                    table.addCell(a.getDate());
+                    table.addCell(String.valueOf(a.getCapacite()));
+                }
+                
+                document.add(table);
+                document.add(new Paragraph(" "));
+                document.add(new Paragraph("Total : " + toutes.size() + " activité(s)", 
+                    FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                
+                document.close();
+                afficherSucces("Export PDF réussi", "Fichier : " + file.getName() + "\n" + toutes.size() + " activité(s) exportée(s)");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            afficherErreur("Erreur d'export PDF", e.getMessage());
+        }
+    }
+    
+    @FXML
+    private void exporterCSV() {
+        List<ActiviteEcologique> toutes = service.getAll();
+        
+        if (toutes.isEmpty()) {
+            afficherAlerte("Aucune donnée", "Il n'y a aucune activité à exporter.");
+            return;
+        }
+        
+        StringBuilder csv = new StringBuilder();
+        csv.append("ID;Nom;Description;Date;Capacité\n");
+        
+        for (ActiviteEcologique a : toutes) {
+            csv.append(a.getIdActivite()).append(";")
+               .append(a.getNom()).append(";")
+               .append(a.getDescription() != null ? a.getDescription().replace(";", ",").replace("\n", " ") : "").append(";")
+               .append(a.getDate()).append(";")
+               .append(a.getCapacite()).append("\n");
+        }
+        
+        sauvegarderFichier(csv.toString(), "activites_ecomarine_" + LocalDate.now() + ".csv", "CSV (*.csv)");
+    }
+    
+    @FXML
+    private void exporterHTML() {
+        List<ActiviteEcologique> toutes = service.getAll();
+        
+        if (toutes.isEmpty()) {
+            afficherAlerte("Aucune donnée", "Il n'y a aucune activité à exporter.");
+            return;
+        }
+        
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE html>\n<html>\n<head>\n");
+        html.append("<meta charset='UTF-8'>\n");
+        html.append("<title>EcoMarine - Activités</title>\n");
+        html.append("<style>\n");
+        html.append("body { font-family: 'Segoe UI', Arial; margin: 40px; background: #f0f9ff; }\n");
+        html.append(".container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }\n");
+        html.append("h1 { color: #1e3c72; text-align: center; }\n");
+        html.append("table { width: 100%; border-collapse: collapse; margin-top: 20px; }\n");
+        html.append("th { background: #1e3c72; color: white; padding: 12px; }\n");
+        html.append("td { border: 1px solid #ddd; padding: 10px; }\n");
+        html.append("tr:nth-child(even) { background: #f8fafc; }\n");
+        html.append("tr:hover { background: #e0f2fe; }\n");
+        html.append(".footer { text-align: center; margin-top: 30px; color: #64748b; }\n");
+        html.append("</style>\n</head>\n<body>\n");
+        html.append("<div class='container'>\n");
+        html.append("<h1>🌊 EcoMarine - Liste des Activités</h1>\n");
+        html.append("<p style='text-align: center;'>Exporté le ").append(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))).append("</p>\n");
+        html.append("<table>\n");
+        html.append("<tr><th>ID</th><th>Nom</th><th>Description</th><th>Date</th><th>Capacité</th></tr>\n");
+        
+        for (ActiviteEcologique a : toutes) {
+            html.append("<tr>");
+            html.append("<td>").append(String.valueOf(a.getIdActivite())).append("</td>");
+            html.append("<td>").append(a.getNom()).append("</td>");
+            html.append("<td>").append(a.getDescription() != null ? a.getDescription() : "").append("</td>");
+            html.append("<td>").append(a.getDate()).append("</td>");
+            html.append("<td>").append(String.valueOf(a.getCapacite())).append("</td>");
+            html.append("</tr>\n");
+        }
+        
+        html.append("</table>\n");
+        html.append("<div class='footer'>© EcoMarine - ").append(LocalDate.now().getYear()).append("</div>\n");
+        html.append("</div>\n</body>\n</html>");
+        
+        sauvegarderFichier(html.toString(), "activites_ecomarine_" + LocalDate.now() + ".html", "HTML (*.html)");
+    }
+    
+    @FXML
+    private void exporterJSON() {
+        List<ActiviteEcologique> toutes = service.getAll();
+        
+        if (toutes.isEmpty()) {
+            afficherAlerte("Aucune donnée", "Il n'y a aucune activité à exporter.");
+            return;
+        }
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(toutes);
+        
+        sauvegarderFichier(json, "activites_ecomarine_" + LocalDate.now() + ".json", "JSON (*.json)");
+    }
+    
     @FXML
     private void exporterICal() {
         List<ActiviteEcologique> toutes = service.getAll();
+        
+        if (toutes.isEmpty()) {
+            afficherAlerte("Aucune donnée", "Il n'y a aucune activité à exporter.");
+            return;
+        }
 
         StringBuilder ics = new StringBuilder();
         ics.append("BEGIN:VCALENDAR\r\n");
@@ -1412,36 +1392,58 @@ public class GestionCalendrier {
         }
 
         ics.append("END:VCALENDAR\r\n");
-
-        // Sauvegarder le fichier
-        javafx.stage.FileChooser chooser = new javafx.stage.FileChooser();
-        chooser.setTitle("Exporter le calendrier");
-        chooser.setInitialFileName("ecomarine-activites.ics");
+        
+        sauvegarderFichier(ics.toString(), "ecomarine-activites.ics", "iCalendar (*.ics)");
+    }
+    
+    // ==================== MÉTHODES UTILITAIRES ====================
+    
+    private void sauvegarderFichier(String contenu, String nomFichier, String description) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Exporter");
+        chooser.setInitialFileName(nomFichier);
         chooser.getExtensionFilters().add(
-            new javafx.stage.FileChooser.ExtensionFilter("iCalendar (*.ics)", "*.ics")
+            new FileChooser.ExtensionFilter(description, "*." + nomFichier.substring(nomFichier.lastIndexOf(".") + 1))
         );
-
-        java.io.File fichier = chooser.showSaveDialog(calendarGrid.getScene().getWindow());
+        
+        File fichier = chooser.showSaveDialog(calendarGrid.getScene().getWindow());
         if (fichier != null) {
-            try (java.io.FileWriter fw = new java.io.FileWriter(fichier)) {
-                fw.write(ics.toString());
-                Alert ok = new Alert(Alert.AlertType.INFORMATION);
-                ok.setTitle("Export réussi");
-                ok.setHeaderText(null);
-                ok.setContentText("Calendrier exporté : " + fichier.getName()
-                    + "\n" + toutes.size() + " activité(s) exportée(s).\n\n"
-                    + "Importez ce fichier dans Google Calendar, Outlook ou Apple Calendar.");
-                ok.showAndWait();
-            } catch (java.io.IOException ex) {
-                new Alert(Alert.AlertType.ERROR, "Erreur export : " + ex.getMessage()).show();
+            try (FileWriter fw = new FileWriter(fichier)) {
+                fw.write(contenu);
+                afficherSucces("Export réussi", "Fichier : " + fichier.getName());
+            } catch (IOException ex) {
+                afficherErreur("Erreur", ex.getMessage());
             }
         }
     }
+    
+    private void afficherSucces(String titre, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    private void afficherErreur(String titre, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    private void afficherAlerte(String titre, String message) {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
-    // ==================== DISPONIBILITÉS TEMPS RÉEL ====================
+    // ==================== DISPONIBILITÉS ====================
     @FXML
     private void afficherDisponibilites() {
-        // Fenêtre popup avec les créneaux libres de la semaine courante
         javafx.stage.Stage popup = new javafx.stage.Stage();
         popup.setTitle("Disponibilités — Semaine du "
             + weekStart.format(DateTimeFormatter.ofPattern("dd/MM")));
@@ -1455,7 +1457,6 @@ public class GestionCalendrier {
         titre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;");
         content.getChildren().add(titre);
 
-        // Capacité max par jour (configurable selon tes besoins)
         int CAPACITE_MAX_JOUR = 50;
 
         for (int i = 0; i < 7; i++) {
@@ -1472,17 +1473,15 @@ public class GestionCalendrier {
             ligne.setStyle("-fx-padding: 10; -fx-background-radius: 8;"
                 + "-fx-background-color: " + (date.equals(LocalDate.now()) ? "#eff6ff" : "#f8fafc") + ";");
 
-            // Jour
             VBox jourBox = new VBox(2);
             Label jourLabel = new Label(
-                date.getDayOfWeek().getDisplayName(java.time.format.TextStyle.SHORT, Locale.FRENCH).toUpperCase());
+                date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.FRENCH).toUpperCase());
             jourLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b;");
             Label dateLabel = new Label(date.format(DateTimeFormatter.ofPattern("dd/MM")));
             dateLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e293b;");
             jourBox.getChildren().addAll(jourLabel, dateLabel);
             jourBox.setPrefWidth(60);
 
-            // Barre de remplissage
             VBox barreBox = new VBox(4);
             barreBox.setPrefWidth(200);
             javafx.scene.layout.StackPane barre = new javafx.scene.layout.StackPane();
@@ -1502,7 +1501,6 @@ public class GestionCalendrier {
             pourcent.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b;");
             barreBox.getChildren().addAll(barre, pourcent);
 
-            // Infos places
             VBox placesBox = new VBox(2);
             placesBox.setAlignment(Pos.CENTER_RIGHT);
             Label placesLibresLabel = new Label(placesLibres + " places libres");
@@ -1519,7 +1517,6 @@ public class GestionCalendrier {
             content.getChildren().add(ligne);
         }
 
-        // Légende
         HBox legende = new HBox(20);
         legende.setPadding(new Insets(10, 0, 0, 0));
         legende.setAlignment(Pos.CENTER);
@@ -1547,7 +1544,7 @@ public class GestionCalendrier {
         popup.show();
     }
 
-    // ==================== RAPPELS AUTOMATIQUES ====================
+    // ==================== RAPPELS ====================
     @FXML
     private void afficherRappels() {
         LocalDate aujourd = LocalDate.now();
@@ -1586,9 +1583,9 @@ public class GestionCalendrier {
                 LocalDate date = LocalDate.parse(a.getDate());
                 long joursRestants = aujourd.until(date, java.time.temporal.ChronoUnit.DAYS);
 
-                String urgence = joursRestants == 0 ? "#ef4444"   // Aujourd'hui
-                               : joursRestants <= 2 ? "#f59e0b"   // Très proche
-                               : "#10b981";                        // Ok
+                String urgence = joursRestants == 0 ? "#ef4444"
+                               : joursRestants <= 2 ? "#f59e0b"
+                               : "#10b981";
 
                 String joursLabel = joursRestants == 0 ? "Aujourd'hui !"
                                   : joursRestants == 1 ? "Demain"
@@ -1601,7 +1598,6 @@ public class GestionCalendrier {
                     + "-fx-border-color: " + urgence + "; -fx-border-width: 0 0 0 4;"
                     + "-fx-border-radius: 0;");
 
-                // Indicateur de jours
                 VBox countBox = new VBox(2);
                 countBox.setAlignment(Pos.CENTER);
                 countBox.setPrefWidth(70);
@@ -1611,7 +1607,6 @@ public class GestionCalendrier {
                 countLabel.setWrapText(true);
                 countBox.getChildren().add(countLabel);
 
-                // Détails activité
                 VBox detailBox = new VBox(4);
                 Label nomLabel = new Label(a.getNom());
                 nomLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;");
@@ -1628,7 +1623,6 @@ public class GestionCalendrier {
                 Region spacer = new Region();
                 HBox.setHgrow(spacer, Priority.ALWAYS);
 
-                // Icône urgence
                 Label iconeUrgence = new Label(joursRestants == 0 ? "🔴" : joursRestants <= 2 ? "🟡" : "🟢");
                 iconeUrgence.setStyle("-fx-font-size: 16px;");
 

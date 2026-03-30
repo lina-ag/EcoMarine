@@ -75,6 +75,9 @@
                     onAction="#ouvrirGestionUser"
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
+                    
+           <!-- Dans la sidebar, après la section UTILISATEURS -->
+
 
             <Region VBox.vgrow="ALWAYS"/>
 
