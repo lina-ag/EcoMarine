@@ -1,6 +1,5 @@
 package tn.edu.esprit.services;
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
-
 import tn.edu.esprit.entities.User;
 import tn.edu.esprit.tools.DataSource;
 
@@ -22,8 +20,8 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void ajouter(User u) {
-        String req = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, telephone, role, date_naissance) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, telephone, role, date_naissance, face_image, face_encoding) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement pst = cnx.prepareStatement(req);
             pst.setString(1, u.getNom());
@@ -33,7 +31,8 @@ public class ServiceUser implements IService<User> {
             pst.setString(5, u.getTelephone());
             pst.setString(6, u.getRole());
             pst.setDate(7, Date.valueOf(u.getDateNaissance()));
-
+            pst.setString(8, u.getFaceImage());
+            pst.setBytes(9, u.getFaceEncoding());
             pst.executeUpdate();
             System.out.println("Utilisateur ajouté !");
         } catch (SQLException ex) {
@@ -128,8 +127,25 @@ public class ServiceUser implements IService<User> {
                 rs.getString("mot_de_passe"),
                 rs.getString("telephone"),
                 rs.getString("role"),
-                rs.getDate("date_naissance").toLocalDate()
+                rs.getDate("date_naissance").toLocalDate(),
+                rs.getString("face_image"),
+                rs.getBytes("face_encoding")
         );
+    }
+    public User findByEmail(String email) {
+        String req = "SELECT * FROM utilisateur WHERE email=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return extractUser(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public User login(String email, String mdp) {
         try {

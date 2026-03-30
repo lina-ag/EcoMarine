@@ -3,8 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/21"
             fx:controller="controllers.AjouterUser"
             prefWidth="1500" 
             prefHeight="800"
@@ -21,10 +23,10 @@
                      -fx-border-width: 1.5;
                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.15, 0, 5);
                      -fx-padding: 30 35 35 35;"
-              AnchorPane.topAnchor="80"
-              AnchorPane.bottomAnchor="80"
-              AnchorPane.leftAnchor="450"
-              AnchorPane.rightAnchor="450">
+              AnchorPane.topAnchor="50"
+              AnchorPane.bottomAnchor="50"
+              AnchorPane.leftAnchor="400"
+              AnchorPane.rightAnchor="400">
 
             <!-- Titre -->
             <Label text="👤 Ajouter un Utilisateur" 
@@ -35,54 +37,16 @@
                           -fx-border-width: 0 0 2 0;
                           -fx-padding: 0 0 8 0;"/>
 
-            <!-- Nom -->
-            <TextField fx:id="nomField" 
-                       promptText="Nom"
-                       style="-fx-background-radius: 10;
-                              -fx-border-radius: 10;
-                              -fx-border-color: #e0e0e0;
-                              -fx-border-width: 1.2;
-                              -fx-background-color: #f8f9fa;
-                              -fx-padding: 10 12;
-                              -fx-font-size: 13px;
-                              -fx-focus-color: #1e3c72;
-                              -fx-faint-focus-color: transparent;"
-                       prefWidth="280"
-                       maxWidth="Infinity"/>
-
-            <!-- Prénom -->
-            <TextField fx:id="prenomField" 
-                       promptText="Prénom"
-                       style="-fx-background-radius: 10;
-                              -fx-border-radius: 10;
-                              -fx-border-color: #e0e0e0;
-                              -fx-border-width: 1.2;
-                              -fx-background-color: #f8f9fa;
-                              -fx-padding: 10 12;
-                              -fx-font-size: 13px;
-                              -fx-focus-color: #1e3c72;
-                              -fx-faint-focus-color: transparent;"
-                       prefWidth="280"
-                       maxWidth="Infinity"/>
-
-            <!-- Email -->
-            <TextField fx:id="emailField" 
-                       promptText="Email"
-                       style="-fx-background-radius: 10;
-                              -fx-border-radius: 10;
-                              -fx-border-color: #e0e0e0;
-                              -fx-border-width: 1.2;
-                              -fx-background-color: #f8f9fa;
-                              -fx-padding: 10 12;
-                              -fx-font-size: 13px;
-                              -fx-focus-color: #1e3c72;
-                              -fx-faint-focus-color: transparent;"
-                       prefWidth="280"
-                       maxWidth="Infinity"/>
-
-            <!-- Mot de passe -->
-            <PasswordField fx:id="motDePasseField" 
-                           promptText="Mot de passe"
+            <!-- Formulaire en GridPane pour meilleure organisation -->
+            <GridPane hgap="15" vgap="12" alignment="CENTER">
+                <padding>
+                    <Insets top="20" bottom="10"/>
+                </padding>
+                
+                <!-- Ligne 1: Nom -->
+                <Label text="Nom :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="nomField" 
+                           promptText="Nom"
                            style="-fx-background-radius: 10;
                                   -fx-border-radius: 10;
                                   -fx-border-color: #e0e0e0;
@@ -92,77 +56,175 @@
                                   -fx-font-size: 13px;
                                   -fx-focus-color: #1e3c72;
                                   -fx-faint-focus-color: transparent;"
-                           prefWidth="280"
-                           maxWidth="Infinity"/>
+                           prefWidth="300"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                
+                <!-- Ligne 2: Prénom -->
+                <Label text="Prénom :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="prenomField" 
+                           promptText="Prénom"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-width: 1.2;
+                                  -fx-background-color: #f8f9fa;
+                                  -fx-padding: 10 12;
+                                  -fx-font-size: 13px;
+                                  -fx-focus-color: #1e3c72;
+                                  -fx-faint-focus-color: transparent;"
+                           prefWidth="300"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <!-- Ligne 3: Email -->
+                <Label text="Email :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="emailField" 
+                           promptText="Email"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-width: 1.2;
+                                  -fx-background-color: #f8f9fa;
+                                  -fx-padding: 10 12;
+                                  -fx-font-size: 13px;
+                                  -fx-focus-color: #1e3c72;
+                                  -fx-faint-focus-color: transparent;"
+                           prefWidth="300"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <!-- Ligne 4: Mot de passe -->
+                <Label text="Mot de passe :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <PasswordField fx:id="motDePasseField" 
+                               promptText="Mot de passe"
+                               style="-fx-background-radius: 10;
+                                      -fx-border-radius: 10;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.2;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-padding: 10 12;
+                                      -fx-font-size: 13px;
+                                      -fx-focus-color: #1e3c72;
+                                      -fx-faint-focus-color: transparent;"
+                               prefWidth="300"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                
+                <!-- Ligne 5: Téléphone -->
+                <Label text="Téléphone :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="telephoneField" 
+                           promptText="Téléphone"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-width: 1.2;
+                                  -fx-background-color: #f8f9fa;
+                                  -fx-padding: 10 12;
+                                  -fx-font-size: 13px;
+                                  -fx-focus-color: #1e3c72;
+                                  -fx-faint-focus-color: transparent;"
+                           prefWidth="300"
+                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                
+                <!-- Ligne 6: Rôle -->
+                <Label text="Rôle :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                <ComboBox fx:id="roleCombo" 
+                          promptText="Sélectionner un rôle"
+                          prefWidth="300"
+                          style="-fx-background-radius: 10;
+                                 -fx-border-radius: 10;
+                                 -fx-border-color: #e0e0e0;
+                                 -fx-border-width: 1.2;
+                                 -fx-background-color: #f8f9fa;
+                                 -fx-padding: 8 10;
+                                 -fx-font-size: 13px;
+                                 -fx-focus-color: #1e3c72;
+                                 -fx-faint-focus-color: transparent;"
+                          GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                
+                <!-- Ligne 7: Date de naissance -->
+                <Label text="Date naissance :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                <DatePicker fx:id="dateNaissancePicker" 
+                            promptText="Date de naissance"
+                            prefWidth="300"
+                            style="-fx-background-radius: 10;
+                                   -fx-border-radius: 10;
+                                   -fx-border-color: #e0e0e0;
+                                   -fx-border-width: 1.2;
+                                   -fx-background-color: #f8f9fa;
+                                   -fx-font-size: 13px;
+                                   -fx-focus-color: #1e3c72;
+                                   -fx-faint-focus-color: transparent;"
+                            GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                
+                <!-- Ligne 8: Reconnaissance faciale (STATUS) -->
+                <Label text="🔐 Reconnaissance :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <Label fx:id="lblFaceStatus" 
+                           text="⚠️ Aucun visage capturé" 
+                           style="-fx-text-fill: #f44336; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                </HBox>
+                
+                <!-- Ligne 9: Bouton Scanner et Aperçu -->
+                <Label text="Capture visage :" style="-fx-font-weight: bold; -fx-text-fill: #1e3c72;" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                <HBox spacing="15" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                    <Button text="📸 Scanner le visage" 
+                            onAction="#scannerVisage" 
+                            style="-fx-background-color: #2196F3;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 13px;
+                                   -fx-background-radius: 8;
+                                   -fx-padding: 8 15;
+                                   -fx-cursor: hand;
+                                   -fx-effect: dropshadow(gaussian, #2196F3, 6, 0.2, 0, 1);"/>
+                    <ImageView fx:id="facePreview" 
+                               fitWidth="80" 
+                               fitHeight="80" 
+                               preserveRatio="true"
+                               style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+                                      -fx-background-radius: 10;
+                                      -fx-border-radius: 10;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1;"/>
+                </HBox>
+                
+                <!-- Ligne 10: Information -->
+                <Label text="ℹ️" style="-fx-font-size: 14px;" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
+                <Label text="La reconnaissance faciale permet une connexion rapide et sécurisée"
+                       style="-fx-font-size: 11px; -fx-text-fill: #64748b;" 
+                       GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                
+            </GridPane>
 
-            <!-- Téléphone -->
-            <TextField fx:id="telephoneField" 
-                       promptText="Téléphone"
-                       style="-fx-background-radius: 10;
-                              -fx-border-radius: 10;
-                              -fx-border-color: #e0e0e0;
-                              -fx-border-width: 1.2;
-                              -fx-background-color: #f8f9fa;
-                              -fx-padding: 10 12;
-                              -fx-font-size: 13px;
-                              -fx-focus-color: #1e3c72;
-                              -fx-faint-focus-color: transparent;"
-                       prefWidth="280"
-                       maxWidth="Infinity"/>
-
-            <!-- Rôle -->
-            <ComboBox fx:id="roleCombo" 
-                      promptText="Rôle"
-                      prefWidth="280"
-                      maxWidth="Infinity"
-                      style="-fx-background-radius: 10;
-                             -fx-border-radius: 10;
-                             -fx-border-color: #e0e0e0;
-                             -fx-border-width: 1.2;
-                             -fx-background-color: #f8f9fa;
-                             -fx-padding: 8 10;
-                             -fx-font-size: 13px;
-                             -fx-focus-color: #1e3c72;
-                             -fx-faint-focus-color: transparent;"/>
-
-            <!-- Date de naissance -->
-            <DatePicker fx:id="dateNaissancePicker" 
-                        promptText="Date de naissance"
-                        prefWidth="280"
-                        maxWidth="Infinity"
-                        style="-fx-background-radius: 10;
-                               -fx-border-radius: 10;
-                               -fx-border-color: #e0e0e0;
-                               -fx-border-width: 1.2;
-                               -fx-background-color: #f8f9fa;
-                               -fx-font-size: 13px;
-                               -fx-focus-color: #1e3c72;
-                               -fx-faint-focus-color: transparent;"/>
+            <!-- Séparateur -->
+            <Separator maxWidth="400" style="-fx-background-color: #e0e0e0; -fx-pref-height: 1;">
+                <VBox.margin>
+                    <Insets top="10" bottom="10"/>
+                </VBox.margin>
+            </Separator>
 
             <!-- Boutons -->
-            <HBox spacing="15" alignment="CENTER" maxWidth="Infinity">
-                <Button text="Ajouter" 
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="✅ Ajouter" 
                         onAction="#ajouterUser" 
-                        style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
+                        style="-fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
                                -fx-text-fill: white;
                                -fx-font-weight: bold;
                                -fx-font-size: 14px;
                                -fx-background-radius: 12;
-                               -fx-padding: 8 20;
+                               -fx-padding: 10 25;
                                -fx-cursor: hand;
-                               -fx-effect: dropshadow(gaussian, #1e3c72, 8, 0.2, 0, 2);"
-                        prefWidth="100"/>
-                <Button text="Annuler" 
+                               -fx-effect: dropshadow(gaussian, #4CAF50, 8, 0.2, 0, 2);"
+                        prefWidth="120"/>
+                <Button text="❌ Annuler" 
                         onAction="#annuler"
-                        style="-fx-background-color: #6c757d;
+                        style="-fx-background-color: #f44336;
                                -fx-text-fill: white;
                                -fx-font-weight: bold;
                                -fx-font-size: 14px;
                                -fx-background-radius: 12;
-                               -fx-padding: 8 20;
+                               -fx-padding: 10 25;
                                -fx-cursor: hand;
-                               -fx-effect: dropshadow(gaussian, #6c757d, 6, 0.2, 0, 2);"
-                        prefWidth="100"/>
+                               -fx-effect: dropshadow(gaussian, #f44336, 6, 0.2, 0, 2);"
+                        prefWidth="120"/>
             </HBox>
 
         </VBox>

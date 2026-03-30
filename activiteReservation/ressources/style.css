@@ -9,7 +9,7 @@
 }
 
 .root-pane {
-    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
+    -fx-background-image: url("file:/C:/Users/PCS/Downloads/1234.png");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
@@ -1347,14 +1347,6 @@
     -fx-translate-y: -3;
 }
 
-<<<<<<< HEAD
-/* @keyframes floatIn {
-    0% { -fx-opacity: 0; -fx-translate-y: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0); }
-    100% { -fx-opacity: 1; -fx-translate-y: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2); }
-}*/
-=======
-
->>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
 
 .activity-date {
     -fx-background-color: #e0f2fe;

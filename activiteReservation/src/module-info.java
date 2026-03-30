@@ -7,7 +7,9 @@ module activiteReservation {
 	requires java.base;
 	requires okhttp3;
 	requires java.desktop;
-	exports main; 
+	exports main;
+	exports tn.edu.esprit.entities;
+	exports tn.edu.esprit.services;
     opens main to javafx.fxml;
     opens controllers to javafx.fxml;
     opens tn.edu.esprit.entities to javafx.base;
@@ -17,4 +19,7 @@ module activiteReservation {
 	requires com.sothawo.mapjfx;
 	requires com.google.protobuf;
 	requires kotlin.stdlib;
+	requires opencv;
+
+	
 }
