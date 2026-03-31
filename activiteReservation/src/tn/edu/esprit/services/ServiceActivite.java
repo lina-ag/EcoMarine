@@ -97,5 +97,40 @@ public class ServiceActivite {
         }
 
         return false;
+    }public int getTotalActivites() {
+        try {
+            ResultSet rs = cnx.createStatement()
+                .executeQuery("SELECT COUNT(*) FROM activite_ecologique");
+            if (rs.next()) return rs.getInt(1);
+        } catch (Exception e) { e.printStackTrace(); }
+        return 0;
+    }
+
+    public int getTotalCapacite() {
+        try {
+            ResultSet rs = cnx.createStatement()
+                .executeQuery("SELECT SUM(capacite) FROM activite_ecologique");
+            if (rs.next()) return rs.getInt(1);
+        } catch (Exception e) { e.printStackTrace(); }
+        return 0;
+    }// Dans ServiceActivite.java, ajoutez cette méthode
+    public ActiviteEcologique getById(int id) {
+        String req = "SELECT * FROM activite_ecologique WHERE id_activite = " + id;
+        try {
+            Statement stm = cnx.createStatement();
+            ResultSet rs = stm.executeQuery(req);
+            if (rs.next()) {
+                ActiviteEcologique a = new ActiviteEcologique();
+                a.setIdActivite(rs.getInt("id_activite"));
+                a.setNom(rs.getString("nom_activite"));
+                a.setDescription(rs.getString("description"));
+                a.setDate(rs.getString("date_activite"));
+                a.setCapacite(rs.getInt("capacite"));
+                return a;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

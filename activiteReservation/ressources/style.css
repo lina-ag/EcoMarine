@@ -1893,4 +1893,771 @@
     -fx-background-color: #3b82f6;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+}/* ============================= */
+/* TABLEAU DE BORD               */
+/* ============================= */
+
+.kpi-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-padding: 20 24;
+    -fx-spacing: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 3);
 }
+
+.kpi-card:hover {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 14, 0, 0, 4);
+}
+
+.kpi-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #64748b;
+}
+
+.kpi-value {
+    -fx-font-size: 36px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0a4d7a;
+}
+
+.kpi-sub {
+    -fx-font-size: 11px;
+    -fx-text-fill: #94a3b8;
+}
+
+.chart-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 3);
+}
+
+.chart-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0a4d7a;
+    -fx-padding: 0 0 8 0;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+.jour-check {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #bfdbfe;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1e3c72;
+    -fx-cursor: hand;
+}
+
+.jour-check:selected {
+    -fx-background-color: #1e3c72;
+    -fx-text-fill: white;
+    -fx-border-color: #1e3c72;
+}/* ============================= */
+/* CHATBOT - STYLE ECOMARINE */
+/* ============================= */
+
+/* Fenêtre principale */
+.chatbot-root {
+    -fx-background-color: linear-gradient(to bottom, #f0f9ff, #e6f4ff);
+    -fx-background-radius: 20;
+}
+
+/* En-tête du chatbot */
+.chatbot-header {
+    -fx-background-color: linear-gradient(to bottom right, #e0f2fe, #bae6fd);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 2);
+    -fx-padding: 15;
+    -fx-background-radius: 20 20 0 0;
+}
+
+.chatbot-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0.3, 0, 1);
+}
+
+.chatbot-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+/* Zone de chat */
+.chat-area {
+    -fx-background-color: #f8fafc;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+/* ScrollPane */
+.chat-scrollpane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chat-scrollpane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Barre de défilement */
+.chat-scrollpane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6;
+}
+
+.chat-scrollpane .scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 10;
+}
+
+.chat-scrollpane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+/* Messages utilisateur */
+.message-user {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 5 0 5 10;
+}
+
+.message-user-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 20 20 5 20;
+    -fx-padding: 10 15;
+    -fx-wrap-text: true;
+    -fx-max-width: 350;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 5, 0.2, 0, 2);
+}
+
+.message-user-bubble:hover {
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.5), 8, 0.3, 0, 2);
+}
+
+/* Messages bot */
+.message-bot {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5 10 5 0;
+}
+
+.message-bot-bubble {
+    -fx-background-color: white;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 20 20 20 5;
+    -fx-padding: 10 15;
+    -fx-wrap-text: true;
+    -fx-max-width: 350;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 20 20 20 5;
+}
+
+.message-bot-bubble:hover {
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.15), 8, 0.2, 0, 2);
+    -fx-border-color: #3b82f6;
+}
+
+/* Avatar du bot */
+.bot-avatar {
+    -fx-background-color: linear-gradient(to bottom right, #1e3c72, #2a5298);
+    -fx-background-radius: 25;
+    -fx-min-width: 35;
+    -fx-min-height: 35;
+    -fx-max-width: 35;
+    -fx-max-height: 35;
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0.2, 0, 1);
+}
+
+.bot-avatar-text {
+    -fx-font-size: 20px;
+}
+
+/* Avatar utilisateur */
+.user-avatar {
+    -fx-background-color: linear-gradient(to bottom right, #3b82f6, #1e40af);
+    -fx-background-radius: 25;
+    -fx-min-width: 35;
+    -fx-min-height: 35;
+    -fx-max-width: 35;
+    -fx-max-height: 35;
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0.2, 0, 1);
+}
+
+.user-avatar-text {
+    -fx-font-size: 18px;
+}
+
+/* Zone de saisie */
+.chat-input-area {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1 0 0 0;
+    -fx-background-radius: 0 0 20 20;
+}
+
+.chat-input-field {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 25;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.chat-input-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 8, 0.2, 0, 0);
+}
+
+.chat-send-button {
+    -fx-background-color: linear-gradient(to bottom right, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 10 25;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 5, 0.2, 0, 1);
+}
+
+.chat-send-button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #1e40af);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.5), 10, 0.3, 0, 2);
+}
+
+.chat-send-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+/* ============================= */
+/* CHATBOT - STYLE ECOMARINE */
+/* ============================= */
+
+/* Fenêtre principale */
+.chatbot-root {
+    -fx-background-color: linear-gradient(to bottom, #f0f9ff, #e6f4ff);
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(30, 60, 114, 0.2), 20, 0.2, 0, 5);
+}
+
+/* En-tête du chatbot */
+.chatbot-header {
+    -fx-background-color: linear-gradient(to right, #1e3c72, #2a5298, #1e3c72);
+    -fx-background-radius: 25 25 0 0;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.2, 0, 1);
+}
+
+.chatbot-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0.3, 0, 1);
+}
+
+.chatbot-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(255,255,255,0.9);
+}
+
+/* Zone de chat */
+.chat-area {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+}
+
+/* ScrollPane */
+.chat-scrollpane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chat-scrollpane .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scrollpane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6;
+}
+
+.chat-scrollpane .scroll-bar:vertical .thumb {
+    -fx-background-color: #89CFF0;
+    -fx-background-radius: 10;
+}
+
+.chat-scrollpane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #4682B4;
+}
+
+/* Messages utilisateur */
+.message-user {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 5 0 5 20;
+}
+
+.message-user-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #3b82f6, #1e4fd9);
+    -fx-text-fill: white;
+    -fx-background-radius: 20 20 5 20;
+    -fx-padding: 12 18;
+    -fx-wrap-text: true;
+    -fx-max-width: 320;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 5, 0.2, 0, 2);
+}
+
+/* Messages bot */
+.message-bot {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5 20 5 0;
+}
+
+.message-bot-bubble {
+    -fx-background-color: #f0f7ff;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 20 20 20 5;
+    -fx-padding: 12 18;
+    -fx-wrap-text: true;
+    -fx-max-width: 340;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.2, 0, 1);
+    -fx-border-color: #b8dbe9;
+    -fx-border-width: 1;
+    -fx-border-radius: 20 20 20 5;
+}
+
+.message-bot-bubble:hover {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 8, 0.2, 0, 2);
+}
+
+/* Avatar du bot */
+.bot-avatar {
+    -fx-background-color: linear-gradient(to bottom right, #1e3c72, #2a5298);
+    -fx-background-radius: 30;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.2, 0, 1);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+}
+
+.bot-avatar-text {
+    -fx-font-size: 22px;
+}
+
+/* Zone de saisie */
+.chat-input-area {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15 20 20 20;
+    -fx-border-color: #e0f2fe;
+    -fx-border-width: 1 0 0 0;
+}
+
+.chat-input-field {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 25;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.chat-input-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 8, 0.2, 0, 0);
+}
+
+.chat-send-button {
+    -fx-background-color: linear-gradient(to bottom right, #1e3c72, #2a5298);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 10 30;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(30,60,114,0.3), 5, 0.2, 0, 1);
+}
+
+.chat-send-button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #2a5298, #1e3c72);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-effect: dropshadow(gaussian, rgba(30,60,114,0.5), 10, 0.3, 0, 2);
+}
+
+.chat-send-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Suggestions rapides */
+.suggestions-container {
+    -fx-padding: 10 20 5 20;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.suggestion-button {
+    -fx-background-color: #e0f2fe;
+    -fx-text-fill: #0369a1;
+    -fx-background-radius: 25;
+    -fx-padding: 8 18;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-border-color: #7dd3fc;
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+}
+
+.suggestion-button:hover {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-border-color: #1e40af;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.suggestion-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Separator */
+.chat-divider {
+    -fx-background-color: linear-gradient(to right, transparent, #7dd3fc, #3b82f6, #7dd3fc, transparent);
+    -fx-padding: 1;
+}
+
+/* Message d'accueil spécial */
+.welcome-message {
+    -fx-background-color: #f0f9ff;
+    -fx-background-radius: 20;
+    -fx-padding: 15 20;
+    -fx-text-fill: #1e3c72;
+    -fx-font-size: 14px;
+    -fx-border-color: #b8dbe9;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+}
+
+/* Icône de statut */
+.status-dot {
+    -fx-background-color: #10b981;
+    -fx-background-radius: 6;
+    -fx-min-width: 10;
+    -fx-min-height: 10;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.5), 3, 0.2, 0, 0);
+}.chatbot-root {
+    -fx-background-color: #f0f4f8;
+}
+
+.chatbot-header {
+    -fx-background-color: #1a3c5e;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #a0c4e8;
+    -fx-font-size: 11px;
+}
+
+.btn-clear {
+    -fx-background-color: transparent;
+    -fx-text-fill: #a0c4e8;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+.chat-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.messages-container {
+    -fx-background-color: transparent;
+}
+
+.bubble-user {
+    -fx-background-color: #7c3aed;
+    -fx-text-fill: white;
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 18 18 4 18;
+    -fx-font-size: 13px;
+}/* ============================================ */
+/* TABLEAU DE BORD V2 — AMÉLIORÉ               */
+/* ============================================ */
+
+/* HEADER */
+.dashboard-header {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 6, 0, 0, 2);
+}
+
+.dashboard-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0a4d7a;
+}
+
+.dashboard-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: 500;
+}
+
+.btn-dashboard-refresh {
+    -fx-background-color: #e0f2fe;
+    -fx-text-fill: #0369a1;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-background-radius: 20;
+    -fx-padding: 9 20;
+    -fx-cursor: hand;
+    -fx-border-color: #7dd3fc;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+}
+
+.btn-dashboard-refresh:hover {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: white;
+    -fx-border-color: #0284c7;
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+}
+
+/* KPI CARDS V2 */
+.kpi-card-v2 {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-padding: 20 22 16 22;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.kpi-card-v2:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,100,200,0.18), 16, 0, 0, 5);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.kpi-blue:hover   { -fx-border-color: #3b82f6; }
+.kpi-green:hover  { -fx-border-color: #10b981; }
+.kpi-purple:hover { -fx-border-color: #8b5cf6; }
+.kpi-orange:hover { -fx-border-color: #f59e0b; }
+
+.kpi-label-v2 {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #94a3b8;
+    -fx-padding: 0 0 2 0;
+}
+
+.kpi-value-v2 {
+    -fx-font-size: 34px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0a4d7a;
+}
+
+.kpi-sub-v2 {
+    -fx-font-size: 11px;
+    -fx-text-fill: #cbd5e1;
+    -fx-padding: 2 0 0 0;
+}
+
+.kpi-trend-up {
+    -fx-font-size: 18px;
+    -fx-text-fill: #10b981;
+    -fx-font-weight: 800;
+}
+
+/* Progress bars KPI */
+.kpi-progress-bg {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 4;
+    -fx-pref-height: 6;
+    -fx-max-height: 6;
+}
+
+.kpi-progress-fill {
+    -fx-background-radius: 4;
+    -fx-pref-height: 6;
+    -fx-max-height: 6;
+    -fx-pref-width: 0;
+}
+
+.kpi-fill-blue   { -fx-background-color: linear-gradient(to right, #3b82f6, #1e40af); }
+.kpi-fill-green  { -fx-background-color: linear-gradient(to right, #10b981, #059669); }
+.kpi-fill-purple { -fx-background-color: linear-gradient(to right, #8b5cf6, #7c3aed); }
+.kpi-fill-orange { -fx-background-color: linear-gradient(to right, #f59e0b, #d97706); }
+
+/* CHART CARDS V2 */
+.chart-card-v2 {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-padding: 22 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 3);
+}
+
+.chart-card-v2:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,100,200,0.12), 14, 0, 0, 4);
+}
+
+.chart-title-v2 {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0a4d7a;
+}
+
+.chart-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0369a1;
+    -fx-background-color: #e0f2fe;
+    -fx-background-radius: 12;
+    -fx-padding: 3 10;
+    -fx-border-color: #7dd3fc;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+/* DONUT LEGEND DOTS */
+.legend-dot-blue {
+    -fx-background-color: #2a9df4;
+    -fx-background-radius: 7;
+    -fx-min-width: 14;
+    -fx-min-height: 14;
+    -fx-max-width: 14;
+    -fx-max-height: 14;
+}
+
+.legend-dot-gray {
+    -fx-background-color: #e2e8f0;
+    -fx-background-radius: 7;
+    -fx-min-width: 14;
+    -fx-min-height: 14;
+    -fx-max-width: 14;
+    -fx-max-height: 14;
+    -fx-border-color: #94a3b8;
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
+}
+
+.bubble-bot {
+    -fx-background-color: white;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 18 18 18 4;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 1);
+}
+
+.bubble-loading {
+    -fx-text-fill: #64748b;
+    -fx-font-style: italic;
+}
+
+.input-bar {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.chat-input {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 20;
+    -fx-border-color: transparent;
+    -fx-padding: 10 16 10 16;
+    -fx-font-size: 13px;
+}
+
+.btn-send {
+    -fx-background-color: #7c3aed;
+    -fx-text-fill: white;
+    -fx-background-radius: 50%;
+    -fx-min-width: 38px;
+    -fx-min-height: 38px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.btn-send:hover {
+    -fx-background-color: #6d28d9;
+}/* Animation de pulsation pour le microphone */
+.microphone-button {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-min-width: 45;
+    -fx-min-height: 45;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+.microphone-button:hover {
+    -fx-background-color: #dc2626;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.microphone-button:active {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* Animation d'enregistrement */
+.microphone-button.recording {
+    -fx-background-color: #dc2626;
+    -fx-animation: pulse 1s infinite;
+}
+

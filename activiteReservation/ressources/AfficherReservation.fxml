@@ -39,7 +39,7 @@
                           -fx-padding: 0 0 10 0;"
                    styleClass="page-title"/>
 
-            <!-- Barre de recherche améliorée -->
+            <!-- Barre de recherche améliorée AVEC MICROPHONE -->
             <HBox spacing="15" alignment="CENTER" maxWidth="900">
                 <TextField fx:id="searchField" 
                            promptText="🔍 Rechercher par nom, email, date..." 
@@ -57,6 +57,19 @@
                         <Insets left="10" right="10"/>
                     </HBox.margin>
                 </TextField>
+                
+                <!-- BOUTON MICROPHONE (AJOUTÉ) -->
+                <Button fx:id="microphoneButton" 
+                        text="🎤" 
+                        onAction="#rechercheVocale"
+                        style="-fx-background-color: #ef4444; 
+                               -fx-text-fill: white; 
+                               -fx-background-radius: 25; 
+                               -fx-min-width: 45; 
+                               -fx-min-height: 45; 
+                               -fx-font-size: 20px; 
+                               -fx-cursor: hand;"/>
+                
                 <Button fx:id="searchButton" 
                         text="🔍 Rechercher" 
                         onAction="#handleSearch"
@@ -68,6 +81,7 @@
                                -fx-cursor: hand;
                                -fx-effect: dropshadow(gaussian, #1e3c72, 8, 0.2, 0, 2);"
                         styleClass="btn-search"/>
+                        
                 <Button fx:id="clearButton" 
                         text="✖ Effacer" 
                         onAction="#clearSearch"

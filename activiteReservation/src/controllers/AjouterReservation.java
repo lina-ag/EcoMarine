@@ -4,11 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import tn.edu.esprit.entities.Reservation;
 import tn.edu.esprit.services.ServiceReservation;
 import tn.edu.esprit.services.ServiceActivite;
+import tn.edu.esprit.services.EmailService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class AjouterReservation {
 
@@ -29,6 +33,13 @@ public class AjouterReservation {
 
     private ServiceReservation service = new ServiceReservation();
     private ServiceActivite serviceActivite = new ServiceActivite();
+    private EmailService emailService = new EmailService();
+    @FXML
+    public void initialize() {
+        System.out.println("Fenêtre d'ajout de réservation ouverte");
+        // Test de connexion email
+        emailService.testerConnexion();
+    }
 
     @FXML
     void ajouterReservation() {
@@ -76,18 +87,37 @@ public class AjouterReservation {
             showError("ID activité doit être un nombre !");
             return;
         }
+        
+        // Vérifier si l'activité existe et récupérer son nom
         if (!serviceActivite.existeActivite(idAct)) {
             showError("❌ Cette activité n'existe pas !");
             return;
         }
+        
+        // Récupérer le nom de l'activité pour l'email
+        String nomActivite = serviceActivite.getById(idAct).getNom();
 
+        // Créer la réservation
         Reservation r = new Reservation(nom, email, nb, date.toString(), idAct);
 
+        // Ajouter à la base de données
         service.ajouter(r);
-
-        showSuccess("Réservation ajoutée avec succès !");
+        
+        // ENVOI DE L'EMAIL DE CONFIRMATION
+        try {
+            String dateFormatee = date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH));
+            emailService.envoyerConfirmationReservation(email, nom, nomActivite, dateFormatee, nb);
+            showSuccess("✅ Réservation ajoutée avec succès !\n📧 Un email de confirmation a été envoyé à " + email);
+        } catch (Exception e) {
+            System.err.println("Erreur d'envoi d'email: " + e.getMessage());
+            showSuccess("✅ Réservation ajoutée avec succès !\n⚠️ Mais l'email de confirmation n'a pas pu être envoyé.");
+        }
 
         clearFields();
+        
+        // Fermer la fenêtre
+        Stage stage = (Stage) tfNom.getScene().getWindow();
+        stage.close();
     }
 
     private void clearFields() {
@@ -95,6 +125,7 @@ public class AjouterReservation {
         tfEmail.clear();
         tfNombre_personnes.clear();
         dpDate.setValue(null); 
+        tfIdActivite.clear();
     }
 
     private void showError(String msg) {

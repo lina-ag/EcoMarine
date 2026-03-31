@@ -81,6 +81,7 @@
                     onAction="#ouvrirProfil"
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
+
             
             <Button text="📅 Mes Réservations"
                     onAction="#ouvrirModuleActivitesReservations"

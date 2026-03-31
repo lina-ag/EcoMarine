@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4">
@@ -16,22 +17,46 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="test">
-		<attributes>
-			<attribute name="test" value="true"/>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" path="ressources"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/WSI/Downloads/opencv/build/java/opencv-480.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/WSI/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" sourcepath="C:/Users/WSI/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.commons"/>
+			<attribute name="maven.artifactId" value="commons-math3"/>
+			<attribute name="maven.version" value="3.6.1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/WSI/.m2/repository/org/mnode/ical4j/ical4j/4.0.0-rc5/ical4j-4.0.0-rc5.jar" sourcepath="C:/Users/WSI/.m2/repository/org/mnode/ical4j/ical4j/4.0.0-rc5/ical4j-4.0.0-rc5-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="org.mnode.ical4j"/>
+			<attribute name="maven.artifactId" value="ical4j"/>
+			<attribute name="maven.version" value="4.0.0-rc5"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/WSI/.m2/repository/com/mysql/mysql-connector-j/9.6.0/mysql-connector-j-9.6.0.jar" sourcepath="C:/Users/WSI/.m2/repository/com/mysql/mysql-connector-j/9.6.0/mysql-connector-j-9.6.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="com.mysql"/>
+			<attribute name="maven.artifactId" value="mysql-connector-j"/>
+			<attribute name="maven.version" value="9.6.0"/>
+			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>

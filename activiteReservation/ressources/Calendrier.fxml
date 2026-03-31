@@ -34,9 +34,17 @@
 
             <!-- Actions -->
             <HBox alignment="CENTER" spacing="15">
-                <Button text="Exporter iCal"
-                        styleClass="btn-action-export"
-                        onAction="#exporterICal"/>
+                <!-- Remplacer le bouton "Exporter iCal" par un menu -->
+<MenuButton text="📤 Exporter" styleClass="btn-action-export">
+    <items>
+        <MenuItem text="📊 Excel (.xlsx)" onAction="#exporterExcel"/>
+        <MenuItem text="📄 PDF (.pdf)" onAction="#exporterPDF"/>
+        <MenuItem text="📑 CSV (.csv)" onAction="#exporterCSV"/>
+        <SeparatorMenuItem/>
+        <MenuItem text="🌐 HTML (.html)" onAction="#exporterHTML"/>
+        <MenuItem text="📋 JSON (.json)" onAction="#exporterJSON"/>
+    </items>
+</MenuButton>
                 <Button text="Disponibilités"
                         styleClass="btn-action-dispo"
                         onAction="#afficherDisponibilites"/>

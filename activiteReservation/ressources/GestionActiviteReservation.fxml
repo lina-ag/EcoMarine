@@ -30,7 +30,6 @@
             <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-font-size: 20px; -fx-font-weight: none; -fx-text-fill: white;"/>
             <Label text="Gestion Touristique" styleClass="sidebar-subtitle" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
 
-            <Separator styleClass="sidebar-separator"/>
 
             <!-- ACTIVITES -->
             <Label text="ACTIVITÉS" styleClass="sidebar-section-label" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
@@ -44,6 +43,10 @@
                     onAction="#ouvrirAfficherActivites"
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
+            <Button text="📅 Calendrier"
+                    onAction="#ouvrirCalendrier"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"/>
 
             <!-- RESERVATIONS -->
             <Label text="RÉSERVATIONS"
@@ -54,15 +57,13 @@
                 </VBox.margin>
             </Label>
 
-            <Button text="📅 Calendrier"
-                    onAction="#ouvrirCalendrier"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
+          
 
             <Button text="➕ Ajouter Réservation"
                     onAction="#ouvrirAjouterReservation"
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
+             
 
             <Button text="📋 Liste Réservations"
                     onAction="#ouvrirAfficherReservation"
@@ -90,12 +91,7 @@
 
     <!-- CONTENU -->
     <center>
-        <StackPane>
-            <VBox alignment="CENTER" spacing="25">
-                <Label text="Bienvenue 👋" style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-                <Label text="Gérez vos activités écologiques et réservations facilement." style="-fx-font-size: 20px; -fx-text-fill: white;"/>
-            </VBox>
-        </StackPane>
+        <StackPane fx:id="mainContent" styleClass="root-pane"/>
     </center>
 
 </BorderPane>
