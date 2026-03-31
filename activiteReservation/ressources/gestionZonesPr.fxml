@@ -77,6 +77,10 @@
               </ImageView>
             </graphic>
          </Button>
+         <Button text="Recherche Vocale"
+                 onAction="#ouvrirRechercheVocale"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button"/>
          
          
          <Label text="SURVEILLANCE"

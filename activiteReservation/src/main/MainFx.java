@@ -11,6 +11,7 @@ public class MainFx extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+        	  System.setProperty("sun.net.http.allowRestrictedHeaders", "true"); 
 
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
 

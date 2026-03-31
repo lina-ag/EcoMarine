@@ -21,6 +21,9 @@ module activiteReservation {
 	requires kotlin.stdlib;
 
 	requires opencv;
+	requires jdk.jsobject;
+	requires vosk;
+	
 
 	
 }

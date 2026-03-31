@@ -231,5 +231,10 @@ public class GestionZonesPr {
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    @FXML
+	    private void ouvrirRechercheVocale() {
+	        ouvrirFenetre("/RechercheVocale.fxml", "Recherche Vocale");
+	    }
 
 }
