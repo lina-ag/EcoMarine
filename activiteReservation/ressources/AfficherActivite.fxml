@@ -29,6 +29,9 @@
                 <Insets top="25" right="25" bottom="25" left="25" />
             </padding>
 
+            <!-- Bouton Retour -->
+            <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+
             <!-- Titre amélioré -->
             <Label text="📋 Liste des Activités" 
                    style="-fx-font-size: 26px; 

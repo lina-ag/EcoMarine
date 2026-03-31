@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -9,7 +10,6 @@ import tn.edu.esprit.entities.Reservation;
 import tn.edu.esprit.services.ServiceReservation;
 import tn.edu.esprit.services.ServiceActivite;
 import tn.edu.esprit.services.EmailService;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -140,5 +140,13 @@ public class AjouterReservation {
         a.setTitle("Succès");
         a.setContentText(msg);
         a.showAndWait();
+    }
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private void handleBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
     }
 }

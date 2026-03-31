@@ -253,4 +253,12 @@ public class AfficherActivite implements Initializable {
         activiteList.addAll(service.getAll());
         updateResultCount();
     }
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private void handleBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
+    }
 }

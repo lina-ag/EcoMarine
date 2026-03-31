@@ -11,6 +11,9 @@
             prefWidth="1500" prefHeight="800">
 
     <top>
+     <HBox>
+        <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+    </HBox>
         <VBox spacing="12" alignment="CENTER">
             <padding>
                 <Insets top="20" right="30" bottom="10" left="30"/>

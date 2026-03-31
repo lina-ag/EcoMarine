@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tn.edu.esprit.entities.Reservation;
@@ -58,6 +59,14 @@ public class ModifierReservation {
     @FXML
     void annuler() {
         Stage stage = (Stage) idField.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private void handleBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
         stage.close();
     }
 }

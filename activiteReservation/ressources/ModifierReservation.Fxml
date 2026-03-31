@@ -10,6 +10,15 @@
             stylesheets="@style.css">
 
     <children>
+    <VBox spacing="10" padding="20">
+    <!-- Bouton back tout en haut -->
+    <HBox>
+        <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+    </HBox>
+
+    <!-- Reste de ton contenu -->
+    ...
+</VBox>
 
         <VBox spacing="15"
               alignment="CENTER"

@@ -2661,3 +2661,18 @@
     -fx-animation: pulse 1s infinite;
 }
 
+.btn-back {
+    -fx-background-color: transparent;
+    -fx-border-color: #607d8b;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #607d8b;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6 16 6 16;
+}
+
+.btn-back:hover {
+    -fx-background-color: #607d8b;
+    -fx-text-fill: white;
+}

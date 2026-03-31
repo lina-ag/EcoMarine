@@ -34,6 +34,11 @@
             <!-- ACTIVITES -->
             <Label text="ACTIVITÉS" styleClass="sidebar-section-label" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
 
+    <HBox>
+        <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+    </HBox>
+
+   
             <Button text="➕ Ajouter Activité"
                     onAction="#ouvrirAjouterActivite"
                     maxWidth="Infinity"

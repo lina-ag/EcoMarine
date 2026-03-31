@@ -39,6 +39,11 @@
                           -fx-padding: 0 0 10 0;"
                    styleClass="page-title"/>
 
+            <!-- Bouton Retour -->
+            <HBox>
+                <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+            </HBox>
+
             <!-- Barre de recherche améliorée AVEC MICROPHONE -->
             <HBox spacing="15" alignment="CENTER" maxWidth="900">
                 <TextField fx:id="searchField" 
@@ -58,7 +63,7 @@
                     </HBox.margin>
                 </TextField>
                 
-                <!-- BOUTON MICROPHONE (AJOUTÉ) -->
+                <!-- BOUTON MICROPHONE -->
                 <Button fx:id="microphoneButton" 
                         text="🎤" 
                         onAction="#rechercheVocale"
