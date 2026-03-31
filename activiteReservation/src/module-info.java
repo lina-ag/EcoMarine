@@ -22,12 +22,14 @@ module activiteReservation {
 
 	requires opencv;
 	requires jdk.jsobject;
+
 	
 	
 	requires itextpdf;
 	requires org.apache.poi.poi;
 	requires org.apache.poi.ooxml;
 	requires jakarta.mail;
+
 	requires vosk;
 	
 

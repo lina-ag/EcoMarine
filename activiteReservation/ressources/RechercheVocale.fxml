@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.RechercheVocaleController"
+      style="-fx-background-color: white;
+             -fx-background-radius: 25;
+             -fx-border-radius: 25;
+             -fx-border-color: rgba(0,0,0,0.08);
+             -fx-border-width: 1.5;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.15, 0, 5);"
+      prefWidth="1500"
+      prefHeight="800">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <!-- Icône d'en-tête -->
+    <Label text="🎙️"
+           style="-fx-font-size: 48px; 
+                  -fx-padding: 0 0 5 0;"/>
+
+    <Label text="Recherche vocale"
+           style="-fx-font-size: 24px; 
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #1e3c72;
+                  -fx-border-color: transparent transparent #1e3c72 transparent;
+                  -fx-border-width: 0 0 2 0;
+                  -fx-padding: 0 0 8 0;"/>
+
+    <Label text="Zone protégée"
+           style="-fx-font-size: 14px;
+                  -fx-text-fill: #0284c7;
+                  -fx-font-weight: 500;
+                  -fx-padding: 0 0 5 0;"/>
+
+    <!-- Bouton microphone -->
+    <Button fx:id="btnMicro"
+            text="🎤  Parler"
+            onAction="#toggleMicro"
+            prefHeight="55"
+            prefWidth="200"
+            style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
+                   -fx-text-fill: white;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 30;
+                   -fx-padding: 12 25;
+                   -fx-font-size: 15px;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(gaussian, #1e3c72, 12, 0.3, 0, 4);"/>
+
+    <!-- Carte de statut -->
+    <VBox spacing="8"
+          style="-fx-background-color: #f8f9fa;
+                 -fx-background-radius: 15;
+                 -fx-border-radius: 15;
+                 -fx-border-color: #e0e0e0;
+                 -fx-border-width: 1;
+                 -fx-padding: 12 20;"
+          maxWidth="Infinity">
+        
+        <Label fx:id="lblStatut"
+               text="Statut..."
+               style="-fx-font-size: 13px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #1e3c72;"/>
+        
+        <HBox spacing="4" alignment="CENTER_LEFT">
+            <Label text="●" style="-fx-text-fill: #28a745; -fx-font-size: 10px;"/>
+            <Label text="Prêt pour la recherche" 
+                   style="-fx-font-size: 10px; -fx-text-fill: #666;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Champ de texte -->
+    <VBox spacing="5" maxWidth="Infinity">
+        <Label text="✍️ Texte reconnu"
+               style="-fx-font-size: 12px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #1e3c72;"/>
+        
+        <TextField fx:id="txtResultatVocal"
+                   promptText="Le texte apparaîtra ici..."
+                   prefWidth="350"
+                   maxWidth="Infinity"
+                   style="-fx-background-radius: 12;
+                          -fx-border-radius: 12;
+                          -fx-border-color: #e0e0e0;
+                          -fx-border-width: 1.5;
+                          -fx-background-color: #f8f9fa;
+                          -fx-padding: 10 12;
+                          -fx-font-size: 13px;
+                          -fx-focus-color: #1e3c72;
+                          -fx-faint-focus-color: transparent;"/>
+    </VBox>
+
+    <!-- Résultats -->
+    <VBox spacing="8" maxWidth="Infinity">
+        <Separator style="-fx-background-color: #e0e0e0;"/>
+        
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label text="📊 Résultat"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1e3c72;"/>
+            <Label text="(Recherche par nom de zone)"
+                   style="-fx-font-size: 10px;
+                          -fx-text-fill: #888;"/>
+        </HBox>
+        
+        <ScrollPane prefHeight="600" 
+                    prefWidth="600
+                    "
+                    fitToWidth="true"
+                    style="-fx-background: transparent; 
+                           -fx-background-color: transparent;
+                           -fx-border-color: #e0e0e0;
+                           -fx-border-radius: 12;
+                           -fx-background-radius: 12;">
+            <content>
+                <Label fx:id="lblResultats"
+                       wrapText="true"
+                       style="-fx-font-size: 13px;
+                              -fx-text-fill: #555;
+                              -fx-padding: 10 12;"
+                       maxWidth="Infinity"/>
+            </content>
+        </ScrollPane>
+    </VBox>
+
+    
+
+</VBox>

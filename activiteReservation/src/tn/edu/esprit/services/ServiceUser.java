@@ -20,23 +20,64 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void ajouter(User u) {
-        String req = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, telephone, role, date_naissance, face_image, face_encoding) " +
+        String req = "INSERT INTO utilisateur " +
+                     "(nom, prenom, email, mot_de_passe, telephone, role, date_naissance, face_image, face_encoding) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Vérification des données avant insertion
+        System.out.println("Ajout d'un utilisateur :");
+        System.out.println("Nom: " + u.getNom());
+        System.out.println("Prenom: " + u.getPrenom());
+        System.out.println("Email: " + u.getEmail());
+        System.out.println("Mot de passe: " + u.getMotDePasse());
+        System.out.println("Téléphone: " + u.getTelephone());
+        System.out.println("Role: " + u.getRole());
+        System.out.println("Date de naissance: " + u.getDateNaissance());
+        System.out.println("Face image: " + u.getFaceImage());
+        System.out.println("Face encoding: " + (u.getFaceEncoding() != null ? "Présent" : "NULL"));
+
         try {
             PreparedStatement pst = cnx.prepareStatement(req);
+
             pst.setString(1, u.getNom());
             pst.setString(2, u.getPrenom());
             pst.setString(3, u.getEmail());
             pst.setString(4, u.getMotDePasse());
             pst.setString(5, u.getTelephone());
             pst.setString(6, u.getRole());
-            pst.setDate(7, Date.valueOf(u.getDateNaissance()));
-            pst.setString(8, u.getFaceImage());
-            pst.setBytes(9, u.getFaceEncoding());
-            pst.executeUpdate();
-            System.out.println("Utilisateur ajouté !");
+
+            // Gestion date naissance
+            if (u.getDateNaissance() != null) {
+                pst.setDate(7, Date.valueOf(u.getDateNaissance()));
+            } else {
+                pst.setNull(7, java.sql.Types.DATE);
+            }
+
+            // Gestion face image
+            if (u.getFaceImage() != null) {
+                pst.setString(8, u.getFaceImage());
+            } else {
+                pst.setNull(8, java.sql.Types.VARCHAR);
+            }
+
+            // Gestion face encoding
+            if (u.getFaceEncoding() != null) {
+                pst.setBytes(9, u.getFaceEncoding());
+            } else {
+                pst.setNull(9, java.sql.Types.BLOB);
+            }
+
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("✅ Utilisateur ajouté avec succès !");
+            } else {
+                System.out.println("⚠️ Aucune ligne insérée dans la base !");
+            }
+
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("❌ Erreur SQL lors de l'ajout :");
+            ex.printStackTrace(); // Affiche l'erreur complète
         }
     }
 
