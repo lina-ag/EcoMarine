@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="faune.Marine.controllers.MainController">
+    
+    <top>
+        <VBox style="-fx-background-color: #2c3e50;">
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                </HBox.margin>
+                <children>
+                    <Label style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="🐋 Gestion de la Faune Marine" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnDashboard" onAction="#handleDashboard" style="-fx-background-color: transparent; -fx-text-fill: white;" text="📊 Dashboard" />
+                    <Button fx:id="btnFauneMarine" onAction="#handleFauneMarine" style="-fx-background-color: transparent; -fx-text-fill: white;" text="🐚 Faune Marine" />
+                    <Button fx:id="btnObservations" onAction="#handleObservations" style="-fx-background-color: transparent; -fx-text-fill: white;" text="🔍 Observations" />
+                    <Button fx:id="btnQuitter" onAction="#handleQuitter" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-background-radius: 3;" text="❌ Quitter" />
+                </children>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #ecf0f1;">
+            <VBox.margin>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </VBox.margin>
+            <children>
+                <Label style="-fx-font-size: 28; -fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="Bienvenue dans l'application" />
+                <Label style="-fx-font-size: 16; -fx-text-fill: #7f8c8d;" text="Sélectionnez une option dans le menu ci-dessus" />
+            </children>
+        </VBox>
+    </center>
+    
+</BorderPane>

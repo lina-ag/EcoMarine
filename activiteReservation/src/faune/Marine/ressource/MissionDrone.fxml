@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="faune.Marine.controllers.MissionDroneController"
+      style="-fx-background-color: white; -fx-padding: 20;">
+    
+    <!-- ==================== EN-TÊTE SIMPLIFIÉ ==================== -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="🚁" style="-fx-font-size: 28px;"/>
+        <Label text="Missions Drone Intelligentes" 
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <!-- PLUS AUCUN LABEL DE STATUT -->
+    </HBox>
+    
+    <Separator/>
+    
+    <!-- ==================== TAB PANE ==================== -->
+    <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+        
+        <!-- ==================== ONGLET MISSIONS ==================== -->
+        <Tab fx:id="tabMissions" text="📋 Missions" closable="false">
+            <VBox spacing="15">
+                
+                <!-- TableView des missions -->
+                <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="200">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="100"/>
+                        <TableColumn fx:id="colZone" text="Zone" prefWidth="120"/>
+                        <TableColumn fx:id="colDistance" text="Distance" prefWidth="100"/>
+                        <TableColumn fx:id="colAltitude" text="Altitude" prefWidth="80"/>
+                        <TableColumn fx:id="colConditions" text="Conditions" prefWidth="100"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Aucune mission disponible"/>
+                    </placeholder>
+                </TableView>
+                
+                <!-- Formulaire mission -->
+                <TitledPane text="Nouvelle Mission Drone" expanded="true">
+                    <GridPane hgap="10" vgap="10" style="-fx-padding: 10;">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        
+                        <Label text="Date:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <DatePicker fx:id="dpDateMission" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Heure début (HH:MM):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtHeureDebut" promptText="09:00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Heure fin (HH:MM):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtHeureFin" promptText="10:30" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Zone survolée:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbZoneSurvolee" prefWidth="200" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Distance (km):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtDistance" promptText="15.5" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Altitude (m):" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtAltitude" promptText="120" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Conditions vol:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbConditionsVol" prefWidth="200" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Observations:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                        <TextArea fx:id="txtObservations" prefRowCount="3" prefWidth="300" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                        
+                    </GridPane>
+                </TitledPane>
+                
+                <!-- Boutons missions -->
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnAjouter" text="➕ Ajouter" onAction="#handleAjouter" 
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" prefWidth="100"/>
+                    <Button fx:id="btnModifier" text="✏️ Modifier" onAction="#handleModifier" disable="true" 
+                            style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold;" prefWidth="100"/>
+                    <Button fx:id="btnSupprimer" text="🗑️ Supprimer" onAction="#handleSupprimer" disable="true" 
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" prefWidth="100"/>
+                    <Button fx:id="btnEffacer" text="🔄 Effacer" onAction="#handleEffacer" 
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;" prefWidth="100"/>
+                </HBox>
+            </VBox>
+        </Tab>
+        
+        <!-- ==================== ONGLET DÉTECTIONS IA ==================== -->
+        <Tab fx:id="tabDetections" text="🔍 Détections IA" closable="false">
+            <VBox spacing="15">
+                
+                <!-- Barre d'outils IA -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button fx:id="btnAnalyserAvecOllama" text="🤖 Analyser" 
+                            onAction="#handleAnalyserAvecOllama" disable="true"
+                            style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="120"/>
+                    
+                    <Button fx:id="btnExporterRapport" text="📊 Exporter" 
+                            onAction="#handleExporterRapport" disable="true"
+                            style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="120"/>
+                    
+                    <Button fx:id="btnVoirCarte" text="🗺️ Carte" 
+                            onAction="#handleVoirCarte" disable="true"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="100"/>
+                    
+                    <Button fx:id="btnDiscuter" text="💬 Discuter" 
+                            onAction="#handleDiscuter" disable="true"
+                            style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="120"/>
+                    
+                    <Region HBox.hgrow="ALWAYS"/>
+                    
+                    <Label fx:id="lblStatistiquesIA" text="📊 0 détections" 
+                           style="-fx-text-fill: #34495e; -fx-font-weight: bold; -fx-padding: 0 10;"/>
+                </HBox>
+                
+                <!-- Tableau des détections -->
+                <TableView fx:id="tableDetections" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colDetId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colDetEspece" text="Espèce" prefWidth="150"/>
+                        <TableColumn fx:id="colDetNombre" text="Nombre" prefWidth="80"/>
+                        <TableColumn fx:id="colDetComportement" text="Comportement" prefWidth="150"/>
+                        <TableColumn fx:id="colDetConfiance" text="Confiance" prefWidth="100"/>
+                        <TableColumn fx:id="colDetTimestamp" text="Date" prefWidth="150"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Aucune détection"/>
+                    </placeholder>
+                </TableView>
+                
+                <!-- Prévisualisation image -->
+                <HBox alignment="CENTER">
+                    <ImageView fx:id="imagePreview" fitHeight="150" fitWidth="200" preserveRatio="true"/>
+                </HBox>
+            </VBox>
+        </Tab>
+        
+        <!-- ==================== ONGLET CHAT IA ==================== -->
+        <Tab fx:id="tabChat" text="💬 Chat IA" closable="false">
+            <fx:include fx:id="chatView" source="IAImageChat.fxml"/>
+        </Tab>
+    </TabPane>
+    
+    <!-- ==================== PIED DE PAGE ULTRA SIMPLE ==================== -->
+    <HBox alignment="CENTER_RIGHT" spacing="5" style="-fx-padding: 10 0 0 0;">
+        <Label text="" style="-fx-text-fill: #95a5a6; -fx-font-size: 11px;"/>
+        <!-- AUCUN TEXTE INUTILE -->
+    </HBox>
+    
+</VBox>
