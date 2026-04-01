@@ -15,11 +15,11 @@ public class MainFx extends Application {
 
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
 
-<<<<<<< HEAD
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
-=======
+
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
->>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
+
 
             Scene scene = new Scene(loader.load());
 
