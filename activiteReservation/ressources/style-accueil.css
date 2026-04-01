@@ -35,7 +35,7 @@
     -fx-border-color: rgba(255, 255, 255, 0.5);
     -fx-border-width: 1;
     -fx-padding: 44 50 50 50;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 40, 0.2, 0, 10);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 40, 0.2, 0, 10); 
 }
 
 /* ── Icône centrale ─────────────────────────────────────────── */
