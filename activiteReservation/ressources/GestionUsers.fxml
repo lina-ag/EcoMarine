@@ -3,12 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-
-<?import javafx.scene.image.*?>
-
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.GestionUsers"
@@ -17,123 +17,330 @@
             prefWidth="1500"
             prefHeight="800">
 
- 
+   <!-- ══════════════════════════════════════ -->
+   <!--  SIDEBAR                               -->
+   <!-- ══════════════════════════════════════ -->
    <left>
-      <VBox spacing="10"
-            prefWidth="260"
-            styleClass="sidebar">
+      <VBox spacing="8" prefWidth="265" styleClass="sidebar">
 
-         
          <StackPane styleClass="sidebar-header">
-            <Region styleClass="header-background" />
-            <ImageView fitWidth="150"
-                       fitHeight="150"
-                       preserveRatio="true">
-               <image>
-                 <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
-              </image>
-          </ImageView>
+            <Region styleClass="header-background"/>
+            <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+               <image><Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/></image>
+            </ImageView>
+         </StackPane>
 
-           </StackPane>
+         <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-text-fill: white;"/>
+         <Label text="Administration" styleClass="sidebar-subtitle" style="-fx-text-fill: rgba(255,255,255,0.9);"/>
 
-         <!-- TITRES -->
-         <Label text="ECOMARINE"
-                styleClass="sidebar-title"
-                style="-fx-text-fill: white;" />
+         <Separator styleClass="sidebar-separator"/>
 
-         <Label text="Gestion des Utilisateurs"
-                styleClass="sidebar-subtitle"
-                style="-fx-text-fill: rgba(255,255,255,0.9);" />
+         <Label text="UTILISATEURS" styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);"/>
 
-         <Separator styleClass="sidebar-separator" />
-
-         <!-- SECTION MENU PRINCIPAL -->
-         <Label text="UTILISATEURS"
-                styleClass="sidebar-section-label"
-                style="-fx-text-fill: rgba(255,255,255,0.7);" />
-
-         <Button text="Ajouter Utilisateur"
-                 onAction="#ouvrirAjouterUser"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button">
-            <graphic>
-               <Label text="➕"
-                      styleClass="button-icon"
-                      style="-fx-text-fill: white;" />
-            </graphic>
+         <Button text="Ajouter Utilisateur" onAction="#ouvrirAjouterUser"
+                 maxWidth="Infinity" styleClass="sidebar-button">
+            <graphic><Label text="➕" style="-fx-text-fill: white;"/></graphic>
          </Button>
 
-         <Button text="Liste des Utilisateurs"
-                 onAction="#ouvrirAfficherUsers"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button">
-            <graphic>
-               <Label text="📋"
-                      styleClass="button-icon"
-                      style="-fx-text-fill: white;" />
-            </graphic>
+         <Button text="Liste des Utilisateurs" onAction="#ouvrirAfficherUsers"
+                 maxWidth="Infinity" styleClass="sidebar-button">
+            <graphic><Label text="📋" style="-fx-text-fill: white;"/></graphic>
          </Button>
 
-         
-         <Separator styleClass="sidebar-separator" />
-         
-         <Label text="STATISTIQUES DES RÔLES"
-                styleClass="sidebar-section-label"
-                style="-fx-text-fill: rgba(255,255,255,0.7);" />
+         <Button text="Rechercher Utilisateur" onAction="#ouvrirRechercherUser"
+                 maxWidth="Infinity" styleClass="sidebar-button">
+            <graphic><Label text="🔍" style="-fx-text-fill: white;"/></graphic>
+         </Button>
 
-         
-         <VBox spacing="10" styleClass="stats-container">
-            
-            
-            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5 10;">
-                <Label text="👑" style="-fx-font-size: 20px; -fx-min-width: 30;"/>
-                <Label text="Admins:" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
-                <Label fx:id="adminsLabel" 
-                       text="0" 
-                       style="-fx-text-fill: #ff6b6b; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+         <Separator styleClass="sidebar-separator">
+            <VBox.margin><Insets top="5"/></VBox.margin>
+         </Separator>
+
+         <Label text="STATISTIQUES" styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);"/>
+
+         <!-- Stats roles (gardé de l'original) -->
+         <VBox spacing="6" styleClass="stats-container">
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 4 10;">
+               <Label text="👑" style="-fx-font-size: 18px; -fx-min-width: 28;"/>
+               <Label text="Admins" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 13px;" HBox.hgrow="ALWAYS"/>
+               <Label fx:id="adminsLabel" text="0"
+                      style="-fx-text-fill: #ff6b6b; -fx-font-size: 20px; -fx-font-weight: bold;"/>
             </HBox>
-            
-            <!-- Chercheur -->
-            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5 10;">
-                <Label text="🔬" style="-fx-font-size: 20px; -fx-min-width: 30;"/>
-                <Label text="Chercheurs:" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
-                <Label fx:id="chercheursLabel" 
-                       text="0" 
-                       style="-fx-text-fill: #4ecdc4; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 4 10;">
+               <Label text="🔬" style="-fx-font-size: 18px; -fx-min-width: 28;"/>
+               <Label text="Chercheurs" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 13px;" HBox.hgrow="ALWAYS"/>
+               <Label fx:id="chercheursLabel" text="0"
+                      style="-fx-text-fill: #4ecdc4; -fx-font-size: 20px; -fx-font-weight: bold;"/>
             </HBox>
-            
-            <!-- Utilisateur simple -->
-            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5 10;">
-                <Label text="👤" style="-fx-font-size: 20px; -fx-min-width: 30;"/>
-                <Label text="Utilisateurs:" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
-                <Label fx:id="utilisateursLabel" 
-                       text="0" 
-                       style="-fx-text-fill: #ffe66d; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 4 10;">
+               <Label text="👤" style="-fx-font-size: 18px; -fx-min-width: 28;"/>
+               <Label text="Utilisateurs" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 13px;" HBox.hgrow="ALWAYS"/>
+               <Label fx:id="utilisateursLabel" text="0"
+                      style="-fx-text-fill: #ffe66d; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </HBox>
+            <!-- Total (nouveau) -->
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-padding: 6 10;
+                         -fx-background-color: rgba(255,255,255,0.1);
+                         -fx-background-radius: 8;">
+               <Label text="∑" style="-fx-font-size: 18px; -fx-text-fill: white; -fx-min-width: 28;"/>
+               <Label text="Total" style="-fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS"/>
+               <Label fx:id="totalUsersLabel" text="0"
+                      style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
             </HBox>
          </VBox>
 
-         <Region VBox.vgrow="ALWAYS" />
+         <Separator styleClass="sidebar-separator">
+            <VBox.margin><Insets top="5"/></VBox.margin>
+         </Separator>
+
+         <Button text="🔄 Actualiser" onAction="#actualiserDashboard"
+                 maxWidth="Infinity" styleClass="sidebar-button"/>
+
+         <Button text="🚪 Déconnexion" onAction="#deconnexion"
+                 maxWidth="Infinity"
+                 style="-fx-background-color: rgba(231,76,60,0.3);
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                        -fx-background-radius: 10;
+                        -fx-padding: 8 15;
+                        -fx-cursor: hand;
+                        -fx-max-width: Infinity;">
+            <VBox.margin><Insets top="5"/></VBox.margin>
+         </Button>
+
+         <Region VBox.vgrow="ALWAYS"/>
+
       </VBox>
    </left>
 
-   <!-- ======================== -->
-   <!-- CONTENU PRINCIPAL        -->
-   <!-- ======================== -->
+   <!-- ══════════════════════════════════════ -->
+   <!--  CENTRE — DASHBOARD                    -->
+   <!-- ══════════════════════════════════════ -->
    <center>
-      <StackPane style="-fx-background-color: transparent;">
-         <VBox alignment="CENTER" spacing="20">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                  style="-fx-background: transparent; -fx-background-color: transparent;">
+         <VBox spacing="20" style="-fx-padding: 30;">
 
-            <Label text="Bienvenue 👋"
-                   style="-fx-font-size: 28px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #ffffff;" />
+            <!-- ── Titre + horloge ── -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <VBox spacing="4">
+                  <Label text="Tableau de Bord Admin"
+                         style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                  <Label fx:id="lblDateHeure"
+                         style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+               </VBox>
+               <Region HBox.hgrow="ALWAYS"/>
+               <!-- Badge admin connecté -->
+               <VBox alignment="CENTER_RIGHT" spacing="2">
+                  <Label text="Connecté en tant que"
+                         style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.6);"/>
+                  <Label fx:id="lblAdminNom"
+                         style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;
+                                -fx-background-color: rgba(255,255,255,0.15);
+                                -fx-background-radius: 20; -fx-padding: 4 14;"/>
+               </VBox>
+            </HBox>
 
-            <Label text="Gérez vos utilisateurs facilement et efficacement."
-                   style="-fx-font-size: 16px;
-                          -fx-text-fill: #ffffff;" />
+            <!-- ── LIGNE 1 : 4 KPI Cards ── -->
+            <HBox spacing="15">
+
+               <!-- Total utilisateurs -->
+               <VBox spacing="6" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 20;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.10),14,0.2,0,4);">
+                  <Label text="TOTAL UTILISATEURS"
+                         style="-fx-font-size: 11px; -fx-text-fill: #999; -fx-font-weight: bold;"/>
+                  <Label fx:id="kpiTotal"
+                         style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  <Label fx:id="kpiTotalSub"
+                         style="-fx-font-size: 11px; -fx-text-fill: #27ae60;"/>
+               </VBox>
+
+               <!-- Admins -->
+               <VBox spacing="6" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 20;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.10),14,0.2,0,4);">
+                  <Label text="ADMINISTRATEURS"
+                         style="-fx-font-size: 11px; -fx-text-fill: #999; -fx-font-weight: bold;"/>
+                  <Label fx:id="kpiAdmins"
+                         style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
+                  <Label fx:id="kpiAdminsSub"
+                         style="-fx-font-size: 11px; -fx-text-fill: #888;"/>
+               </VBox>
+
+               <!-- Chercheurs -->
+               <VBox spacing="6" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 20;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.10),14,0.2,0,4);">
+                  <Label text="CHERCHEURS"
+                         style="-fx-font-size: 11px; -fx-text-fill: #999; -fx-font-weight: bold;"/>
+                  <Label fx:id="kpiChercheurs"
+                         style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #1abc9c;"/>
+                  <Label fx:id="kpiChercheursSub"
+                         style="-fx-font-size: 11px; -fx-text-fill: #888;"/>
+               </VBox>
+
+               <!-- Utilisateurs simples -->
+               <VBox spacing="6" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 20;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.10),14,0.2,0,4);">
+                  <Label text="UTILISATEURS"
+                         style="-fx-font-size: 11px; -fx-text-fill: #999; -fx-font-weight: bold;"/>
+                  <Label fx:id="kpiUtilisateurs"
+                         style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+                  <Label fx:id="kpiUtilisateursSub"
+                         style="-fx-font-size: 11px; -fx-text-fill: #888;"/>
+               </VBox>
+
+            </HBox>
+
+            <!-- ── LIGNE 2 : Alerte + Dernier inscrit ── -->
+            <HBox spacing="15">
+
+               <!-- Dernier utilisateur inscrit (NOUVEAU) -->
+               <VBox spacing="10" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 18;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),12,0.2,0,4);">
+                  <HBox spacing="8" alignment="CENTER_LEFT">
+                     <Label text="🕐" style="-fx-font-size: 16px;"/>
+                     <Label text="Dernière inscription"
+                            style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  </HBox>
+                  <Label fx:id="lblDernierUser"
+                         style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                  <Label fx:id="lblDernierUserRole"
+                         style="-fx-font-size: 12px; -fx-text-fill: #888;"/>
+               </VBox>
+
+               <!-- Alerte comptes (NOUVEAU) -->
+               <VBox spacing="10" HBox.hgrow="ALWAYS"
+                     fx:id="panneauAlerte"
+                     style="-fx-background-color: #f0fff4; -fx-background-radius: 18;
+                            -fx-padding: 18;
+                            -fx-border-color: #b2f5c8; -fx-border-width: 1.5; -fx-border-radius: 18;">
+                  <HBox spacing="8" alignment="CENTER_LEFT">
+                     <Label text="🔔" style="-fx-font-size: 16px;"/>
+                     <Label text="Statut du système"
+                            style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  </HBox>
+                  <Label fx:id="lblAlerteSystem" wrapText="true"
+                         style="-fx-font-size: 13px; -fx-text-fill: #555;"/>
+               </VBox>
+
+               <!-- Admin connecté info (NOUVEAU) -->
+               <VBox spacing="10" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 18;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),12,0.2,0,4);">
+                  <HBox spacing="8" alignment="CENTER_LEFT">
+                     <Label text="👑" style="-fx-font-size: 16px;"/>
+                     <Label text="Session admin"
+                            style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  </HBox>
+                  <Label fx:id="lblSessionEmail"
+                         style="-fx-font-size: 13px; -fx-text-fill: #555;"/>
+                  <Label fx:id="lblSessionRole"
+                         style="-fx-font-size: 12px; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+               </VBox>
+
+            </HBox>
+
+            <!-- ── LIGNE 3 : Graphiques ── -->
+            <HBox spacing="15">
+
+               <!-- PieChart répartition rôles (NOUVEAU) -->
+               <VBox spacing="10" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 18;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),12,0.2,0,4);">
+                  <Label text="Répartition des Rôles"
+                         style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  <PieChart fx:id="pieChart" prefHeight="260"/>
+               </VBox>
+
+               <!-- BarChart utilisateurs par role (NOUVEAU) -->
+               <VBox spacing="10" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 18;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),12,0.2,0,4);">
+                  <Label text="Comptes par Rôle"
+                         style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  <BarChart fx:id="barChart" prefHeight="260" legendVisible="false">
+                     <xAxis><CategoryAxis/></xAxis>
+                     <yAxis><NumberAxis/></yAxis>
+                  </BarChart>
+               </VBox>
+
+            </HBox>
+
+            <!-- ── LIGNE 4 : Barres progression + Liste récents ── -->
+            <HBox spacing="15">
+
+               <!-- Barres de progression par rôle (NOUVEAU) -->
+               <VBox spacing="14" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 20;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),12,0.2,0,4);">
+                  <Label text="Distribution des Rôles"
+                         style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+
+                  <VBox spacing="4">
+                     <HBox>
+                        <Label text="Administrateurs"
+                               style="-fx-text-fill: #e74c3c; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="pctAdmins" style="-fx-text-fill: #888; -fx-font-size: 12px;"/>
+                     </HBox>
+                     <ProgressBar fx:id="barAdmins" maxWidth="Infinity"
+                                  style="-fx-accent: #e74c3c; -fx-pref-height: 12; -fx-background-radius: 6;"/>
+                  </VBox>
+
+                  <VBox spacing="4">
+                     <HBox>
+                        <Label text="Chercheurs"
+                               style="-fx-text-fill: #1abc9c; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="pctChercheurs" style="-fx-text-fill: #888; -fx-font-size: 12px;"/>
+                     </HBox>
+                     <ProgressBar fx:id="barChercheurs" maxWidth="Infinity"
+                                  style="-fx-accent: #1abc9c; -fx-pref-height: 12; -fx-background-radius: 6;"/>
+                  </VBox>
+
+                  <VBox spacing="4">
+                     <HBox>
+                        <Label text="Utilisateurs"
+                               style="-fx-text-fill: #f39c12; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="pctUtilisateurs" style="-fx-text-fill: #888; -fx-font-size: 12px;"/>
+                     </HBox>
+                     <ProgressBar fx:id="barUtilisateurs" maxWidth="Infinity"
+                                  style="-fx-accent: #f39c12; -fx-pref-height: 12; -fx-background-radius: 6;"/>
+                  </VBox>
+
+               </VBox>
+
+               <!-- Liste derniers utilisateurs inscrits (NOUVEAU) -->
+               <VBox spacing="10" HBox.hgrow="ALWAYS"
+                     style="-fx-background-color: white; -fx-background-radius: 18;
+                            -fx-padding: 20;
+                            -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),12,0.2,0,4);">
+                  <Label text="Derniers Utilisateurs Inscrits"
+                         style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                  <VBox fx:id="listeRecentUsers" spacing="8"/>
+               </VBox>
+
+            </HBox>
 
          </VBox>
-      </StackPane>
+      </ScrollPane>
    </center>
 
 </BorderPane>

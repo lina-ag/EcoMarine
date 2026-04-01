@@ -8,6 +8,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -319,6 +320,24 @@ public class AccueilController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    
+    @FXML
+    private void ouvrirFauneMarine(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/faune/Marine/ressource/Main.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("🐋 Gestion Faune Marine & Météo");
+            stage.setScene(new Scene(root, 1200, 700));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger Faune Marine:\n" + e.getMessage());
+        }
+    }
+
     
     // ========================
     // GETTERS

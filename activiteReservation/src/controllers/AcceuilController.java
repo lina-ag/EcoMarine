@@ -9,6 +9,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -138,6 +139,8 @@ public class AcceuilController {
     private void ouvrirGestionUser() {
         ouvrirFenetre("/gestionUsers.fxml", "Gestion des utilisateurs");
     }
+    
+    
 
     private void ouvrirFenetre(String fxml, String titre) {
         try {
@@ -152,5 +155,9 @@ public class AcceuilController {
             System.err.println("Erreur lors de l'ouverture de : " + fxml);
         }
     }
-
+    
+    
+    
+ 
+   
 }

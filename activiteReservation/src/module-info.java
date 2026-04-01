@@ -31,7 +31,8 @@ module activiteReservation {
 	requires jakarta.mail;
 
 	requires vosk;
-	
+	requires java.net.http;
+	opens faune.Marine.controllers to javafx.fxml;
 
 	
 }
