@@ -57,6 +57,8 @@ public class SignInController {
             showAlert("Erreur", "Veuillez remplir tous les champs !", Alert.AlertType.ERROR);
             return;
         }
+     // 🔥 ADMIN PAR DÉFAUT (hardcoded) 
+        if (email.equals("admin@gmail.com") && mdp.equals("admin")) { User admin = new User(); admin.setNom("Admin"); admin.setPrenom("System"); admin.setEmail("admin@gmail.com"); admin.setRole("admin"); utilisateurConnecte = admin; ouvrirGestionUsers(); return; }
 
         User u = service.login(email, mdp);
 
