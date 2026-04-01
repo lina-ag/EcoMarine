@@ -1,240 +1,352 @@
 package controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import tn.edu.esprit.services.ServiceZoneP;
-import tn.edu.esprit.services.ServiceSurv;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import tn.edu.esprit.entities.ZoneProtegee;
+import tn.edu.esprit.services.ServiceSurv;
+import tn.edu.esprit.services.ServiceZoneP;
 
-
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GestionZonesPr {
-	@FXML
-	private Label lblNbZones;
 
-	@FXML
-	private Label lblNbSurv;
+    // ── Labels sidebar ──
+    @FXML private Label lblNbZones;
+    @FXML private Label lblNbSurv;
+    @FXML private Label lblNbMenacees;
 
-	private ServiceZoneP serviceZone = new ServiceZoneP();
-	private ServiceSurv serviceSurv = new ServiceSurv();
-	
-	public void updateStats() {
-	    int nbZones = serviceZone.getAll(null).size();
-	    int nbSurv = serviceSurv.getAll(null).size();
+    // ── KPI Cards ──
+    @FXML private Label kpiTotalZones;
+    @FXML private Label kpiTotalZonesSub;
+    @FXML private Label kpiActives;
+    @FXML private Label kpiActivesSub;
+    @FXML private Label kpiMenacees;
+    @FXML private Label kpimenacessSub;
+    @FXML private Label lblScoreEco;
+    @FXML private Label kpiEcoSub;
 
-	    lblNbZones.setText(String.valueOf(nbZones));
-	    lblNbSurv.setText(String.valueOf(nbSurv));
-	    loadChart();
-	    loadEcoScore();
-	    loadLastActivity();
-	}
-	
-	@FXML
-	private PieChart pieChart;
-	
-	@FXML
-	private Label lblScoreEco;
-	
-	@FXML
-	private Label lblDerniereZone;
+    // ── Titre ──
+    @FXML private Label lblDateHeure;
 
-	@FXML
-	private Label lblDerniereSurv;
-	
-	
-	@FXML
-	public void initialize() {
+    // ── Alerte ──
+    @FXML private Label lblAlerteContenu;
+    @FXML private VBox  panneauAlerte;
 
-	    int nbZones = serviceZone.getAll(null).size();
-	    int nbSurv = serviceSurv.getAll(null).size();
+    // ── Dernière activité (gardé de l'original) ──
+    @FXML private Label lblDerniereZone;
+    @FXML private Label lblDerniereSurv;
 
-	    lblNbZones.setText(String.valueOf(nbZones));
-	    lblNbSurv.setText(String.valueOf(nbSurv));
-	    
-	    updateStats();
-	    loadChart();
-	    loadEcoScore();
-	    loadLastActivity();
-	}
-	
-	 @FXML
-	    private void ouvrirAjouter() {
-	        ouvrirFenetre("/AjouterZone.fxml", "Ajouter Zone");
-	    }
+    // ── Graphiques ──
+    @FXML private PieChart pieChart;
+    @FXML private BarChart<String, Number> barChart;
 
-	    @FXML
-	    private void ouvrirAfficher() {
-	        ouvrirFenetre("/AfficherZones.fxml", "Liste des Zones");
-	    }
-	    @FXML
-	    private void ouvrirSurveillance() {
-	        ouvrirFenetre("/AfficherSurveillance.fxml", "Liste des Zones");
-	    }
-	    
-	    @FXML
-	    private void ouvrirAjouterSurv() {
-	        ouvrirFenetre("/AjouterSurveillance.fxml", "Liste des Zones");
-	    }
+    // ── Zones menacées liste ──
+    @FXML private VBox listeMenacees;
 
-	    private void ouvrirFenetre(String chemin, String titre) {
-	        try {
-	        	FXMLLoader loader = new FXMLLoader(getClass().getResource(chemin));
-	            Parent root = loader.load();
-	            
-	            // Créer le nouveau stage
-	            Stage newStage = new Stage();
-	            newStage.setTitle(titre);
-	            newStage.setScene(new Scene(root));
-	            
-	            // Récupérer et fermer la fenêtre actuelle
-	            Stage currentStage = (Stage) lblNbZones.getScene().getWindow();
-	            currentStage.close();
-	            
-	            // Afficher la nouvelle fenêtre
-	            newStage.show();
-	            
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    
-	    public void loadChart() {
+    // ── Barres de progression ──
+    @FXML private ProgressBar barActives;
+    @FXML private ProgressBar barRestauration;
+    @FXML private ProgressBar barMenacees;
+    @FXML private ProgressBar barInactives;
+    @FXML private Label pctActives;
+    @FXML private Label pctRestauration;
+    @FXML private Label pctMenacees;
+    @FXML private Label pctInactives;
 
-	        int menacée = 0;
-	        int active = 0;
-	        int restauration = 0;
-	        int inactive = 0;
+    // ── Centre ──
+    @FXML private StackPane centerPane;
 
-	        for (var zone : serviceZone.getAll(null)) {
+    private ServiceZoneP serviceZone = new ServiceZoneP();
+    private ServiceSurv  serviceSurv  = new ServiceSurv();
 
-	            switch (zone.getStatut()) {
+    // ════════════════════════════════════════
+    //  INITIALIZE
+    // ════════════════════════════════════════
+    @FXML
+    public void initialize() {
+        demarrerHorloge();
+        updateStats();
+    }
 
-	                case "Menacée":
-	                    menacée++;
-	                    break;
+    // Horloge en temps réel dans le titre
+    private void demarrerHorloge() {
+        Timeline clock = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            String now = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy  |  HH:mm:ss"));
+            lblDateHeure.setText(now);
+        }));
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+    }
 
-	                case "Active":
-	                    active++;
-	                    break;
+    // ════════════════════════════════════════
+    //  UPDATE GLOBAL
+    // ════════════════════════════════════════
+    public void updateStats() {
+        List<ZoneProtegee> zones = serviceZone.getAll(null);
+        int nbZones = zones.size();
+        int nbSurv  = serviceSurv.getAll(null).size();
 
-	                case "En restauration":
-	                    restauration++;
-	                    break;
+        int active      = 0, restauration = 0, menacee = 0, inactive = 0;
+        for (ZoneProtegee z : zones) {
+            String s = z.getStatut().toLowerCase().trim();
+            if      (s.contains("active") && !s.contains("in")) active++;
+            else if (s.contains("restauration"))                 restauration++;
+            else if (s.contains("menac"))                        menacee++;
+            else if (s.contains("inactive"))                     inactive++;
+        }
 
-	                case "Inactive":
-	                    inactive++;
-	                    break;
-	            }
-	        }
+        int total = nbZones == 0 ? 1 : nbZones;
+        int score = ((active + restauration) * 100) / total;
 
-	        ObservableList<PieChart.Data> data =
-	                FXCollections.observableArrayList(
-	                		new PieChart.Data("Menacée : " + menacée, menacée),
-	                        new PieChart.Data("Active : " + active, active),
-	                        new PieChart.Data("En restauration : " + restauration, restauration),
-	                        new PieChart.Data("Inactive : " + inactive, inactive)
-	                );
+        // ── Sidebar stats ──
+        lblNbZones.setText(String.valueOf(nbZones));
+        lblNbSurv.setText(String.valueOf(nbSurv));
+        lblNbMenacees.setText(String.valueOf(menacee));
 
-	        pieChart.setData(data);
-	        pieChart.setLabelsVisible(true);
-	        pieChart.setLegendVisible(true);
-	    }
-	    
-	    
-	    public void loadEcoScore() {
+        // ── KPI Total ──
+        kpiTotalZones.setText(String.valueOf(nbZones));
+        kpiTotalZonesSub.setText(nbSurv + " surveillance(s) enregistrée(s)");
 
-	        int menacée = 0;
-	        int active = 0;
-	        int restauration = 0;
-	        int inactive = 0;
+        // ── KPI Actives ──
+        kpiActives.setText(String.valueOf(active));
+        int pctA = (active * 100) / total;
+        kpiActivesSub.setText(pctA + "% du total");
 
-	        for (var zone : serviceZone.getAll(null)) {
+        // ── KPI Menacées ──
+        kpiMenacees.setText(String.valueOf(menacee));
+        kpimenacessSub.setText(menacee > 0 ? "Intervention requise !" : "Aucun risque détecté");
 
-	            String statut = zone.getStatut().toLowerCase().trim();
+        // ── KPI Score Eco ──
+        lblScoreEco.setText(score + "%");
+        kpiEcoSub.setText(score >= 70 ? "Excellent état" : score >= 40 ? "État moyen" : "État critique");
+        if (score >= 70)
+            lblScoreEco.setStyle("-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #27ae60;");
+        else if (score >= 40)
+            lblScoreEco.setStyle("-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #f39c12;");
+        else
+            lblScoreEco.setStyle("-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;");
 
-	            if (statut.contains("menac")) {
-	                menacée++;
-	            } else if (statut.contains("active")) {
-	                active++;
-	            } else if (statut.contains("restauration")) {
-	                restauration++;
-	            } else if (statut.contains("inactive")) {
-	                inactive++;
-	            }
-	        }
+        // ── Alerte menacées ──
+        loadAlerte(zones, menacee);
 
-	        int total = menacée + active + restauration + inactive;
+        // ── Dernière activité (gardé de l'original) ──
+        loadLastActivity();
 
-	        if (total == 0) {
-	            lblScoreEco.setText("0%");
-	            return;
-	        }
+        // ── Graphiques ──
+        loadPieChart(active, restauration, menacee, inactive);
+        loadBarChart(zones);
 
-	        int score = ((active + restauration) * 100) / total;
+        // ── Liste zones menacées ──
+        loadListeMenacees(zones);
 
-	        lblScoreEco.setText(score + "%");
+        // ── Barres de progression ──
+        loadProgressBars(active, restauration, menacee, inactive, total);
+    }
 
-	        
-	        if (score >= 70) {
-	            lblScoreEco.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #00ff88;");
-	        } else if (score >= 40) {
-	            lblScoreEco.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #ffaa00;");
-	        } else {
-	            lblScoreEco.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #ff4444;");
-	        }
-	    }
-	    
-	    public void loadLastActivity() {
+    // ════════════════════════════════════════
+    //  ALERTE
+    // ════════════════════════════════════════
+    private void loadAlerte(List<ZoneProtegee> zones, int nbMenacees) {
+        if (nbMenacees == 0) {
+            lblAlerteContenu.setText("Toutes les zones sont en bon état. Aucune intervention requise.");
+            panneauAlerte.setStyle(
+                "-fx-background-color: #f0fff4; -fx-background-radius: 18; -fx-padding: 18;" +
+                "-fx-border-color: #b2f5c8; -fx-border-width: 1.5; -fx-border-radius: 18;");
+        } else {
+            String noms = zones.stream()
+                .filter(z -> z.getStatut().toLowerCase().contains("menac"))
+                .map(ZoneProtegee::getNomZone)
+                .collect(Collectors.joining(", "));
+            lblAlerteContenu.setText(nbMenacees + " zone(s) menacée(s) : " + noms);
+            panneauAlerte.setStyle(
+                "-fx-background-color: #fff5f5; -fx-background-radius: 18; -fx-padding: 18;" +
+                "-fx-border-color: #ffcccc; -fx-border-width: 1.5; -fx-border-radius: 18;");
+        }
+    }
 
-	        var zones = serviceZone.getAll(null);
-	        var surveillances = serviceSurv.getAll(null);
+    // ════════════════════════════════════════
+    //  DERNIERE ACTIVITE (gardé de l'original)
+    // ════════════════════════════════════════
+    public void loadLastActivity() {
+        var zones = serviceZone.getAll(null);
+        var surveillances = serviceSurv.getAll(null);
 
-	        if (!zones.isEmpty()) {
-	            var lastZone = zones.get(zones.size() - 1);
-	            lblDerniereZone.setText(" Dernière zone ajoutée : " 
-	                                    + lastZone.getNomZone());
-	        } else {
-	            lblDerniereZone.setText(" Aucune zone ajoutée");
-	        }
+        if (!zones.isEmpty()) {
+            var lastZone = zones.get(zones.size() - 1);
+            lblDerniereZone.setText("Dernière zone : " + lastZone.getNomZone());
+        } else {
+            lblDerniereZone.setText("Aucune zone ajoutée");
+        }
 
-	        if (!surveillances.isEmpty()) {
-	            var lastSurv = surveillances.get(surveillances.size() - 1);
-	            lblDerniereSurv.setText(" Dernière surveillance Ajoutée : " 
-	                                    + lastSurv.getDateSurveillance());
-	        } else {
-	            lblDerniereSurv.setText(" Aucune surveillance");
-	        }
-	    }
-	    
-	    @FXML
-	    private void ouvrirAccueil() {
-	    	ouvrirFenetre("/acceuil.fxml", "Ajouter une activité");
-	    }
-	    
-	    @FXML
-	    private StackPane centerPane;
-	    
-	    @FXML
-	    void ouvrirCarte() {
-	        try {
-	            Parent root = FXMLLoader.load(getClass().getResource("/CarteZones.fxml"));
-	            centerPane.getChildren().setAll(root);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    
-	    @FXML
-	    private void ouvrirRechercheVocale() {
-	        ouvrirFenetre("/RechercheVocale.fxml", "Recherche Vocale");
-	    }
+        if (!surveillances.isEmpty()) {
+            var lastSurv = surveillances.get(surveillances.size() - 1);
+            lblDerniereSurv.setText("Dernière surveillance : " + lastSurv.getDateSurveillance());
+        } else {
+            lblDerniereSurv.setText("Aucune surveillance");
+        }
+    }
 
+    // ════════════════════════════════════════
+    //  PIE CHART (gardé de l'original, amélioré)
+    // ════════════════════════════════════════
+    public void loadPieChart(int active, int restauration, int menacee, int inactive) {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
+            new PieChart.Data("Menacée : "       + menacee,     menacee),
+            new PieChart.Data("Active : "         + active,      active),
+            new PieChart.Data("En restauration : " + restauration, restauration),
+            new PieChart.Data("Inactive : "       + inactive,    inactive)
+        );
+        pieChart.setData(data);
+        pieChart.setLabelsVisible(true);
+        pieChart.setLegendVisible(true);
+    }
+
+    // ════════════════════════════════════════
+    //  BAR CHART — zones par catégorie (NOUVEAU)
+    // ════════════════════════════════════════
+    public void loadBarChart(List<ZoneProtegee> zones) {
+        barChart.getData().clear();
+        barChart.setLegendVisible(false);
+
+        Map<String, Long> parCategorie = zones.stream()
+            .collect(Collectors.groupingBy(
+                z -> z.getCategorieZone() == null ? "Autre" : z.getCategorieZone(),
+                Collectors.counting()));
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        parCategorie.forEach((cat, count) ->
+            series.getData().add(new XYChart.Data<>(cat, count)));
+
+        barChart.getData().add(series);
+        barChart.setAnimated(true);
+    }
+
+    // ════════════════════════════════════════
+    //  LISTE ZONES MENACEES (NOUVEAU)
+    // ════════════════════════════════════════
+    private void loadListeMenacees(List<ZoneProtegee> zones) {
+        listeMenacees.getChildren().clear();
+
+        List<ZoneProtegee> menacees = zones.stream()
+            .filter(z -> z.getStatut().toLowerCase().contains("menac"))
+            .collect(Collectors.toList());
+
+        if (menacees.isEmpty()) {
+            Label lbl = new Label("Aucune zone menacée");
+            lbl.setStyle("-fx-text-fill: #27ae60; -fx-font-size: 13px; -fx-font-weight: bold;");
+            listeMenacees.getChildren().add(lbl);
+            return;
+        }
+
+        for (ZoneProtegee z : menacees) {
+            HBox ligne = new HBox(10);
+            ligne.setStyle(
+                "-fx-background-color: #fff0f0;" +
+                "-fx-background-radius: 10;" +
+                "-fx-padding: 10 14;");
+            ligne.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+            // Indicateur rouge
+            Region dot = new Region();
+            dot.setMinSize(10, 10);
+            dot.setMaxSize(10, 10);
+            dot.setStyle("-fx-background-color: #e74c3c; -fx-background-radius: 5;");
+
+            VBox info = new VBox(2);
+            Label nom = new Label(z.getNomZone());
+            nom.setStyle("-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #333;");
+            Label cat = new Label(z.getCategorieZone());
+            cat.setStyle("-fx-font-size: 11px; -fx-text-fill: #888;");
+            info.getChildren().addAll(nom, cat);
+
+            ligne.getChildren().addAll(dot, info);
+            listeMenacees.getChildren().add(ligne);
+        }
+    }
+
+    // ════════════════════════════════════════
+    //  BARRES DE PROGRESSION (NOUVEAU)
+    // ════════════════════════════════════════
+    private void loadProgressBars(int active, int restauration,
+                                   int menacee, int inactive, int total) {
+        double pA  = (double) active       / total;
+        double pR  = (double) restauration / total;
+        double pM  = (double) menacee      / total;
+        double pI  = (double) inactive     / total;
+
+        barActives.setProgress(pA);
+        barRestauration.setProgress(pR);
+        barMenacees.setProgress(pM);
+        barInactives.setProgress(pI);
+
+        pctActives.setText(Math.round(pA * 100) + "%  (" + active + ")");
+        pctRestauration.setText(Math.round(pR * 100) + "%  (" + restauration + ")");
+        pctMenacees.setText(Math.round(pM * 100) + "%  (" + menacee + ")");
+        pctInactives.setText(Math.round(pI * 100) + "%  (" + inactive + ")");
+    }
+
+    // ════════════════════════════════════════
+    //  BOUTON ACTUALISER (NOUVEAU)
+    // ════════════════════════════════════════
+    @FXML
+    private void actualiserDashboard() {
+        updateStats();
+    }
+
+    // ════════════════════════════════════════
+    //  NAVIGATION (gardé de l'original)
+    // ════════════════════════════════════════
+    @FXML private void ouvrirAjouter()         { ouvrirFenetre("/AjouterZone.fxml",         "Ajouter Zone"); }
+    @FXML private void ouvrirAfficher()        { ouvrirFenetre("/AfficherZones.fxml",        "Liste des Zones"); }
+    @FXML private void ouvrirSurveillance()    { ouvrirFenetre("/AfficherSurveillance.fxml", "Surveillances"); }
+    @FXML private void ouvrirAjouterSurv()     { ouvrirFenetre("/AjouterSurveillance.fxml",  "Nouvelle Surveillance"); }
+    @FXML private void ouvrirAccueil()         { ouvrirFenetre("/acceuil.fxml",              "Accueil"); }
+    @FXML private void ouvrirRechercheVocale() { ouvrirFenetre("/RechercheVocale.fxml",      "Recherche Vocale"); }
+
+    private void ouvrirFenetre(String chemin, String titre) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(chemin));
+            Parent root = loader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(titre);
+            newStage.setScene(new Scene(root));
+            Stage currentStage = (Stage) lblNbZones.getScene().getWindow();
+            currentStage.close();
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void ouvrirCarte() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/CarteZones.fxml"));
+            centerPane.getChildren().setAll(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -4,6 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
@@ -14,242 +17,316 @@
             prefWidth="1500"
             prefHeight="800">
 
-   
    <left>
-      <VBox spacing="10"
+      <VBox spacing="8"
             prefWidth="260"
             styleClass="sidebar">
-         
-        
+
          <StackPane styleClass="sidebar-header">
             <Region styleClass="header-background" />
-            <ImageView fitWidth="150"
-                       fitHeight="150"
-                       preserveRatio="true">
-              <image>
-                 <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
-              </image>
+            <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+              <image><Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/></image>
             </ImageView>
          </StackPane>
-         
-        
-         <Label text="ECOMARINE"
-                styleClass="sidebar-title"
-                style="-fx-text-fill: white;" />
-         
-         <Label text="Zone protégée"
-                styleClass="sidebar-subtitle"
-                style="-fx-text-fill: rgba(255,255,255,0.9);" />
-         
+
+         <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-text-fill: white;" />
+         <Label text="Zone protégée" styleClass="sidebar-subtitle" style="-fx-text-fill: rgba(255,255,255,0.9);" />
+
          <Separator styleClass="sidebar-separator" />
-         
-         
-         <Label text="PRINCIPAL"
-                styleClass="sidebar-section-label"
-                style="-fx-text-fill: rgba(255,255,255,0.7);" />
-         
-         <Button text="Ajouter Zone"
-                 onAction="#ouvrirAjouter"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button">
+
+         <Label text="PRINCIPAL" styleClass="sidebar-section-label" style="-fx-text-fill: rgba(255,255,255,0.7);" />
+
+         <Button text="Ajouter Zone" onAction="#ouvrirAjouter" maxWidth="Infinity" styleClass="sidebar-button">
             <graphic>
-               <ImageView fitWidth="20"
-                         fitHeight="20"
-                         preserveRatio="true">
-                 <image>
-                    <Image url="file:/C:/Users/WSI/Downloads/zone.png"/>
-                 </image>
+               <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                 <image><Image url="file:/C:/Users/WSI/Downloads/zone.png"/></image>
               </ImageView>
             </graphic>
          </Button>
 
-         <Button text="Liste des Zones"
-                 onAction="#ouvrirAfficher"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button">
+         <Button text="Liste des Zones" onAction="#ouvrirAfficher" maxWidth="Infinity" styleClass="sidebar-button">
             <graphic>
-               <ImageView fitWidth="20"
-                         fitHeight="20"
-                         preserveRatio="true">
-                 <image>
-                    <Image url="file:/C:/Users/WSI/Downloads/list.png"/>
-                 </image>
+               <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                 <image><Image url="file:/C:/Users/WSI/Downloads/list.png"/></image>
               </ImageView>
             </graphic>
          </Button>
-         <Button text="Recherche Vocale"
-                 onAction="#ouvrirRechercheVocale"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button"/>
-         
-         
-         <Label text="SURVEILLANCE"
-                styleClass="sidebar-section-label"
-                style="-fx-text-fill: rgba(255,255,255,0.7);">
-            <VBox.margin>
-               <Insets top="15" />
-            </VBox.margin>
+
+         <Button text="Recherche Vocale" onAction="#ouvrirRechercheVocale" maxWidth="Infinity" styleClass="sidebar-button"/>
+
+         <Label text="SURVEILLANCE" styleClass="sidebar-section-label" style="-fx-text-fill: rgba(255,255,255,0.7);">
+            <VBox.margin><Insets top="10" /></VBox.margin>
          </Label>
 
-         <Button text="Voir Surveillance"
-                 onAction="#ouvrirSurveillance"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button">
+         <Button text="Voir Surveillance" onAction="#ouvrirSurveillance" maxWidth="Infinity" styleClass="sidebar-button">
             <graphic>
-              <ImageView fitWidth="20"
-                         fitHeight="20"
-                         preserveRatio="true">
-                 <image>
-                    <Image url="file:/C:/Users/WSI/Downloads/surv.png"/>
-                 </image>
+              <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                 <image><Image url="file:/C:/Users/WSI/Downloads/surv.png"/></image>
               </ImageView>
             </graphic>
          </Button>
 
-         <Button text="Nouvelle Surveillance"
-                 onAction="#ouvrirAjouterSurv"
-                 maxWidth="Infinity"
-                 styleClass="sidebar-button">
+         <Button text="Nouvelle Surveillance" onAction="#ouvrirAjouterSurv" maxWidth="Infinity" styleClass="sidebar-button">
             <graphic>
-               <ImageView fitWidth="20"
-                         fitHeight="20"
-                         preserveRatio="true">
-                 <image>
-                    <Image url="file:/C:/Users/WSI/Downloads/ajsurv.png"/>
-                 </image>
+               <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                 <image><Image url="file:/C:/Users/WSI/Downloads/ajsurv.png"/></image>
               </ImageView>
             </graphic>
-         
          </Button>
-         
-         
-         
-       
-         <Separator styleClass="sidebar-separator" />
-         
-         <HBox spacing="10" alignment="CENTER" styleClass="stats-container">
-            <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
-               <Label fx:id="lblNbZones"
-                      styleClass="stats-number"
-                      style="-fx-text-fill: white;" />
 
-              <Label text="Zones"
-                      styleClass="stats-label"
-                      style="-fx-text-fill: rgba(255,255,255,0.8);" />
+         <Separator styleClass="sidebar-separator">
+            <VBox.margin><Insets top="10" /></VBox.margin>
+         </Separator>
+
+         <!-- Stats -->
+         <HBox spacing="8" alignment="CENTER" styleClass="stats-container">
+            <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS">
+               <Label fx:id="lblNbZones" styleClass="stats-number" style="-fx-text-fill: white;" />
+               <Label text="Zones" styleClass="stats-label" style="-fx-text-fill: rgba(255,255,255,0.8);" />
             </VBox>
-            <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
-               <Label fx:id="lblNbSurv"
-                      styleClass="stats-number"
-                      style="-fx-text-fill: white;" />
-
-              <Label text="Surveillances"
-                      styleClass="stats-label"
-                      style="-fx-text-fill: rgba(255,255,255,0.8);" />
+            <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS">
+               <Label fx:id="lblNbSurv" styleClass="stats-number" style="-fx-text-fill: white;" />
+               <Label text="Surveillances" styleClass="stats-label" style="-fx-text-fill: rgba(255,255,255,0.8);" />
+            </VBox>
+            <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS">
+               <Label fx:id="lblNbMenacees" styleClass="stats-number" style="-fx-text-fill: #ff6b6b;" />
+               <Label text="Menacées" styleClass="stats-label" style="-fx-text-fill: rgba(255,255,255,0.8);" />
             </VBox>
          </HBox>
-         <Button text="🏠 Accueil"
-                    onAction="#ouvrirAccueil"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"
-                    />
-         
-         
+
+         <Button text="🏠 Accueil" onAction="#ouvrirAccueil" maxWidth="Infinity" styleClass="sidebar-button"/>
+
          <Region VBox.vgrow="ALWAYS" />
-         
+
       </VBox>
    </left>
 
-  
    <center>
-    <StackPane fx:id="centerPane">
-        <VBox  spacing="30" style="-fx-padding: 40;">
+      <ScrollPane fitToWidth="true"
+                  style="-fx-background: transparent; -fx-background-color: transparent;"
+                  hbarPolicy="NEVER">
+         <StackPane fx:id="centerPane">
+            <VBox spacing="20" style="-fx-padding: 30;">
 
-            
-            <VBox spacing="10"
-                  style="-fx-background-color: white;
-                         -fx-padding:10;
-                         -fx-background-radius: 20;
-                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0.3, 0, 4);
-                          
-                          ">
+               <!-- ═══ TITRE DU DASHBOARD ═══ -->
+               <HBox alignment="CENTER_LEFT" spacing="15">
+                  <VBox spacing="4">
+                     <Label text="Tableau de Bord"
+                            style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                     <Label fx:id="lblDateHeure"
+                            style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+                  </VBox>
+                  <Region HBox.hgrow="ALWAYS"/>
+                  <Button text="Actualiser" onAction="#actualiserDashboard"
+                          style="-fx-background-color: rgba(255,255,255,0.15);
+                                 -fx-text-fill: white;
+                                 -fx-font-weight: bold;
+                                 -fx-background-radius: 20;
+                                 -fx-padding: 8 20;
+                                 -fx-cursor: hand;"/>
+               </HBox>
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
+               <!-- ═══ LIGNE 1 : 4 CARTES KPI ═══ -->
+               <HBox spacing="15">
 
-                    <ImageView fitWidth="18"
-                               fitHeight="18"
-                               preserveRatio="true">
-                       <image>
-                          <Image url="file:/C:/Users/WSI/Downloads/alert.png"/>
-                      </image>
-                  </ImageView>
+                  <!-- KPI Zones Total -->
+                  <VBox spacing="6" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0.2, 0, 4);">
+                     <Label text="Total Zones"
+                            style="-fx-font-size: 12px; -fx-text-fill: #888; -fx-font-weight: bold;"/>
+                     <Label fx:id="kpiTotalZones"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                     <Label fx:id="kpiTotalZonesSub"
+                            style="-fx-font-size: 11px; -fx-text-fill: #27ae60;"/>
+                  </VBox>
 
-                 <Label text="Dernière activité"
-                        style="-fx-font-size: 16px;
-                              -fx-font-weight: bold;
-                             -fx-text-fill: #333;" />
+                  <!-- KPI Zones Actives -->
+                  <VBox spacing="6" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0.2, 0, 4);">
+                     <Label text="Zones Actives"
+                            style="-fx-font-size: 12px; -fx-text-fill: #888; -fx-font-weight: bold;"/>
+                     <Label fx:id="kpiActives"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                     <Label fx:id="kpiActivesSub"
+                            style="-fx-font-size: 11px; -fx-text-fill: #888;"/>
+                  </VBox>
 
-              </HBox>
-                              
+                  <!-- KPI Zones Menacées -->
+                  <VBox spacing="6" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0.2, 0, 4);">
+                     <Label text="Zones Menacées"
+                            style="-fx-font-size: 12px; -fx-text-fill: #888; -fx-font-weight: bold;"/>
+                     <Label fx:id="kpiMenacees"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
+                     <Label fx:id="kpimenacessSub"
+                            style="-fx-font-size: 11px; -fx-text-fill: #e74c3c;"/>
+                  </VBox>
 
-                <Label fx:id="lblDerniereZone"
-                       style="-fx-text-fill: black;
-                              -fx-font-size: 14px;" />
-
-                <Label fx:id="lblDerniereSurv"
-                       style="-fx-text-fill: black;
-                              -fx-font-size: 14px;" />
-
-            </VBox>
-
-
-            
-            <VBox alignment="CENTER" spacing="20">
-
-                <Label text="Statistiques des Zones"
-                       style="-fx-font-size: 26px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: white;" />
-
-                <PieChart fx:id="pieChart"
-                          prefWidth="500"
-                          prefHeight="400" />
-
-            </VBox>
-
-
-            
-            <VBox alignment="CENTER"
-                  spacing="10"
-                  style="-fx-background-color: white;
-                         -fx-padding: 15;
-                         -fx-background-radius: 25;
-                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0.3, 0, 4);">
-                
-
-                <HBox spacing="10" alignment="CENTER">
-
-                    <ImageView fitWidth="30"
-                               fitHeight="30"
-                               preserveRatio="true">
-                      <image>
-                        <Image url="file:/C:/Users/WSI/Downloads/eco.png"/>
-                     </image>
-                  </ImageView>
-
-                  <Label text="Indice ÉcoMarine"
-                         style="-fx-font-size: 20px;
-                                -fx-font-weight: bold;
-                                -fx-text-fill: #333;" />
+                  <!-- KPI Score Eco -->
+                  <VBox spacing="6" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0.2, 0, 4);">
+                     <Label text="Indice ÉcoMarine"
+                            style="-fx-font-size: 12px; -fx-text-fill: #888; -fx-font-weight: bold;"/>
+                     <Label fx:id="lblScoreEco"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold;"/>
+                     <Label fx:id="kpiEcoSub"
+                            style="-fx-font-size: 11px; -fx-text-fill: #888;"/>
+                  </VBox>
 
                </HBox>
-                <Label fx:id="lblScoreEco"
-                       style="-fx-font-size: 36px;
-                              -fx-font-weight: bold;" />
+
+               <!-- ═══ LIGNE 2 : ALERTE + DERNIERE ACTIVITE ═══ -->
+               <HBox spacing="15">
+
+                  <!-- Alerte zones menacées -->
+                  <VBox spacing="10" HBox.hgrow="ALWAYS"
+                        fx:id="panneauAlerte"
+                        style="-fx-background-color: #fff5f5;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-border-color: #ffcccc;
+                               -fx-border-width: 1.5;
+                               -fx-border-radius: 18;">
+                     <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="⚠"
+                               style="-fx-font-size: 18px; -fx-text-fill: #e74c3c;"/>
+                        <Label text="Zones nécessitant attention"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #c0392b;"/>
+                     </HBox>
+                     <Label fx:id="lblAlerteContenu"
+                            wrapText="true"
+                            style="-fx-font-size: 13px; -fx-text-fill: #555;"/>
+                  </VBox>
+
+                  <!-- Dernière activité (gardé de l'original) -->
+                  <VBox spacing="10" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 4);">
+                     <HBox spacing="8" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                           <image><Image url="file:/C:/Users/WSI/Downloads/alert.png"/></image>
+                        </ImageView>
+                        <Label text="Dernière activité"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                     </HBox>
+                     <Label fx:id="lblDerniereZone"
+                            style="-fx-text-fill: #444; -fx-font-size: 13px;"/>
+                     <Label fx:id="lblDerniereSurv"
+                            style="-fx-text-fill: #444; -fx-font-size: 13px;"/>
+                  </VBox>
+
+               </HBox>
+
+               <!-- ═══ LIGNE 3 : GRAPHIQUES ═══ -->
+               <HBox spacing="15">
+
+                  <!-- PieChart (gardé de l'original) -->
+                  <VBox spacing="10" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 4);">
+                     <Label text="Répartition des Zones"
+                            style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                     <PieChart fx:id="pieChart" prefHeight="280"/>
+                  </VBox>
+
+                  <!-- BarChart nouvelles surveillances par statut -->
+                  <VBox spacing="10" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 4);">
+                     <Label text="Zones par Catégorie"
+                            style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                     <BarChart fx:id="barChart" prefHeight="280">
+                        <xAxis><CategoryAxis/></xAxis>
+                        <yAxis><NumberAxis/></yAxis>
+                     </BarChart>
+                  </VBox>
+
+               </HBox>
+
+               <!-- ═══ LIGNE 4 : TOP ZONES MENACEES + PROGRESSION ═══ -->
+               <HBox spacing="15">
+
+                  <!-- Top zones menacées -->
+                  <VBox spacing="10" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 4);">
+                     <Label text="Zones Menacées"
+                            style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #c0392b;"/>
+                     <VBox fx:id="listeMenacees" spacing="8"/>
+                  </VBox>
+
+                  <!-- Barre de progression santé globale -->
+                  <VBox spacing="15" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: white;
+                               -fx-background-radius: 18;
+                               -fx-padding: 18;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 4);">
+                     <Label text="Santé des Zones"
+                            style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+
+                     <!-- Actives -->
+                     <VBox spacing="4">
+                        <HBox><Label text="Actives" style="-fx-text-fill: #27ae60; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                              <Region HBox.hgrow="ALWAYS"/>
+                              <Label fx:id="pctActives" style="-fx-text-fill: #888; -fx-font-size: 12px;"/></HBox>
+                        <ProgressBar fx:id="barActives" maxWidth="Infinity"
+                                     style="-fx-accent: #27ae60; -fx-background-radius: 6; -fx-pref-height: 10;"/>
+                     </VBox>
+
+                     <!-- En restauration -->
+                     <VBox spacing="4">
+                        <HBox><Label text="En restauration" style="-fx-text-fill: #f39c12; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                              <Region HBox.hgrow="ALWAYS"/>
+                              <Label fx:id="pctRestauration" style="-fx-text-fill: #888; -fx-font-size: 12px;"/></HBox>
+                        <ProgressBar fx:id="barRestauration" maxWidth="Infinity"
+                                     style="-fx-accent: #f39c12; -fx-background-radius: 6; -fx-pref-height: 10;"/>
+                     </VBox>
+
+                     <!-- Menacées -->
+                     <VBox spacing="4">
+                        <HBox><Label text="Menacées" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                              <Region HBox.hgrow="ALWAYS"/>
+                              <Label fx:id="pctMenacees" style="-fx-text-fill: #888; -fx-font-size: 12px;"/></HBox>
+                        <ProgressBar fx:id="barMenacees" maxWidth="Infinity"
+                                     style="-fx-accent: #e74c3c; -fx-background-radius: 6; -fx-pref-height: 10;"/>
+                     </VBox>
+
+                     <!-- Inactives -->
+                     <VBox spacing="4">
+                        <HBox><Label text="Inactives" style="-fx-text-fill: #95a5a6; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                              <Region HBox.hgrow="ALWAYS"/>
+                              <Label fx:id="pctInactives" style="-fx-text-fill: #888; -fx-font-size: 12px;"/></HBox>
+                        <ProgressBar fx:id="barInactives" maxWidth="Infinity"
+                                     style="-fx-accent: #95a5a6; -fx-background-radius: 6; -fx-pref-height: 10;"/>
+                     </VBox>
+
+                  </VBox>
+
+               </HBox>
 
             </VBox>
-
-        </VBox>
-    </StackPane>
-</center>
+         </StackPane>
+      </ScrollPane>
+   </center>
 
 </BorderPane>

@@ -57,19 +57,8 @@ public class SignInController {
             showAlert("Erreur", "Veuillez remplir tous les champs !", Alert.AlertType.ERROR);
             return;
         }
-     // 🔥 ADMIN PAR DÉFAUT (hardcoded)
-        if (email.equals("admin@gmail.com") && mdp.equals("admin")) {
-            User admin = new User();
-            admin.setNom("Admin");
-            admin.setPrenom("System");
-            admin.setEmail("admin@gmail.com");
-            admin.setRole("admin");
-
-            utilisateurConnecte = admin;
-
-            ouvrirGestionUsers();
-            return;
-        }
+     // 🔥 ADMIN PAR DÉFAUT (hardcoded) 
+        if (email.equals("admin@gmail.com") && mdp.equals("admin")) { User admin = new User(); admin.setNom("Admin"); admin.setPrenom("System"); admin.setEmail("admin@gmail.com"); admin.setRole("admin"); utilisateurConnecte = admin; ouvrirGestionUsers(); return; }
 
         User u = service.login(email, mdp);
 
@@ -77,13 +66,17 @@ public class SignInController {
             showAlert("Connexion échouée", "Email ou mot de passe incorrect !", Alert.AlertType.ERROR);
             return;
         }
-        
+
         utilisateurConnecte = u;
 
-        if (estAdmin(u)) {
+        String role = u.getRole().toLowerCase();
+
+        if (role.contains("admin")) {
             ouvrirGestionUsers();
+        } else if (role.contains("chercheur")) {
+            ouvrirAccueilChercheur(u);
         } else {
-            ouvrirAccueil(u);
+            ouvrirAccueilUtilisateur(u);
         }
     }
     
@@ -421,5 +414,44 @@ public class SignInController {
         a.setHeaderText(null);
         a.setContentText(msg);
         a.showAndWait();
+    }
+    
+    private void ouvrirAccueilChercheur(User user) {
+        try {
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Acceuil.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            AccueilController controller = loader.getController();
+            if (controller != null) {
+                controller.setUtilisateurConnecte(user);
+            }
+
+            stage.setScene(scene);
+            stage.setTitle("Accueil Chercheur");
+            stage.setMaximized(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void ouvrirAccueilUtilisateur(User user) {
+        try {
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AccueilUtilisateur.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            stage.setScene(scene);
+            stage.setTitle("Accueil Utilisateur");
+            stage.setMaximized(true);
+            AccueilUtilisateur controller = loader.getController();
+            if (controller != null) {
+                controller.setUtilisateurConnecte(user);
+                }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
