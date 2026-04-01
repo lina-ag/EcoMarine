@@ -8,8 +8,8 @@
             fx:controller="faune.Marine.controllers.GestionFauneMeteoController"
             stylesheets="@style.css"
             styleClass="root-pane"
-            prefWidth="1100"
-            prefHeight="600">
+            prefWidth="1500"
+            prefHeight="800">
 
    <!-- ======================== -->
    <!-- BARRE LATÉRALE GAUCHE     -->

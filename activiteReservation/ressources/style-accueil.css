@@ -1,0 +1,161 @@
+/* ── Fond océan plus clair ─────────────────────────────────────────────── */
+.ocean-bg {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
+        #e0f2fe 0%, #b8e1fc 40%, #9ad4f5 70%, #7bc5e8 100%);
+    -fx-pref-width: infinity;
+    -fx-pref-height: infinity;
+}
+
+/* Orbes décoratives floutées - plus claires */
+.orb-top-right {
+    -fx-background-color: rgba(56, 189, 248, 0.25);
+    -fx-background-radius: 200;
+    -fx-pref-width: 380;
+    -fx-pref-height: 380;
+    -fx-translate-x: 400;
+    -fx-translate-y: -250;
+    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.4), 80, 0.5, 0, 0);
+}
+
+.orb-bottom-left {
+    -fx-background-color: rgba(52, 211, 153, 0.2);
+    -fx-background-radius: 200;
+    -fx-pref-width: 300;
+    -fx-pref-height: 300;
+    -fx-translate-x: -450;
+    -fx-translate-y: 280;
+    -fx-effect: dropshadow(gaussian, rgba(52,211,153,0.3), 60, 0.5, 0, 0);
+}
+
+/* ── Carte principale verre dépoli plus claire ──────────────────────────── */
+.glass-card {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 28;
+    -fx-border-radius: 28;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1;
+    -fx-padding: 44 50 50 50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 40, 0.2, 0, 10);
+}
+
+/* ── Icône centrale ─────────────────────────────────────────── */
+.icon-circle {
+    -fx-background-color: rgba(56, 189, 248, 0.25);
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-color: rgba(56, 189, 248, 0.5);
+    -fx-border-width: 1;
+    -fx-min-width: 84;
+    -fx-min-height: 84;
+    -fx-max-width: 84;
+    -fx-max-height: 84;
+}
+
+/* ── Typographie plus claire ─────────────────────────────────────────────── */
+.section-tag {
+    -fx-text-fill: rgba(2, 106, 162, 0.8);
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 3px;
+}
+
+.user-name {
+    -fx-text-fill: #0c4a6e;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* ── Badge date plus clair ─────────────────────────────────────────────── */
+.date-badge {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: rgba(56, 189, 248, 0.3);
+    -fx-border-width: 1;
+    -fx-padding: 6 16 6 16;
+}
+
+.date-text {
+    -fx-text-fill: #0c4a6e;
+    -fx-font-size: 12px;
+}
+
+/* ── Séparateur plus clair ─────────────────────────────────────────────── */
+.glass-separator {
+    -fx-background-color: rgba(56, 189, 248, 0.25);
+    -fx-min-height: 1;
+    -fx-max-height: 1;
+    -fx-pref-width: 320;
+}
+
+/* ── Boutons plus clairs ─────────────────────────────────────────────────── */
+.btn-ocean-primary {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
+        #38bdf8, #0ea5e9);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 15 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.4), 16, 0.3, 0, 4);
+}
+
+.btn-ocean-primary:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
+        #7ac7f9, #2b9ce0);
+    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.5), 22, 0.4, 0, 5);
+}
+
+.btn-ocean-secondary {
+    -fx-background-color: rgba(56, 189, 248, 0.12);
+    -fx-text-fill: #0284c7;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: rgba(56, 189, 248, 0.5);
+    -fx-border-width: 1;
+    -fx-padding: 14 24;
+    -fx-cursor: hand;
+}
+
+.btn-ocean-secondary:hover {
+    -fx-background-color: rgba(56, 189, 248, 0.25);
+    -fx-border-color: rgba(56, 189, 248, 0.8);
+}
+
+/* ── Stats plus claires ───────────────────────────────────────────────────── */
+.stats-row {
+    -fx-padding: 20 0 0 0;
+}
+
+.stat-number {
+    -fx-text-fill: #0284c7;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.stat-label {
+    -fx-text-fill: rgba(2, 106, 162, 0.6);
+    -fx-font-size: 9px;
+    -fx-letter-spacing: 1.5px;
+}
+
+.stat-divider {
+    -fx-background-color: rgba(56, 189, 248, 0.3);
+    -fx-min-width: 1;
+    -fx-max-width: 1;
+    -fx-min-height: 30;
+}
+
+/* ── Footer plus clair ──────────────────────────────────────────────────── */
+.footer-text {
+    -fx-text-fill: rgba(2, 106, 162, 0.45);
+    -fx-font-size: 11px;
+}
+
+.footer-dot {
+    -fx-text-fill: rgba(56, 189, 248, 0.4);
+    -fx-font-size: 11px;
+}

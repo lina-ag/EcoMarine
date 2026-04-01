@@ -7,7 +7,10 @@
 <VBox spacing="15" xmlns="http://javafx.com/javafx/17" 
       xmlns:fx="http://javafx.com/fxml/1" 
       fx:controller="faune.Marine.controllers.FauneMarineController"
-      stylesheets="@style.css">
+      styleClass="root-pane"
+      stylesheets="@style.css"
+      prefWidth="1500"
+      prefHeight="800">
     
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>

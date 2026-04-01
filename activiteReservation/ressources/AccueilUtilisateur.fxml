@@ -1,129 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.AccueilUtilisateur"
-      spacing="25" 
-      alignment="CENTER" 
-      stylesheets="@style.css"
-      styleClass="root-pane"
-      style="-fx-background-color: linear-gradient(to bottom, #ecf0f1, #d5dbdb);"
-      prefWidth="1500"
-      prefHeight="800">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
-    <padding>
-        <Insets top="50" right="50" bottom="50" left="50"/>
-    </padding> 
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controllers.AccueilUtilisateur"
+           stylesheets="@style-accueil.css"
+           prefWidth="1500" prefHeight="800">
 
-    <!-- Carte principale -->
-    <VBox spacing="30"
-          alignment="CENTER"
-          style="-fx-background-color: white;
-                 -fx-background-radius: 35;
-                 -fx-border-radius: 35;
-                 -fx-border-color: rgba(0,0,0,0.08);
-                 -fx-border-width: 1.5;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0.2, 0, 10);
-                 -fx-padding: 45 55 55 55;"
-          maxWidth="550">
+    <!-- Fond dégradé océan -->
+    <VBox styleClass="ocean-bg"/>
 
-        <!-- Icône EcoMarine -->
-        <Label text="🌊"
-               style="-fx-font-size: 64px; 
-                      -fx-padding: 0 0 5 0;"/>
+    <!-- Orbes décoratives -->
+    <Region styleClass="orb-top-right"/>
+    <Region styleClass="orb-bottom-left"/>
 
-        <!-- Nom de l'utilisateur -->
-        <Label fx:id="lblNomUtilisateur" 
-               text="Bienvenue !" 
-               style="-fx-font-size: 28px; 
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #1e3c72;
-                      -fx-border-color: transparent transparent #1e3c72 transparent;
-                      -fx-border-width: 0 0 2 0;
-                      -fx-padding: 0 0 12 0;"/>
+    <!-- Carte centrale -->
+    <VBox alignment="CENTER">
+        <VBox styleClass="glass-card" alignment="CENTER" spacing="0" maxWidth="460">
 
-        <!-- Date actuelle -->
-        <HBox spacing="8" alignment="CENTER">
-            <Label text="📅"
-                   style="-fx-font-size: 18px;"/>
-            <Label fx:id="lblDateActuelle" 
-                   text="Date" 
-                   style="-fx-font-size: 15px; 
-                          -fx-text-fill: #64748b;
-                          -fx-font-weight: 500;"/>
-        </HBox>
+            <!-- Icône -->
+            <StackPane styleClass="icon-circle">
+                <StackPane alignment="CENTER">
+                <Region styleClass="header-background"/>
+                <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+                    <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
+                </ImageView>
+            </StackPane>
+            </StackPane>
 
-        <!-- Séparateur décoratif -->
-        <Region style="-fx-background-color: #e0e0e0; 
-                       -fx-min-height: 2; 
-                       -fx-max-height: 2; 
-                       -fx-min-width: 80; 
-                       -fx-background-radius: 2;"/>
+            <!-- Label "Espace personnel" -->
+            <Label text="ESPACE UTILISATEUR" styleClass="section-tag">
+                <VBox.margin><Insets top="20"/></VBox.margin>
+            </Label>
 
-        <!-- Boutons -->
-        <VBox spacing="18" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
-            <Button fx:id="btnAjouterReservation" 
-                    text="➕  Ajouter une réservation" 
-                    prefWidth="280"
-                    prefHeight="52"
-                    style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
-                           -fx-text-fill: white;
-                           -fx-font-weight: bold;
-                           -fx-font-size: 15px;
-                           -fx-background-radius: 30;
-                           -fx-padding: 12 25;
-                           -fx-cursor: hand;
-                           -fx-effect: dropshadow(gaussian, #1e3c72, 12, 0.3, 0, 4);" 
-                    onAction="#ouvrirAjouterReservation"/>
-            
-            <Button fx:id="btnCalendrier" 
-                    text="📅  Consulter le calendrier" 
-                    prefWidth="280"
-                    prefHeight="52"
-                    style="-fx-background-color: transparent;
-                           -fx-text-fill: #1e3c72;
-                           -fx-font-weight: bold;
-                           -fx-font-size: 15px;
-                           -fx-border-color: #1e3c72;
-                           -fx-border-width: 2;
-                           -fx-border-radius: 30;
-                           -fx-background-radius: 30;
-                           -fx-padding: 12 25;
-                           -fx-cursor: hand;
-                           -fx-effect: dropshadow(gaussian, rgba(30,60,114,0.15), 8, 0.2, 0, 2);" 
-                    onAction="#ouvrirCalendrier"/>
+            <!-- Nom utilisateur -->
+            <Label fx:id="lblNomUtilisateur" text="Bienvenue !" styleClass="user-name">
+                <VBox.margin><Insets top="8"/></VBox.margin>
+            </Label>
+
+            <!-- Date badge -->
+            <HBox styleClass="date-badge" alignment="CENTER" spacing="8">
+                <Label text="📅" style="-fx-font-size: 13px;"/>
+                <Label fx:id="lblDateActuelle" text="Date" styleClass="date-text"/>
+                <VBox.margin><Insets top="14" bottom="20"/></VBox.margin>
+            </HBox>
+
+            <!-- Séparateur -->
+            <Region styleClass="glass-separator" maxWidth="320">
+                <VBox.margin><Insets bottom="24"/></VBox.margin>
+            </Region>
+
+            <!-- Bouton primaire -->
+            <Button fx:id="btnAjouterReservation"
+                    text="＋   Ajouter une réservation"
+                    onAction="#ouvrirAjouterReservation"
+                    maxWidth="Infinity"
+                    styleClass="btn-ocean-primary">
+                <VBox.margin><Insets bottom="12"/></VBox.margin>
+            </Button>
+
+            <!-- Bouton secondaire -->
+            <Button fx:id="btnCalendrier"
+                    text="📅   Consulter le calendrier"
+                    onAction="#ouvrirCalendrier"
+                    maxWidth="Infinity"
+                    styleClass="btn-ocean-secondary"/>
+
+            <!-- Stats rapides -->
+            <HBox alignment="CENTER" spacing="36" styleClass="stats-row">
+                <VBox alignment="CENTER" spacing="3">
+                    <Label fx:id="lblNbReservations" text="—" styleClass="stat-number"/>
+                    <Label text="RÉSERVATIONS" styleClass="stat-label"/>
+                </VBox>
+                <Region styleClass="stat-divider"/>
+                <VBox alignment="CENTER" spacing="3">
+                    <Label fx:id="lblNbActivites" text="—" styleClass="stat-number"/>
+                    <Label text="ACTIVITÉS" styleClass="stat-label"/>
+                </VBox>
+                <Region styleClass="stat-divider"/>
+                <VBox alignment="CENTER" spacing="3">
+                    <Label text="2026" styleClass="stat-number"/>
+                    <Label text="SAISON" styleClass="stat-label"/>
+                </VBox>
+                <VBox.margin><Insets top="24"/></VBox.margin>
+            </HBox>
+
+            <!-- Footer -->
+            <HBox alignment="CENTER" spacing="6" styleClass="card-footer">
+                <Label text="EcoMarine" styleClass="footer-text"/>
+                <Label text="•" styleClass="footer-dot"/>
+                <Label text="Surveillance marine" styleClass="footer-text"/>
+                <VBox.margin><Insets top="20"/></VBox.margin>
+            </HBox>
+
         </VBox>
-
-        <!-- Message d'information -->
-        <HBox spacing="12" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
-            <Label text="✨"
-                   style="-fx-font-size: 12px;"/>
-            <Label text="Gérez vos réservations facilement"
-                   style="-fx-font-size: 11px; 
-                          -fx-text-fill: #94a3b8;
-                          -fx-font-style: italic;"/>
-            <Label text="✨"
-                   style="-fx-font-size: 12px;"/>
-        </HBox>
-
     </VBox>
 
-    <!-- Pied de page -->
-    <HBox alignment="CENTER" spacing="8" style="-fx-padding: 25 0 0 0;">
-        <Label text="🔊"
-               style="-fx-font-size: 10px; -fx-text-fill: #cbd5e1;"/>
-        <Label text="Recherche vocale disponible"
-               style="-fx-font-size: 10px; -fx-text-fill: #94a3b8;"/>
-        <Label text="•"
-               style="-fx-font-size: 10px; -fx-text-fill: #cbd5e1;"/>
-        <Label text="EcoMarine"
-               style="-fx-font-size: 10px; -fx-text-fill: #94a3b8;"/>
-    </HBox>
-
-</VBox>
+</StackPane>

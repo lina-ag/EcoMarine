@@ -5,7 +5,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="faune.Marine.controllers.ObservationController">
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"  stylesheets="@style.css"
+            styleClass="root-pane" fx:controller="faune.Marine.controllers.ObservationController"
+            prefWidth="1500"
+            prefHeight="800">
     
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
