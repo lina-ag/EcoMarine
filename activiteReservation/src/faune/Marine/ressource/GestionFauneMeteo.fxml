@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="faune.Marine.controllers.GestionFauneMeteoController"
+            stylesheets="@style.css"
+            styleClass="root-pane"
+            prefWidth="1100"
+            prefHeight="600">
+
+   <!-- ======================== -->
+   <!-- BARRE LATÉRALE GAUCHE     -->
+   <!-- ======================== -->
+   <left>
+      <VBox spacing="10" 
+            prefWidth="280" 
+            styleClass="sidebar"
+            style="-fx-padding: 20 10 20 10;">
+
+         <!-- En-tête avec logo -->
+         <StackPane styleClass="sidebar-header" style="-fx-padding: 10 0 5 0;">
+            <Region styleClass="header-background" />
+            <Label text="🌊" 
+                   style="-fx-font-size: 56px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" />
+         </StackPane>
+
+         <!-- TITRES -->
+         <Label text="ECOMARINE"
+                styleClass="sidebar-title"
+                style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: 800;" />
+
+         <Label text="Gestion Faune &amp; Météo"
+                styleClass="sidebar-subtitle"
+                style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px; -fx-padding: 0 0 10 0;" />
+
+         <Separator styleClass="sidebar-separator" />
+
+         <!-- SECTION STATISTIQUES -->
+         <Label text="STATISTIQUES"
+                styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 11px; -fx-font-weight: 700;" />
+
+         <Button text="Tableau de Bord"
+                 onAction="#handleTableauBord"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="📊" 
+                      styleClass="button-icon" 
+                      style="-fx-font-size: 18px; -fx-text-fill: white; -fx-padding: 0 5 0 0;" />
+            </graphic>
+         </Button>
+
+         <Button text="Faune Marine"
+                 onAction="#handleFauneMarine"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="🐋" 
+                      styleClass="button-icon" 
+                      style="-fx-font-size: 18px; -fx-text-fill: white; -fx-padding: 0 5 0 0;" />
+            </graphic>
+         </Button>
+
+         <Button text="Observations"
+                 onAction="#handleObservations"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="🔍" 
+                      styleClass="button-icon" 
+                      style="-fx-font-size: 18px; -fx-text-fill: white; -fx-padding: 0 5 0 0;" />
+            </graphic>
+         </Button>
+
+         <!-- SECTION INNOVATIONS -->
+         <Separator styleClass="sidebar-separator" 
+                    style="-fx-padding: 10 0 5 0;" />
+         
+         <Label text="INNOVATIONS"
+                styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 11px; -fx-font-weight: 700; -fx-padding: 5 0 5 5;" />
+
+         <Button text="🔮 Prédiction Échouages"
+                 onAction="#handlePredictionEchouages"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="🔮" 
+                      styleClass="button-icon" 
+                      style="-fx-font-size: 18px; -fx-text-fill: white; -fx-padding: 0 5 0 0;" />
+            </graphic>
+         </Button>
+
+         <Button text="🚁 Missions Drone"
+                 onAction="#handleMissionsDrone"
+                 maxWidth="Infinity"
+                 styleClass="sidebar-button">
+            <graphic>
+               <Label text="🚁" 
+                      styleClass="button-icon" 
+                      style="-fx-font-size: 18px; -fx-text-fill: white; -fx-padding: 0 5 0 0;" />
+            </graphic>
+         </Button>
+
+         <!-- STATISTIQUES RAPIDES -->
+         <Separator styleClass="sidebar-separator" 
+                    style="-fx-padding: 10 0 5 0;" />
+
+         <HBox spacing="15" 
+               alignment="CENTER" 
+               styleClass="stats-container"
+               style="-fx-background-color: rgba(255,255,255,0.15); -fx-padding: 15 10; -fx-background-radius: 15;">
+            
+            <VBox alignment="CENTER" 
+                  spacing="5" 
+                  HBox.hgrow="ALWAYS">
+               <Label fx:id="lblTotalAnimaux"
+                      text="0"
+                      styleClass="stats-number"
+                      style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;" />
+               <Label text="Animaux"
+                      styleClass="stats-label"
+                      style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 11px;" />
+            </VBox>
+            
+            <VBox alignment="CENTER" 
+                  spacing="5" 
+                  HBox.hgrow="ALWAYS">
+               <Label fx:id="lblTotalObservations"
+                      text="0"
+                      styleClass="stats-number"
+                      style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;" />
+               <Label text="Observations"
+                      styleClass="stats-label"
+                      style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 11px;" />
+            </VBox>
+         </HBox>
+
+         <!-- ESPACE FLEXIBLE -->
+         <Region VBox.vgrow="ALWAYS" />
+
+         <!-- FOOTER -->
+         <HBox alignment="CENTER" 
+               spacing="5" 
+               styleClass="user-footer"
+               style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 8; -fx-background-radius: 10;">
+            <Label text="🌊" style="-fx-font-size: 16px;" />
+            <Label text="Système de Surveillance Marine v2.0" 
+                   style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10px;" />
+         </HBox>
+      </VBox>
+   </left>
+
+   <!-- ======================== -->
+   <!-- CONTENU CENTRAL          -->
+   <!-- ======================== -->
+   <center>
+      <StackPane style="-fx-background-color: transparent;">
+         <VBox alignment="CENTER" 
+               spacing="20"
+               style="-fx-padding: 50;">
+            
+            <Label text="Bienvenue sur ECOMARINE 🎉" 
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #1E5490;" />
+            
+            <Label text="Surveillez la faune marine et les conditions météorologiques." 
+                   style="-fx-font-size: 18px; -fx-text-fill: #4682B4;" />
+            
+            <Label text="Utilisez le menu de gauche pour naviguer entre les différentes sections."
+                   style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+            
+         </VBox>
+      </StackPane>
+   </center>
+
+</BorderPane>

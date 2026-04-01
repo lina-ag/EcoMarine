@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="faune.Marine.controllers.PredictionEchouageController"
+      style="-fx-background-color: white; -fx-padding: 20;">
+    
+    <!-- En-tête -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="🔮" style="-fx-font-size: 28px;"/>
+        <Label text="Prédiction des Échouages" 
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    </HBox>
+    
+    <Separator/>
+    
+    <!-- Barre d'outils -->
+    <HBox spacing="10">
+        <Button text="🔮 Toutes les prédictions" onAction="#handleToutesPredictions" 
+                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+        <Button text="⚠️ Alertes Rouges" onAction="#handleAlertesRouges" 
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button text="🤖 Prédiction Auto" onAction="#handlePredictionAuto" 
+                style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+        <Button text="📊 Exporter Rapport" onAction="#handleExporterRapport" 
+                style="-fx-background-color: #1abc9c; -fx-text-fill: white;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblStatistiques" style="-fx-text-fill: #34495e; -fx-font-weight: bold;"/>
+    </HBox>
+    
+    <!-- TableView -->
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colDate" text="Date" prefWidth="100"/>
+            <TableColumn fx:id="colZone" text="Zone" prefWidth="100"/>
+            <TableColumn fx:id="colRisque" text="Risque" prefWidth="80"/>
+            <TableColumn fx:id="colEspece" text="Espèce" prefWidth="120"/>
+            <TableColumn fx:id="colTemperature" text="Temp. Eau" prefWidth="100"/>
+            <TableColumn fx:id="colRecommandations" text="Recommandations" prefWidth="300"/>
+        </columns>
+    </TableView>
+    
+    <!-- Formulaire -->
+    <TitledPane text="Nouvelle Prédiction" expanded="true">
+        <GridPane hgap="10" vgap="10" style="-fx-padding: 10;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            
+            <Label text="Date:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpDatePrediction" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            
+            <Label text="Zone:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbZone" prefWidth="200" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            
+            <Label text="Niveau de risque:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <HBox spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <Slider fx:id="sliderRisque" min="1" max="10" value="5" showTickLabels="true" showTickMarks="true" prefWidth="200"/>
+                <Label fx:id="lblNiveauRisque" text="5" style="-fx-font-weight: bold;"/>
+            </HBox>
+            
+            <Label text="Espèce:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbEspece" prefWidth="200" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            
+            <Label text="Température eau:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTemperatureEau" promptText="Ex: 22.5" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            
+            <Label text="Conditions météo:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbConditionsMeteo" prefWidth="200" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            
+            <Label text="Recommandations:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextArea fx:id="txtRecommandations" prefRowCount="3" prefWidth="400" wrapText="true" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            
+        </GridPane>
+    </TitledPane>
+    
+    <!-- Boutons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnAjouter" text="➕ Ajouter" onAction="#handleAjouter" 
+                style="-fx-background-color: #27ae60; -fx-text-fill: white;" prefWidth="100"/>
+        <Button fx:id="btnModifier" text="✏️ Modifier" onAction="#handleModifier" disable="true" 
+                style="-fx-background-color: #f39c12; -fx-text-fill: white;" prefWidth="100"/>
+        <Button fx:id="btnSupprimer" text="🗑️ Supprimer" onAction="#handleSupprimer" disable="true" 
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;" prefWidth="100"/>
+        <Button fx:id="btnEffacer" text="🔄 Effacer" onAction="#handleEffacer" 
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white;" prefWidth="100"/>
+    </HBox>
+    
+</VBox>

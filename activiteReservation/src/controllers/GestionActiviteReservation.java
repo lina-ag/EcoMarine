@@ -1,8 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +13,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import tn.edu.esprit.entities.ActiviteEcologique;
@@ -24,10 +25,12 @@ public class GestionActiviteReservation {
     private Label activitesCount;
     @FXML
     private Label reservationsCount;
-    
-    // ✅ NOUVEAU : le panneau central
+
     @FXML
     private StackPane mainContent;
+
+    @FXML
+    private Button btnBack;
 
     private static GestionActiviteReservation instance;
 
@@ -35,11 +38,9 @@ public class GestionActiviteReservation {
     public void initialize() {
         instance = this;
         loadStatistics();
-        // ✅ Charger le tableau de bord au démarrage
         chargerVueCentrale("/TableauBord.fxml");
     }
 
-    // ✅ NOUVELLE méthode : charge n'importe quel FXML dans le center
     private void chargerVueCentrale(String chemin) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(chemin));
@@ -76,7 +77,6 @@ public class GestionActiviteReservation {
         }
     }
 
-    // ✅ Tous les boutons sidebar chargent dans le center maintenant
     @FXML
     private void ouvrirAjouterActivite() {
         chargerVueCentrale("/AjouterActivite.fxml");
@@ -102,7 +102,6 @@ public class GestionActiviteReservation {
         chargerVueCentrale("/TableauBord.fxml");
     }
 
-    // ✅ Calendrier garde sa propre fenêtre (CalendarFX fonctionne mieux en Stage séparé)
     @FXML
     private void ouvrirCalendrier() {
         try {
@@ -116,7 +115,6 @@ public class GestionActiviteReservation {
         }
     }
 
-    // ✅ Chatbot garde aussi sa propre fenêtre
     @FXML
     private void ouvrirChatbot() {
         try {
@@ -133,19 +131,36 @@ public class GestionActiviteReservation {
         }
     }
 
+    // ============================================
+    // 🐋 FAUNE MARINE - YOUR NEW METHOD
+    // ============================================
+    @FXML
+    private void ouvrirFauneMarine(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/faune/Marine/ressource/Main.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("🐋 Gestion Faune Marine & Météo");
+            stage.setScene(new Scene(root, 1200, 700));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger Faune Marine:\n" + e.getMessage());
+        }
+    }
+    @FXML
+    private void handleBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
+    }
+
     private void showAlert(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    @FXML
-    private Button btnBack;
-
-    @FXML
-    private void handleBack() {
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        stage.close();
     }
 }

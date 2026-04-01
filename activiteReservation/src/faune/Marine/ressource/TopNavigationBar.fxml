@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="faune.Marine.controllers.TopNavigationBarController"
+      style="-fx-background-color: linear-gradient(to right, #1e3c72, #2a5298);">
+    
+    <HBox alignment="CENTER_LEFT" 
+          spacing="20">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+        
+        <!-- Logo et Titre -->
+        <Label text="🐋 Gestion de la Faune Marine" 
+               style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <!-- Boutons de navigation -->
+        <Button fx:id="btnDashboard" 
+                text="📊 Dashboard" 
+                onAction="#handleDashboard" 
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 14px;"/>
+        
+        <Button fx:id="btnFauneMarine" 
+                text="🐚 Faune Marine" 
+                onAction="#handleFauneMarine" 
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 14px;"/>
+        
+        <Button fx:id="btnObservations" 
+                text="🔍 Observations" 
+                onAction="#handleObservations" 
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 14px;"/>
+        
+        <!-- Bouton Quitter -->
+        <Button fx:id="btnQuitter" 
+                text="❌ Quitter" 
+                onAction="#handleQuitter" 
+                style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-padding: 8 15;"/>
+    </HBox>
+</VBox>
