@@ -83,6 +83,15 @@ public class GestionUsers implements Initializable {
     private ServiceUser serviceUser = new ServiceUser();
     private User utilisateurConnecte;
 
+    @FXML
+    private void ouvrirActionsNettoyage() {
+        ouvrirFenetre("/actions.fxml", "Actions de Nettoyage");
+    }
+
+    @FXML
+    private void ouvrirVolontaires() {
+        ouvrirFenetre("/volontaires.fxml", "Gestion des Bénévoles");
+    }
     // ════════════════════════════════════════
     //  INITIALIZE
     // ════════════════════════════════════════

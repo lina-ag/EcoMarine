@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.VolontairesController"
+      spacing="20"
+      alignment="TOP_CENTER"
+      stylesheets="@style.css"
+      styleClass="root-pane"
+      style="-fx-padding: 25;">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" maxWidth="1000">
+        <Label text="Gestion des volontaires" styleClass="page-title"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="12" maxWidth="1000">
+        <Label text="Action :" styleClass="filter-label"/>
+        <ComboBox fx:id="cbActions"
+                  prefWidth="500"
+                  onAction="#loadVolontaires"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="12" maxWidth="1000">
+        <Label text="Nom :" styleClass="filter-label"/>
+        <TextField fx:id="txtNom"
+                   promptText="Nom du volontaire"
+                   prefWidth="260"
+                   styleClass="search-field"/>
+
+        <Label text="Contact :" styleClass="filter-label"/>
+        <TextField fx:id="txtContact"
+                   promptText="Téléphone ou email"
+                   prefWidth="260"
+                   styleClass="search-field"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="12" maxWidth="1000">
+        <Button text="Ajouter" onAction="#addVol" styleClass="btn-add"/>
+        <Button text="Modifier" onAction="#updateVol"/>
+        <Button text="Supprimer" onAction="#deleteVol"/>
+        <Button text="Vider" onAction="#clearVol" styleClass="btn-clear"/>
+    </HBox>
+
+    <TableView fx:id="tableVol"
+               prefHeight="500"
+               maxWidth="1000"
+               styleClass="activities-table">
+        <columns>
+            <TableColumn fx:id="colIdVol" text="ID" prefWidth="100"/>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="350"/>
+            <TableColumn fx:id="colContact" text="Contact" prefWidth="350"/>
+        </columns>
+    </TableView>
+
+</VBox>

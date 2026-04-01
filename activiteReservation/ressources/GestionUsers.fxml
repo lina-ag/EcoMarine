@@ -47,6 +47,17 @@
                  maxWidth="Infinity" styleClass="sidebar-button">
             <graphic><Label text="📋" style="-fx-text-fill: white;"/></graphic>
          </Button>
+         
+         <Button text="🧹 Actions de Nettoyage"
+        onAction="#ouvrirActionsNettoyage"
+        maxWidth="Infinity"
+        styleClass="sidebar-button"/>
+
+		<Button text="🤝 Gestion Bénévoles"
+        onAction="#ouvrirVolontaires"
+        maxWidth="Infinity"
+        styleClass="sidebar-button"/>
+        
          <Button text="📊 Gestion Activités et Réservations"
                     onAction="#ouvrirModuleActivitesReservations"
                     maxWidth="Infinity" styleClass="sidebar-button"/>

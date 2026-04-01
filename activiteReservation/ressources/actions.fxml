@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ActionsController"
+      spacing="20"
+      alignment="TOP_CENTER"
+      stylesheets="@style.css"
+      styleClass="root-pane"
+      style="-fx-padding: 25;">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" maxWidth="1000">
+        <Label text="Gestion des actions de nettoyage" styleClass="page-title"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="12" maxWidth="1000">
+        <Label text="Date :" styleClass="filter-label"/>
+        <TextField fx:id="txtDate"
+                   promptText="DD/MM/YYYY ou YYYY-MM-DD"
+                   prefWidth="230"
+                   styleClass="search-field"/>
+
+        <Label text="Lieu :" styleClass="filter-label"/>
+        <TextField fx:id="txtLieu"
+                   promptText="Entrer le lieu"
+                   prefWidth="320"
+                   styleClass="search-field"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="12" maxWidth="1000">
+        <Button text="Ajouter" onAction="#addAction" styleClass="btn-add"/>
+        <Button text="Modifier" onAction="#updateAction"/>
+        <Button text="Supprimer" onAction="#deleteAction"/>
+        <Button text="Vider" onAction="#clearAction" styleClass="btn-clear"/>
+    </HBox>
+
+    <TableView fx:id="tableActions"
+               prefHeight="500"
+               maxWidth="1000"
+               styleClass="activities-table">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+            <TableColumn fx:id="colDate" text="Date" prefWidth="220"/>
+            <TableColumn fx:id="colLieu" text="Lieu" prefWidth="420"/>
+            <TableColumn fx:id="colParticipants" text="Participants" prefWidth="180"/>
+        </columns>
+    </TableView>
+
+</VBox>
