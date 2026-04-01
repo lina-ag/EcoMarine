@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
@@ -391,4 +392,25 @@ public class AjouterUser {
         Stage stage = (Stage) nomField.getScene().getWindow();
         stage.close();
     }
+    
+    @FXML
+    private void retourner(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
+            Parent root = loader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle("Gestion des Zones Protégées");
+            newStage.setScene(new Scene(root));
+            newStage.setMaximized(true);
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

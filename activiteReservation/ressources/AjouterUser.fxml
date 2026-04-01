@@ -8,8 +8,8 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/21"
             fx:controller="controllers.AjouterUser"
-            prefWidth="1500" 
-            prefHeight="800"
+            prefWidth="1535" 
+            prefHeight="840"
             stylesheets="@style.css"
             styleClass="root-pane">
 
@@ -226,6 +226,9 @@
                                -fx-effect: dropshadow(gaussian, #f44336, 6, 0.2, 0, 2);"
                         prefWidth="120"/>
             </HBox>
+            <Button text="Retour"
+        onAction="#retourner"
+        prefWidth="120"/>
 
         </VBox>
     </children>

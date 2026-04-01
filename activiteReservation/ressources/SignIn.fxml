@@ -9,8 +9,8 @@
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="controllers.SignInController"
-           prefWidth="1500"
-           prefHeight="800"
+           prefWidth="1535"
+           prefHeight="840"
            stylesheets="@style.css"
            styleClass="root-pane">
 

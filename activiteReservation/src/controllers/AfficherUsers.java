@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -252,4 +253,25 @@ public class AfficherUsers {
         usersList.addAll(serviceUser.getAll());
         filteredList.setAll(usersList); // Mettre à jour aussi la liste filtrée
     }
+    
+    @FXML
+    private void retourner(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
+            Parent root = loader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle("Gestion des Zones Protégées");
+            newStage.setScene(new Scene(root));
+            newStage.setMaximized(true);
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

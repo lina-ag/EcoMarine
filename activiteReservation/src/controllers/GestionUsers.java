@@ -352,6 +352,8 @@ public class GestionUsers implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle(titre);
             stage.show();
+            Stage currentStage = (Stage) adminsLabel.getScene().getWindow();
+            currentStage.close();
         } catch (Exception e) {
             System.err.println("Erreur ouverture : " + cheminFXML);
             e.printStackTrace();
@@ -365,6 +367,9 @@ public class GestionUsers implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/SignIn.fxml"));
             stage.setScene(new Scene(root));
             stage.show();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -395,6 +400,8 @@ public class GestionUsers implements Initializable {
             stage.setTitle("🐋 Gestion Faune Marine & Météo");
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
 
         } catch (IOException e) {
             e.printStackTrace();

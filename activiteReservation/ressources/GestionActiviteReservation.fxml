@@ -9,8 +9,8 @@
             fx:controller="controllers.GestionActiviteReservation"
             stylesheets="@style.css"
             styleClass="root-pane"
-            prefWidth="1500"
-            prefHeight="800">
+            prefWidth="1535"
+            prefHeight="840">
 
     <!-- SIDEBAR -->
     <left>

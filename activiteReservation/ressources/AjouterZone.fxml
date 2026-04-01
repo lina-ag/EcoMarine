@@ -8,8 +8,8 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.AjouterZone"
-            prefWidth="1500"
-            prefHeight="800"
+            prefWidth="1535"
+            prefHeight="840"
             stylesheets="@style.css"
             styleClass="root-pane">
 
@@ -141,6 +141,10 @@
 
                 
             </Button>
+            
+            <Button text="Retour"
+        onAction="#retournerGestionZones"
+        prefWidth="120"/>
 
             
 

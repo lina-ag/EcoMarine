@@ -36,6 +36,7 @@ public class HomeController {
             newStage.setScene(new Scene(root));
             newStage.setTitle(titre);
             newStage.show();
+            
 
             // Fermer la fenêtre actuelle
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

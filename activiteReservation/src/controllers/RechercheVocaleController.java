@@ -3,10 +3,15 @@ package controllers;
 import org.vosk.Model;
 import org.vosk.Recognizer;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import tn.edu.esprit.entities.ZoneProtegee;
 import tn.edu.esprit.services.ServiceZoneP;
 
@@ -188,4 +193,25 @@ public class RechercheVocaleController {
 
         lblStatut.setText("Recherche terminée ✓");
     }
+    
+    @FXML
+    private void retourner(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionZonesPr.fxml"));
+            Parent root = loader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle("Gestion des Zones Protégées");
+            newStage.setScene(new Scene(root));
+            newStage.setMaximized(true);
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

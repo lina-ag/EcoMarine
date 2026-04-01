@@ -14,6 +14,7 @@ import tn.edu.esprit.entities.SurveillanceZone;
 import tn.edu.esprit.services.ServiceSurv;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -292,4 +293,25 @@ public class AfficherSurveillance {
                 };
         colModifier.setCellFactory(cellFactory);
     }
+    
+    @FXML
+    private void retourner(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionZonesPr.fxml"));
+            Parent root = loader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle("Gestion des Zones Protégées");
+            newStage.setScene(new Scene(root));
+            newStage.setMaximized(true);
+
+            // Fermer la fenêtre actuelle
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
