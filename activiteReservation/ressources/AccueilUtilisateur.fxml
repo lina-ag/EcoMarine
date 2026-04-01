@@ -1,104 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="controllers.AccueilUtilisateur"
-           stylesheets="@style-accueil.css"
-           prefWidth="1535" prefHeight="840">
+<AnchorPane xmlns="http://javafx.com/javafx/18.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AccueilUtilisateur"
+            prefWidth="1300"
+            prefHeight="800"
+            stylesheets="@style-accueil.css"
+            styleClass="root-pane">
 
-    <!-- Fond dégradé océan -->
-    <VBox styleClass="ocean-bg"/>
+   
+    
+    <!-- ORBS DÉCORATIFS (remis) -->
+    <Pane mouseTransparent="true" style="-fx-background-color: transparent;">
+        <Circle fx:id="orb1" radius="280" fill="#7ed8c0" 
+                layoutX="150" layoutY="200" opacity="0.25"/>
+        <Circle fx:id="orb2" radius="200" fill="#0891b2" 
+                layoutX="1050" layoutY="500" opacity="0.2"/>
+        <Circle fx:id="orb3" radius="150" fill="#0f766e" 
+                layoutX="900" layoutY="150" opacity="0.2"/>
+        <Circle fx:id="orb4" radius="320" fill="#5b9b8a" 
+                layoutX="1300" layoutY="700" opacity="0.15"/>
+    </Pane>
 
-    <!-- Orbes décoratives -->
-    <Region styleClass="orb-top-right"/>
-    <Region styleClass="orb-bottom-left"/>
+    <!-- CONTENU PRINCIPAL - PLEINE LARGEUR -->
+    <VBox fx:id="mainVBox" spacing="0" alignment="TOP_CENTER" 
+          style="-fx-background-color: transparent; -fx-padding: 0;">
 
-    <!-- Carte centrale -->
-    <VBox alignment="CENTER">
-        <VBox styleClass="glass-card" alignment="CENTER" spacing="0" maxWidth="460">
-
-            <!-- Icône -->
-            <StackPane styleClass="icon-circle">
-                <StackPane alignment="CENTER">
-                <Region styleClass="header-background"/>
-                <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
-                    <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
-                </ImageView>
-            </StackPane>
-            </StackPane>
-
-            <!-- Label "Espace personnel" -->
-            <Label text="ESPACE UTILISATEUR" styleClass="section-tag">
-                <VBox.margin><Insets top="20"/></VBox.margin>
-            </Label>
-
-            <!-- Nom utilisateur -->
-            <Label fx:id="lblNomUtilisateur" text="Bienvenue !" styleClass="user-name">
-                <VBox.margin><Insets top="8"/></VBox.margin>
-            </Label>
-
-            <!-- Date badge -->
-            <HBox styleClass="date-badge" alignment="CENTER" spacing="8">
-                <Label text="📅" style="-fx-font-size: 13px;"/>
-                <Label fx:id="lblDateActuelle" text="Date" styleClass="date-text"/>
-                <VBox.margin><Insets top="14" bottom="20"/></VBox.margin>
-            </HBox>
-
-            <!-- Séparateur -->
-            <Region styleClass="glass-separator" maxWidth="320">
-                <VBox.margin><Insets bottom="24"/></VBox.margin>
-            </Region>
-
-            <!-- Bouton primaire -->
-            <Button fx:id="btnAjouterReservation"
-                    text="＋   Ajouter une réservation"
-                    onAction="#ouvrirAjouterReservation"
-                    maxWidth="Infinity"
-                    styleClass="btn-ocean-primary">
-                <VBox.margin><Insets bottom="12"/></VBox.margin>
-            </Button>
-
-            <!-- Bouton secondaire -->
-            <Button fx:id="btnCalendrier"
-                    text="📅   Consulter le calendrier"
-                    onAction="#ouvrirCalendrier"
-                    maxWidth="Infinity"
-                    styleClass="btn-ocean-secondary"/>
-
-            <!-- Stats rapides -->
-            <HBox alignment="CENTER" spacing="36" styleClass="stats-row">
-                <VBox alignment="CENTER" spacing="3">
-                    <Label fx:id="lblNbReservations" text="—" styleClass="stat-number"/>
-                    <Label text="RÉSERVATIONS" styleClass="stat-label"/>
+        <!-- TOP BAR - TRANSPARENT -->
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="0">
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <Label styleClass="logo-icon" text="🌊"/>
+                <VBox spacing="1">
+                    <Label styleClass="logo-title" text="EcoMarine"/>
+                    <Label styleClass="logo-subtitle" text="KURIAT ISLAND · MONASTIR"/>
                 </VBox>
-                <Region styleClass="stat-divider"/>
-                <VBox alignment="CENTER" spacing="3">
-                    <Label fx:id="lblNbActivites" text="—" styleClass="stat-number"/>
-                    <Label text="ACTIVITÉS" styleClass="stat-label"/>
-                </VBox>
-                <Region styleClass="stat-divider"/>
-                <VBox alignment="CENTER" spacing="3">
-                    <Label text="2026" styleClass="stat-number"/>
-                    <Label text="SAISON" styleClass="stat-label"/>
-                </VBox>
-                <VBox.margin><Insets top="24"/></VBox.margin>
             </HBox>
-
-            <!-- Footer -->
-            <HBox alignment="CENTER" spacing="6" styleClass="card-footer">
-                <Label text="EcoMarine" styleClass="footer-text"/>
-                <Label text="•" styleClass="footer-dot"/>
-                <Label text="Surveillance marine" styleClass="footer-text"/>
-                <VBox.margin><Insets top="20"/></VBox.margin>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="mode-badge" alignment="CENTER" spacing="10">
+                <Circle styleClass="mode-dot" radius="5" fill="#7ed8c0"/>
+                <Label styleClass="mode-text" text="Mode Visiteur"/>
             </HBox>
+        </HBox>
 
+        <!-- HERO SECTION -->
+        <VBox styleClass="hero-section" alignment="CENTER" spacing="12">
+            <Label styleClass="hero-eyebrow" text="BIENVENUE SUR LA PLATEFORME"/>
+            <Label styleClass="hero-title" text="Explorez l'île Kuriat"/>
+            <Label styleClass="hero-desc" text="Découvrez nos activités écotouristiques, réservez votre expérience et partez à la rencontre de la faune marine méditerranéenne."
+                   wrapText="true"/>
         </VBox>
-    </VBox>
 
-</StackPane>
+        <!-- GRILLE CARTES - 4 COLONNES -->
+        <GridPane fx:id="cardsGrid" styleClass="cards-grid" hgap="24" vgap="24" 
+                  GridPane.hgrow="ALWAYS" maxWidth="Infinity">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+            </columnConstraints>
+            
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS"/>
+            </rowConstraints>
+
+            <!-- Carte 1 - Activités -->
+            <VBox fx:id="cardActivites" styleClass="card" spacing="10" onMouseClicked="#ouvrirActivites"
+                  GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label styleClass="card-icon" text="🐠"/>
+                <Label styleClass="card-title" text="Activités"/>
+                <Label styleClass="card-desc" text="Plongée, snorkeling, observation des tortues" wrapText="true"/>
+                <Label styleClass="card-link" text="Voir les activités →"/>
+            </VBox>
+
+            <!-- Carte 2 - Réservations -->
+            <VBox fx:id="cardReservations" styleClass="card" spacing="10" onMouseClicked="#ouvrirReservations"
+                  GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label styleClass="card-icon" text="📅"/>
+                <Label styleClass="card-title" text="Réservations"/>
+                <Label styleClass="card-desc" text="Consultez et gérez vos réservations" wrapText="true"/>
+                <Label styleClass="card-link" text="Voir mes réservations →"/>
+            </VBox>
+
+            <!-- Carte 3 - À propos -->
+            <VBox fx:id="cardAPropos" styleClass="card" spacing="10" onMouseClicked="#ouvrirAPropos"
+                  GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <Label styleClass="card-icon" text="🌍"/>
+                <Label styleClass="card-title" text="À propos"/>
+                <Label styleClass="card-desc" text="L'île Kuriat et notre mission écologique" wrapText="true"/>
+                <Label styleClass="card-link" text="En savoir plus →"/>
+            </VBox>
+
+            <!-- Carte 4 - Statistiques verrouillée -->
+            <StackPane GridPane.columnIndex="3" GridPane.rowIndex="0">
+                <VBox styleClass="card-locked" spacing="10">
+                    <Label styleClass="card-icon" text="🔒"/>
+                    <Label styleClass="card-title" text="Statistiques"/>
+                    <Label styleClass="card-desc" text="Tableau de bord &amp; indicateurs KPI" wrapText="true"/>
+                    <Label styleClass="card-link" text="Non disponible pour les visiteurs"/>
+                </VBox>
+                <Label styleClass="restricted-badge" text="ACCÈS RESTREINT" StackPane.alignment="TOP_RIGHT"/>
+            </StackPane>
+        </GridPane>
+
+        <!-- ISLAND STRIP -->
+        <HBox fx:id="islandStrip" styleClass="island-strip" alignment="CENTER_LEFT" spacing="18"
+              maxWidth="Infinity">
+            <VBox.margin><Insets left="40" right="40" bottom="20" top="20"/></VBox.margin>
+            <Label styleClass="island-icon" text="🏝"/>
+            <VBox spacing="5">
+                <Label styleClass="island-title" text="Îles Kuriat · Monastir, Tunisie"/>
+                <Label styleClass="island-desc" text="Site naturel protégé — Refuge des tortues Caretta caretta en Méditerranée" wrapText="true"/>
+            </VBox>
+        </HBox>
+
+        <!-- CTA BOUTON -->
+        <VBox styleClass="cta-container" alignment="CENTER">
+            <Button fx:id="btnReserver" styleClass="btn-primary" text="🌊   Réserver une activité"
+                    onAction="#ouvrirReservations" maxWidth="Infinity"/>
+        </VBox>
+
+    </VBox>
+</AnchorPane>

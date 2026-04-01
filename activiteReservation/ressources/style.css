@@ -209,6 +209,36 @@
 	    -fx-alignment: CENTER;
 	    -fx-padding: 10 5;
 	}
+	/* ============================= */
+/* BOUTON RETOUR AVEC ICÔNE */
+/* ============================= */
+
+.btn-back {
+    -fx-background-color: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+    -fx-text-fill: #1E5490;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1;
+    -fx-border-radius: 25;
+    -fx-graphic-text-gap: 8;
+}
+
+.btn-back:hover {
+    -fx-background-color: linear-gradient(to bottom, #e2e8f0, #cbd5e1);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-translate-x: -3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.2, 0, 2);
+}
+
+.btn-back:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
 
 	/* Lignes du tableau */
 	.activities-table .table-row-cell {
@@ -2576,21 +2606,7 @@
     -fx-animation: pulse 1s infinite;
 }
 
-.btn-back {
-    -fx-background-color: transparent;
-    -fx-border-color: #607d8b;
-    -fx-border-radius: 6;
-    -fx-background-radius: 6;
-    -fx-text-fill: #607d8b;
-    -fx-font-size: 13px;
-    -fx-cursor: hand;
-    -fx-padding: 6 16 6 16;
-}
 
-.btn-back:hover {
-    -fx-background-color: #607d8b;
-    -fx-text-fill: white;
-}
 /* ============================================================ */
 /* PAGE ACCUEIL V6 — FOND MER + GLASSMORPHISM TRANSLUCIDE      */
 /* ============================================================ */

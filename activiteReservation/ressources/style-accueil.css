@@ -1,161 +1,245 @@
-/* ── Fond océan plus clair ─────────────────────────────────────────────── */
-.ocean-bg {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
-        #e0f2fe 0%, #b8e1fc 40%, #9ad4f5 70%, #7bc5e8 100%);
-    -fx-pref-width: infinity;
-    -fx-pref-height: infinity;
+/* style.css - Design Moderne avec Image de Fond */
+
+.root-pane {
+    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-blend-mode: overlay;
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+	}
+
+/* style.css - Design Clair avec Orbes et Image de Fond */
+
+/* ========== ORBES DÉCORATIFS ========== */
+#orb1, #orb2, #orb3, #orb4 {
+    -fx-opacity: 0.25;
 }
 
-/* Orbes décoratives floutées - plus claires */
-.orb-top-right {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-background-radius: 200;
-    -fx-pref-width: 380;
-    -fx-pref-height: 380;
-    -fx-translate-x: 400;
-    -fx-translate-y: -250;
-    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.4), 80, 0.5, 0, 0);
+/* ========== TOP BAR - TRANSPARENT ========== */
+.topbar {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-padding: 16 40 14 40;
+    -fx-border-color: rgba(126, 216, 192, 0.3);
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0, 0, 2);
 }
 
-.orb-bottom-left {
-    -fx-background-color: rgba(52, 211, 153, 0.2);
-    -fx-background-radius: 200;
-    -fx-pref-width: 300;
-    -fx-pref-height: 300;
-    -fx-translate-x: -450;
-    -fx-translate-y: 280;
-    -fx-effect: dropshadow(gaussian, rgba(52,211,153,0.3), 60, 0.5, 0, 0);
+.logo-icon {
+    -fx-font-size: 28px;
 }
 
-/* ── Carte principale verre dépoli plus claire ──────────────────────────── */
-.glass-card {
-    -fx-background-color: rgba(255, 255, 255, 0.85);
-    -fx-background-radius: 28;
-    -fx-border-radius: 28;
-    -fx-border-color: rgba(255, 255, 255, 0.5);
-    -fx-border-width: 1;
-    -fx-padding: 44 50 50 50;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 40, 0.2, 0, 10);
-}
-
-/* ── Icône centrale ─────────────────────────────────────────── */
-.icon-circle {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-background-radius: 50;
-    -fx-border-radius: 50;
-    -fx-border-color: rgba(56, 189, 248, 0.5);
-    -fx-border-width: 1;
-    -fx-min-width: 84;
-    -fx-min-height: 84;
-    -fx-max-width: 84;
-    -fx-max-height: 84;
-}
-
-/* ── Typographie plus claire ─────────────────────────────────────────────── */
-.section-tag {
-    -fx-text-fill: rgba(2, 106, 162, 0.8);
-    -fx-font-size: 11px;
-    -fx-font-weight: bold;
-    -fx-letter-spacing: 3px;
-}
-
-.user-name {
-    -fx-text-fill: #0c4a6e;
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-}
-
-/* ── Badge date plus clair ─────────────────────────────────────────────── */
-.date-badge {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
-    -fx-border-color: rgba(56, 189, 248, 0.3);
-    -fx-border-width: 1;
-    -fx-padding: 6 16 6 16;
-}
-
-.date-text {
-    -fx-text-fill: #0c4a6e;
-    -fx-font-size: 12px;
-}
-
-/* ── Séparateur plus clair ─────────────────────────────────────────────── */
-.glass-separator {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-min-height: 1;
-    -fx-max-height: 1;
-    -fx-pref-width: 320;
-}
-
-/* ── Boutons plus clairs ─────────────────────────────────────────────────── */
-.btn-ocean-primary {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
-        #38bdf8, #0ea5e9);
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 16;
-    -fx-padding: 15 24;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.4), 16, 0.3, 0, 4);
-}
-
-.btn-ocean-primary:hover {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
-        #7ac7f9, #2b9ce0);
-    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.5), 22, 0.4, 0, 5);
-}
-
-.btn-ocean-secondary {
-    -fx-background-color: rgba(56, 189, 248, 0.12);
-    -fx-text-fill: #0284c7;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 16;
-    -fx-border-radius: 16;
-    -fx-border-color: rgba(56, 189, 248, 0.5);
-    -fx-border-width: 1;
-    -fx-padding: 14 24;
-    -fx-cursor: hand;
-}
-
-.btn-ocean-secondary:hover {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-border-color: rgba(56, 189, 248, 0.8);
-}
-
-/* ── Stats plus claires ───────────────────────────────────────────────────── */
-.stats-row {
-    -fx-padding: 20 0 0 0;
-}
-
-.stat-number {
-    -fx-text-fill: #0284c7;
+.logo-title {
+    -fx-font-family: "Georgia";
     -fx-font-size: 22px;
     -fx-font-weight: bold;
+    -fx-text-fill: #0f766e;
 }
 
-.stat-label {
-    -fx-text-fill: rgba(2, 106, 162, 0.6);
+.logo-subtitle {
     -fx-font-size: 9px;
-    -fx-letter-spacing: 1.5px;
+    -fx-text-fill: #5b9b8a;
 }
 
-.stat-divider {
-    -fx-background-color: rgba(56, 189, 248, 0.3);
-    -fx-min-width: 1;
-    -fx-max-width: 1;
-    -fx-min-height: 30;
+.mode-badge {
+    -fx-background-color: #e6f7f2;
+    -fx-border-color: #bcd9d0;
+    -fx-border-width: 1;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 7 20 7 16;
 }
 
-/* ── Footer plus clair ──────────────────────────────────────────────────── */
-.footer-text {
-    -fx-text-fill: rgba(2, 106, 162, 0.45);
-    -fx-font-size: 11px;
+.mode-dot {
+    -fx-fill: #0f766e;
 }
 
-.footer-dot {
-    -fx-text-fill: rgba(56, 189, 248, 0.4);
-    -fx-font-size: 11px;
+.mode-text {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f766e;
+}
+
+/* ========== HERO SECTION ========== */
+.hero-section {
+    -fx-padding: 60 40 40 40;
+    -fx-alignment: center;
+}
+
+.hero-eyebrow {
+    -fx-font-size: 12px;
+    -fx-text-fill: #0891b2;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1px;
+}
+
+.hero-title {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 52px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.8), 3, 0, 0, 1);
+}
+
+.hero-desc {
+    -fx-font-size: 16px;
+    -fx-text-fill: #334155;
+    -fx-line-spacing: 5;
+    -fx-wrap-text: true;
+    -fx-max-width: 700px;
+    -fx-text-alignment: center;
+}
+
+/* ========== GRILLE CARTES - 4 COLONNES ========== */
+.cards-grid {
+    -fx-padding: 20 40 30 40;
+    -fx-hgap: 24;
+    -fx-vgap: 24;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 24;
+    -fx-background-radius: 24;
+    -fx-padding: 28 20 28 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 4);
+}
+
+.card:hover {
+    -fx-background-color: #fefefe;
+    -fx-border-color: #0891b2;
+    -fx-effect: dropshadow(gaussian, rgba(8, 145, 178, 0.2), 20, 0, 0, 8);
+    -fx-translate-y: -4px;
+}
+
+.card-icon {
+    -fx-font-size: 44px;
+}
+
+.card-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.card-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #5b6e8c;
+    -fx-wrap-text: true;
+}
+
+.card-link {
+    -fx-font-size: 12px;
+    -fx-text-fill: #0891b2;
+    -fx-padding: 8 0 0 0;
+    -fx-font-weight: 600;
+}
+
+/* Carte verrouillée */
+.card-locked {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 24;
+    -fx-background-radius: 24;
+    -fx-padding: 28 20 28 20;
+    -fx-opacity: 0.7;
+}
+
+.card-locked .card-title {
+    -fx-text-fill: #94a3b8;
+}
+
+.card-locked .card-desc {
+    -fx-text-fill: #94a3b8;
+}
+
+.card-locked .card-link {
+    -fx-text-fill: #94a3b8;
+}
+
+.restricted-badge {
+    -fx-background-color: #fef2f2;
+    -fx-border-color: #fecaca;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 5 12 5 12;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #dc2626;
+    -fx-translate-x: -12;
+    -fx-translate-y: 12;
+}
+
+/* ========== ISLAND STRIP ========== */
+.island-strip {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    -fx-padding: 18 28 18 28;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
+}
+
+.island-icon {
+    -fx-font-size: 34px;
+}
+
+.island-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.island-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5b6e8c;
+    -fx-wrap-text: true;
+}
+
+/* ========== BOUTON CTA ========== */
+.cta-container {
+    -fx-padding: 20 40 40 40;
+}
+
+.btn-primary {
+    -fx-background-color: #0891b2;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-padding: 16 0 16 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(8, 145, 178, 0.3), 8, 0, 0, 2);
+}
+
+.btn-primary:hover {
+    -fx-background-color: #0e7c9e;
+    -fx-effect: dropshadow(gaussian, rgba(8, 145, 178, 0.4), 12, 0, 0, 4);
+    -fx-translate-y: -2px;
+}
+
+/* ========== SCROLLBAR ========== */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 10;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #f1f5f9;
 }
