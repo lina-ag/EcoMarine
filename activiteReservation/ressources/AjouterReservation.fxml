@@ -12,163 +12,162 @@
             styleClass="root-pane">
 
     <children>
+        <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            
+            <!-- Bouton back tout en haut -->
+            <HBox alignment="CENTER_LEFT" prefWidth="800">
+                <padding>
+                    <Insets left="20" top="10"/>
+                </padding>
+                <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+            </HBox>
+            
+            <!-- Conteneur principal du formulaire -->
+            <VBox spacing="20"
+                  alignment="CENTER"
+                  style="-fx-background-color: white;
+                         -fx-background-radius: 30;
+                         -fx-border-radius: 30;
+                         -fx-border-color: rgba(0,0,0,0.08);
+                         -fx-border-width: 1.5;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 25, 0.2, 0, 8);"
+                  AnchorPane.topAnchor="60"
+                  AnchorPane.bottomAnchor="60"
+                  AnchorPane.leftAnchor="400"
+                  AnchorPane.rightAnchor="400"
+                  maxWidth="700">
 
-        <VBox spacing="25"
-              alignment="CENTER"
-              style="-fx-background-color: white;
-                     -fx-background-radius: 30;
-                     -fx-border-radius: 30;
-                     -fx-border-color: rgba(0,0,0,0.08);
-                     -fx-border-width: 1.5;
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 25, 0.2, 0, 8);"
-              AnchorPane.topAnchor="60"
-              AnchorPane.bottomAnchor="60"
-              AnchorPane.leftAnchor="450"
-              AnchorPane.rightAnchor="450">
+                <padding>
+                    <Insets top="35" right="50" bottom="40" left="50"/>
+                </padding>
 
-            <padding>
-                <Insets top="40" right="50" bottom="50" left="50" />
-            </padding>
-
-            <Label text="📅 Ajouter une Réservation"
-                   style="-fx-font-size: 26px; 
-                          -fx-font-weight: 300;
-                          -fx-text-fill: #1e3c72;
-                          -fx-border-color: transparent transparent #1e3c72 transparent;
-                          -fx-border-width: 0 0 2 0;
-                          -fx-padding: 0 0 10 0;"/>
-
-            <Label text="Renseignez les informations de réservation"
-                   style="-fx-font-size: 14px;
-                          -fx-text-fill: #666666;
-                          -fx-font-weight: 300;
-                          -fx-padding: 0 0 15 0;"/>
-
-            <GridPane hgap="20" vgap="20" alignment="CENTER">
-
-                <!-- Nom -->
-                <Label text="Nom complet"
-                       style="-fx-font-size: 14px;
+                <Label text="📅 Ajouter une Réservation"
+                       style="-fx-font-size: 24px; 
                               -fx-font-weight: bold;
-                              -fx-text-fill: #1e3c72;"
-                       GridPane.rowIndex="0" 
-                       GridPane.columnIndex="0"/>
-                <TextField fx:id="tfNom" 
-                           promptText="Entrez votre nom complet"
-                           style="-fx-background-radius: 12;
-                                  -fx-border-radius: 12;
-                                  -fx-border-color: #e0e0e0;
-                                  -fx-border-width: 1.5;
-                                  -fx-background-color: #f8f9fa;
-                                  -fx-padding: 12 15;
-                                  -fx-font-size: 14px;
-                                  -fx-focus-color: #1e3c72;
-                                  -fx-faint-focus-color: transparent;"
-                           prefWidth="350"
-                           GridPane.rowIndex="0"
-                           GridPane.columnIndex="1"/>
+                              -fx-text-fill: #1e3c72;
+                              -fx-border-color: transparent transparent #1e3c72 transparent;
+                              -fx-border-width: 0 0 2 0;
+                              -fx-padding: 0 0 10 0;"/>
 
-                <!-- Email -->
-                <Label text="Email"
-                       style="-fx-font-size: 14px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: #1e3c72;"
+                <Label text="Renseignez les informations de réservation"
+                       style="-fx-font-size: 13px;
+                              -fx-text-fill: #666666;
+                              -fx-padding: 0 0 10 0;"/>
+
+                <GridPane hgap="20" vgap="18" alignment="CENTER">
+
+                    <!-- Nom -->
+                    <Label text="Nom complet"
+                           style="-fx-font-size: 14px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #1e3c72;"
+                           GridPane.rowIndex="0" 
+                           GridPane.columnIndex="0"/>
+                    <TextField fx:id="tfNom" 
+                               promptText="Entrez votre nom complet"
+                               style="-fx-background-radius: 12;
+                                      -fx-border-radius: 12;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.5;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-padding: 10 15;
+                                      -fx-font-size: 14px;"
+                               prefWidth="350"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="1"/>
+
+                    <!-- Email -->
+                    <Label text="Email"
+                           style="-fx-font-size: 14px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #1e3c72;"
                        GridPane.rowIndex="1" 
                        GridPane.columnIndex="0"/>
-                <TextField fx:id="tfEmail" 
-                           promptText="exemple@email.com"
-                           style="-fx-background-radius: 12;
-                                  -fx-border-radius: 12;
-                                  -fx-border-color: #e0e0e0;
-                                  -fx-border-width: 1.5;
-                                  -fx-background-color: #f8f9fa;
-                                  -fx-padding: 12 15;
-                                  -fx-font-size: 14px;
-                                  -fx-focus-color: #1e3c72;
-                                  -fx-faint-focus-color: transparent;"
-                           GridPane.rowIndex="1"
-                           GridPane.columnIndex="1"/>
+                    <TextField fx:id="tfEmail" 
+                               promptText="exemple@email.com"
+                               style="-fx-background-radius: 12;
+                                      -fx-border-radius: 12;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.5;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-padding: 10 15;
+                                      -fx-font-size: 14px;"
+                               GridPane.rowIndex="1"
+                               GridPane.columnIndex="1"/>
 
-                <!-- Nombre de personnes -->
-                <Label text="Nombre de personnes"
-                       style="-fx-font-size: 14px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: #1e3c72;"
+                    <!-- Nombre de personnes -->
+                    <Label text="Nombre de personnes"
+                           style="-fx-font-size: 14px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #1e3c72;"
                        GridPane.rowIndex="2" 
                        GridPane.columnIndex="0"/>
-                <TextField fx:id="tfNombre_personnes" 
-                           promptText="Ex: 2"
-                           style="-fx-background-radius: 12;
-                                  -fx-border-radius: 12;
-                                  -fx-border-color: #e0e0e0;
-                                  -fx-border-width: 1.5;
-                                  -fx-background-color: #f8f9fa;
-                                  -fx-padding: 12 15;
-                                  -fx-font-size: 14px;
-                                  -fx-focus-color: #1e3c72;
-                                  -fx-faint-focus-color: transparent;"
-                           GridPane.rowIndex="2"
-                           GridPane.columnIndex="1"/>
+                    <TextField fx:id="tfNombre_personnes" 
+                               promptText="Ex: 2"
+                               style="-fx-background-radius: 12;
+                                      -fx-border-radius: 12;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.5;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-padding: 10 15;
+                                      -fx-font-size: 14px;"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="1"/>
 
-                <!-- Date -->
-                <Label text="Date de réservation"
-                       style="-fx-font-size: 14px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: #1e3c72;"
+                    <!-- Date -->
+                    <Label text="Date de réservation"
+                           style="-fx-font-size: 14px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #1e3c72;"
                        GridPane.rowIndex="3" 
                        GridPane.columnIndex="0"/>
-                <DatePicker fx:id="dpDate" 
-                           prefWidth="350"
-                           promptText="Sélectionner une date"
-                           style="-fx-background-radius: 12;
-                                  -fx-border-radius: 12;
-                                  -fx-border-color: #e0e0e0;
-                                  -fx-border-width: 1.5;
-                                  -fx-background-color: #f8f9fa;
-                                  -fx-font-size: 14px;
-                                  -fx-focus-color: #1e3c72;
-                                  -fx-faint-focus-color: transparent;"
-                           GridPane.rowIndex="3"
-                           GridPane.columnIndex="1"/>
+                    <DatePicker fx:id="dpDate" 
+                               prefWidth="350"
+                               promptText="Sélectionner une date"
+                               style="-fx-background-radius: 12;
+                                      -fx-border-radius: 12;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.5;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-font-size: 14px;"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="1"/>
 
-                <!-- ID Activité -->
-                <Label text="ID de l'activité"
-                       style="-fx-font-size: 14px;
-                              -fx-font-weight: bold;
-                              -fx-text-fill: #1e3c72;"
+                    <!-- ID Activité -->
+                    <Label text="ID de l'activité"
+                           style="-fx-font-size: 14px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #1e3c72;"
                        GridPane.rowIndex="4" 
                        GridPane.columnIndex="0"/>
-                <TextField fx:id="tfIdActivite" 
-                           promptText="Ex: ACT001"
-                           style="-fx-background-radius: 12;
-                                  -fx-border-radius: 12;
-                                  -fx-border-color: #e0e0e0;
-                                  -fx-border-width: 1.5;
-                                  -fx-background-color: #f8f9fa;
-                                  -fx-padding: 12 15;
-                                  -fx-font-size: 14px;
-                                  -fx-focus-color: #1e3c72;
-                                  -fx-faint-focus-color: transparent;"
-                           GridPane.rowIndex="4"
-                           GridPane.columnIndex="1"/>
+                    <TextField fx:id="tfIdActivite" 
+                               promptText="Ex: 1"
+                               style="-fx-background-radius: 12;
+                                      -fx-border-radius: 12;
+                                      -fx-border-color: #e0e0e0;
+                                      -fx-border-width: 1.5;
+                                      -fx-background-color: #f8f9fa;
+                                      -fx-padding: 10 15;
+                                      -fx-font-size: 14px;"
+                               GridPane.rowIndex="4"
+                               GridPane.columnIndex="1"/>
 
-            </GridPane>
+                </GridPane>
 
-            <Button text="Ajouter la réservation"
-                    onAction="#ajouterReservation"
-                    style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
-                           -fx-text-fill: white;
-                           -fx-font-weight: bold;
-                           -fx-font-size: 16px;
-                           -fx-background-radius: 15;
-                           -fx-padding: 12 25;
-                           -fx-cursor: hand;
-                           -fx-effect: dropshadow(gaussian, #1e3c72, 15, 0.3, 0, 5);"
-                    prefWidth="200"
-                    prefHeight="45"/>
+                <Button text="Ajouter la réservation"
+                        onAction="#ajouterReservation"
+                        style="-fx-background-color: linear-gradient(to bottom, #1e3c72, #0f2b4f);
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 15px;
+                               -fx-background-radius: 15;
+                               -fx-padding: 10 25;
+                               -fx-cursor: hand;"
+                        prefWidth="200"
+                        prefHeight="42"/>
 
+            </VBox>
         </VBox>
-
     </children>
 
 </AnchorPane>

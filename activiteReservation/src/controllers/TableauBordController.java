@@ -3,12 +3,14 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.stage.Stage;
 import javafx.scene.paint.CycleMethod;
 import tn.edu.esprit.services.ServiceActivite;
 import tn.edu.esprit.services.ServiceReservation;
@@ -392,5 +394,13 @@ public class TableauBordController {
         Label l = new Label("Aucune donnée disponible");
         l.setStyle("-fx-text-fill:#94a3b8;-fx-font-size:13px;-fx-font-style:italic;");
         return l;
+    }
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private void handleBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
     }
 }

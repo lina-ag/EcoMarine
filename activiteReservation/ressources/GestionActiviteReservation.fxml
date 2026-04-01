@@ -16,16 +16,11 @@
     <left>
         <VBox spacing="12" prefWidth="260" styleClass="sidebar">
 
-            <StackPane alignment="CENTER">
-                <Region styleClass="header-background"/>
-                <ImageView fitWidth="150"
-                           fitHeight="150"
-                           preserveRatio="true">
-                    <image>
-                        <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
-                    </image>
-                </ImageView>
-            </StackPane>
+            <!-- Replace this entire StackPane -->
+<StackPane alignment="CENTER">
+    <Region styleClass="header-background"/>
+    <Label text="🌊" style="-fx-font-size: 80px;"/>
+</StackPane>
 
             <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-font-size: 20px; -fx-font-weight: none; -fx-text-fill: white;"/>
             <Label text="Gestion Touristique" styleClass="sidebar-subtitle" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
@@ -34,6 +29,11 @@
             <!-- ACTIVITES -->
             <Label text="ACTIVITÉS" styleClass="sidebar-section-label" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
 
+            <HBox>
+                <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+            </HBox>
+
+   
             <Button text="➕ Ajouter Activité"
                     onAction="#ouvrirAjouterActivite"
                     maxWidth="Infinity"
@@ -69,6 +69,23 @@
                     onAction="#ouvrirAfficherReservation"
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
+
+            <!-- ============================================ -->
+            <!-- 🐋 FAUNE MARINE - YOUR NEW SECTION -->
+            <!-- ============================================ -->
+            <Label text="FAUNE MARINE"
+                   styleClass="sidebar-section-label"
+                   style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;">
+                <VBox.margin>
+                    <Insets top="15"/>
+                </VBox.margin>
+            </Label>
+
+            <Button text="🐋 Gestion Faune Marine"
+                    onAction="#ouvrirFauneMarine"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"/>
+            <!-- ============================================ -->
 
             <Region VBox.vgrow="ALWAYS"/>
 

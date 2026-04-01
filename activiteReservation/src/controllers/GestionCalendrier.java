@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 // Import pour Excel
 import org.apache.poi.ss.usermodel.*;
@@ -1637,5 +1638,13 @@ public class GestionCalendrier {
         scroll.setPrefSize(480, 420);
         popup.setScene(new javafx.scene.Scene(scroll));
         popup.show();
+    }
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private void handleBack() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
     }
 }

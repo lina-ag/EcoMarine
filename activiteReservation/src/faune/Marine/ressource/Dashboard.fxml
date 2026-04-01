@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="faune.Marine.controllers.GestionFauneMeteoController"
+            stylesheets="@style.css"
+            styleClass="root-pane"
+            prefWidth="1200"
+            prefHeight="700">
+
+   <!-- ======================== -->
+   <!-- 🌊 MENU LATÉRAL MARIN     -->
+   <!-- ======================== -->
+   <left>
+      <VBox spacing="10"
+            prefWidth="280"
+            styleClass="sidebar">
+
+         <!-- En-tête avec logo marin -->
+         <StackPane styleClass="sidebar-header">
+            <Region styleClass="header-background" />
+            <Label text="🌊"
+                   style="-fx-font-size: 56px; 
+                          -fx-text-fill: white;" />
+         </StackPane>
+
+         <!-- TITRES -->
+         <Label text="FAUNE MARINE & MÉTÉO"
+                styleClass="sidebar-title"
+                style="-fx-text-fill: white; -fx-font-size: 18px;" />
+
+         <Label text="Tableau de Bord"
+                styleClass="sidebar-subtitle"
+                style="-fx-text-fill: rgba(255,255,255,0.9);" />
+
+         <Separator styleClass="sidebar-separator" />
+
+         <!-- SECTION STATISTIQUES MARINES -->
+         <Label text="STATISTIQUES MARINES"
+                styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);" />
+
+         <!-- Cartes de statistiques -->
+         <VBox spacing="15" styleClass="stats-container">
+            
+            <!-- Total Animaux -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🐋" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                <VBox>
+                    <Label text="Total Animaux" styleClass="stats-label"/>
+                    <Label fx:id="lblTotalAnimaux" text="0" styleClass="stats-number"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Total Observations -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🔍" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                <VBox>
+                    <Label text="Observations" styleClass="stats-label"/>
+                    <Label fx:id="lblTotalObservations" text="0" styleClass="stats-number"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Espèces Uniques -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🐚" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                <VBox>
+                    <Label text="Espèces Uniques" styleClass="stats-label"/>
+                    <Label fx:id="lblEspecesUniques" text="0" styleClass="stats-number"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Dernière Observation -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="📅" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                <VBox>
+                    <Label text="Dernière Obs." styleClass="stats-label"/>
+                    <Label fx:id="lblDerniereObservation" text="N/A" styleClass="stats-number" style="-fx-font-size: 16px;"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Température Moyenne -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🌡️" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                <VBox>
+                    <Label text="Temp. Moyenne" styleClass="stats-label"/>
+                    <Label fx:id="lblTemperatureMoyenne" text="-- °C" styleClass="stats-number" style="-fx-font-size: 16px;"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Météo Dominante -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="☁️" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                <VBox>
+                    <Label text="Météo Dominante" styleClass="stats-label"/>
+                    <Label fx:id="lblMeteoDominante" text="--" styleClass="stats-number" style="-fx-font-size: 16px;"/>
+                </VBox>
+            </HBox>
+         </VBox>
+
+         <Separator styleClass="sidebar-separator" />
+
+         <!-- SECTION FILTRES -->
+         <Label text="FILTRES MÉTÉO"
+                styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);" />
+
+         <VBox spacing="10" styleClass="stats-container">
+            <Label text="Période d'observation" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <DatePicker fx:id="dpDateDebut" promptText="Date début" style="-fx-background-radius: 10;"/>
+            <DatePicker fx:id="dpDateFin" promptText="Date fin" style="-fx-background-radius: 10;"/>
+            
+            <HBox spacing="10">
+                <Button text="🔍 Filtrer" onAction="#handleFiltrer" 
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 15;" 
+                        maxWidth="Infinity"/>
+                <Button text="🔄 Réinitialiser" onAction="#handleReinitialiserFiltre" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 15;" 
+                        maxWidth="Infinity"/>
+            </HBox>
+         </VBox>
+
+         <Region VBox.vgrow="ALWAYS" />
+
+         <!-- Footer avec crédits -->
+         <HBox alignment="CENTER" spacing="5" styleClass="user-footer">
+            <Label text="🌊" style="-fx-font-size: 16px;"/>
+            <Label text="Système de Surveillance Marine v2.0" 
+                   style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10px;"/>
+         </HBox>
+      </VBox>
+   </left>
+
+   <!-- ======================== -->
+   <!-- CONTENU PRINCIPAL        -->
+   <!-- ======================== -->
+   <center>
+      <VBox spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f8ff;">
+         
+         <!-- En-tête du dashboard -->
+         <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="🌊 Tableau de Bord" 
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+         </HBox>
+         
+         <Separator/>
+         
+         <!-- Graphiques -->
+         <GridPane hgap="20" vgap="20">
+            <columnConstraints>
+               <ColumnConstraints percentWidth="33.33"/>
+               <ColumnConstraints percentWidth="66.67"/>
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints percentHeight="50"/>
+               <RowConstraints percentHeight="50"/>
+            </rowConstraints>
+            
+            <!-- Pie Chart -->
+            <VBox spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="0" 
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+               <Label text="État de santé des espèces" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+               <PieChart fx:id="pieChartEtats" prefHeight="250" prefWidth="250" 
+                         labelsVisible="true" legendVisible="true"/>
+            </VBox>
+            
+            <!-- Bar Chart -->
+            <VBox spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="1" 
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+               <Label text="Observations météo par mois" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+               <BarChart fx:id="barChartObservations" prefHeight="250" prefWidth="500" 
+                         title="Fréquence des observations" legendVisible="false" animated="false">
+                  <xAxis>
+                     <CategoryAxis label="Mois" side="BOTTOM"/>
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis label="Nombre" side="LEFT" tickUnit="1"/>
+                  </yAxis>
+               </BarChart>
+            </VBox>
+            
+            <!-- Line Chart -->
+            <VBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" 
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+               <Label text="Évolution des températures marines" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+               <LineChart fx:id="lineChartTemperatures" prefHeight="300" prefWidth="800" 
+                         title="Températures lors des observations" legendVisible="false" animated="false">
+                  <xAxis>
+                     <CategoryAxis label="Date" side="BOTTOM"/>
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis label="Température (°C)" side="LEFT" tickUnit="2"/>
+                  </yAxis>
+               </LineChart>
+            </VBox>
+         </GridPane>
+      </VBox>
+   </center>
+
+</BorderPane>

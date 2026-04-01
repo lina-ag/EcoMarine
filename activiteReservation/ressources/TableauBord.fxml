@@ -10,8 +10,12 @@
             styleClass="root-pane"
             prefWidth="1100" prefHeight="750">
 
-    <!-- HEADER -->
-    <top>
+    <!-- TOP : bouton back + header -->
+  <top>
+    <VBox>
+       <HBox style="-fx-padding: 10 30 0 30;">
+    <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+</HBox>
         <HBox alignment="CENTER_LEFT" styleClass="dashboard-header">
             <padding><Insets top="18" right="30" bottom="18" left="30"/></padding>
             <VBox HBox.hgrow="ALWAYS" spacing="3">
@@ -20,7 +24,8 @@
             </VBox>
             <Button fx:id="btnRefresh" text="↻  Actualiser" onAction="#rafraichir" styleClass="btn-dashboard-refresh"/>
         </HBox>
-    </top>
+    </VBox>
+</top>
 
     <center>
         <ScrollPane fitToWidth="true" styleClass="root-pane" hbarPolicy="NEVER">

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="faune.Marine.controllers.FauneMarineController"
+      stylesheets="@style.css">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- En-tête -->
+    <Label text="🐋 Gestion de la Faune Marine" 
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    
+    <Separator/>
+    
+    <!-- TableView -->
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colEspece" text="Espèce" prefWidth="150"/>
+            <TableColumn fx:id="colEtat" text="État" prefWidth="100"/>
+            <TableColumn fx:id="colDescription" text="Description" prefWidth="300"/>
+        </columns>
+    </TableView>
+    
+    <!-- Formulaire -->
+    <GridPane hgap="10" vgap="10">
+        <Label text="Espèce:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtEspece" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        
+        <Label text="État:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cmbEtat" prefWidth="200" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        
+        <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextArea fx:id="txtDescription" prefRowCount="3" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    </GridPane>
+    
+    <!-- Boutons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnAjouter" text="Ajouter" onAction="#handleAjouter" 
+                style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+        <Button fx:id="btnModifier" text="Modifier" onAction="#handleModifier" disable="true" 
+                style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+        <Button fx:id="btnSupprimer" text="Supprimer" onAction="#handleSupprimer" disable="true" 
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button fx:id="btnEffacer" text="Effacer" onAction="#handleEffacer" 
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

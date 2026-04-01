@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="faune.Marine.controllers.ObservationController">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- En-tête -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="🔍" style="-fx-font-size: 28px;"/>
+        <Label text="Gestion des Observations" 
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    </HBox>
+    
+    <!-- Séparateur -->
+    <Separator/>
+    
+    <!-- Filtres de recherche -->
+    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 5;">
+        <Label text="📅 Période:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        <DatePicker fx:id="dpDateDebut" promptText="Date début" style="-fx-pref-width: 150;"/>
+        <Label text="→" style="-fx-text-fill: #7f8c8d; -fx-font-size: 16px;"/>
+        <DatePicker fx:id="dpDateFin" promptText="Date fin" style="-fx-pref-width: 150;"/>
+        <Button text="🔍 Filtrer" onAction="#handleFiltrer" 
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;"/>
+        <Button text="🔄 Réinitialiser" onAction="#handleReinitialiserFiltre" 
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Total: 0" fx:id="lblTotalObservations" style="-fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+    </HBox>
+    
+    <!-- TableView des observations -->
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" style="-fx-border-color: #bdc3c7; -fx-border-radius: 5;">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+            <TableColumn fx:id="colTemperature" text="Temp. (°C)" prefWidth="100"/>
+            <TableColumn fx:id="colMeteo" text="Météo" prefWidth="120"/>
+            <TableColumn fx:id="colAnimal" text="Espèce observée" prefWidth="250"/>
+        </columns>
+        <placeholder>
+            <Label text="Aucune observation disponible"/>
+        </placeholder>
+    </TableView>
+    
+    <!-- Formulaire d'ajout/modification -->
+    <TitledPane text="Formulaire d'observation" expanded="true" style="-fx-font-weight: bold;">
+        <GridPane hgap="15" vgap="12" style="-fx-padding: 15; -fx-background-color: #f8f9fa;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            
+            <!-- Date d'observation -->
+            <Label text="Date d'observation :" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpDateObservation" promptText="Sélectionner une date" 
+                       prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <GridPane.margin>
+                    <Insets right="20"/>
+                </GridPane.margin>
+            </DatePicker>
+            
+            <!-- Température -->
+            <Label text="Température (°C) :" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTemperature" promptText="Ex: 22.5" 
+                      prefWidth="150" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            
+            <!-- Météo -->
+            <Label text="Conditions météo :" style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbMeteo" prefWidth="200" promptText="Sélectionner la météo" 
+                      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            
+            <!-- Animal observé -->
+            <Label text="Animal observé :" style="-fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbAnimal" prefWidth="300" promptText="Sélectionner une espèce" 
+                      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+    </TitledPane>
+    
+    <!-- Boutons d'action -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnAjouter" text="➕ Ajouter" onAction="#handleAjouter" 
+                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" 
+                prefWidth="100"/>
+        
+        <Button fx:id="btnModifier" text="✏️ Modifier" onAction="#handleModifier" disable="true" 
+                style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" 
+                prefWidth="100"/>
+        
+        <Button fx:id="btnSupprimer" text="🗑️ Supprimer" onAction="#handleSupprimer" disable="true" 
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" 
+                prefWidth="100"/>
+        
+        <Button fx:id="btnEffacer" text="🔄 Effacer" onAction="#handleEffacer" 
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" 
+                prefWidth="100"/>
+    </HBox>
+    
+    <!-- Statistiques rapides -->
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #ecf0f1; -fx-background-radius: 5;">
+        <Label text="📊 Statistiques :" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Label text="Température moyenne: -- °C" fx:id="lblTempMoyenne" style="-fx-text-fill: #e67e22;"/>
+        <Label text="|" style="-fx-text-fill: #bdc3c7;"/>
+        <Label text="Météo dominante: --" fx:id="lblMeteoDominante" style="-fx-text-fill: #3498db;"/>
+    </HBox>
+    
+</VBox>

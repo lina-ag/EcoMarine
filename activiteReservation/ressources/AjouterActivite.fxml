@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
@@ -8,112 +9,135 @@
             prefWidth="1500" prefHeight="800"
             stylesheets="@style.css"
             styleClass="root-pane">
+
     <children>
-        <VBox spacing="20" alignment="CENTER"
-              style="-fx-background-color:white;-fx-background-radius:30;
-                     -fx-border-radius:30;-fx-border-color:rgba(0,0,0,0.08);
-                     -fx-border-width:1.5;
-                     -fx-effect:dropshadow(gaussian,rgba(0,0,0,0.15),25,0.2,0,8);"
-              AnchorPane.topAnchor="40" AnchorPane.bottomAnchor="40"
-              AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="350">
-            <padding><Insets top="35" right="50" bottom="40" left="50"/></padding>
+        <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            
+            <!-- Bouton back tout en haut -->
+            <HBox alignment="CENTER_LEFT" prefWidth="800">
+                <padding>
+                    <Insets left="20" top="10"/>
+                </padding>
+                <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+            </HBox>
+            
+            <!-- Conteneur principal du formulaire (plus de hauteur) -->
+            <VBox spacing="18" alignment="CENTER"
+                  style="-fx-background-color:white;-fx-background-radius:25;
+                         -fx-border-radius:25;-fx-border-color:rgba(0,0,0,0.08);
+                         -fx-border-width:1.5;
+                         -fx-effect:dropshadow(gaussian,rgba(0,0,0,0.15),20,0.2,0,5);"
+                  AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
+                  AnchorPane.leftAnchor="400" AnchorPane.rightAnchor="400"
+                  VBox.vgrow="NEVER"
+                  maxWidth="700"
+                  prefHeight="650">
 
-            <Label text="Ajouter une Activité Écologique"
-                   style="-fx-font-size:24px;-fx-font-weight:300;-fx-text-fill:#1e3c72;
-                          -fx-border-color:transparent transparent #1e3c72 transparent;
-                          -fx-border-width:0 0 2 0;-fx-padding:0 0 8 0;"/>
+                <padding>
+                    <Insets top="30" right="45" bottom="35" left="45"/>
+                </padding>
 
-            <Label text="Renseignez les informations de l'activité"
-                   style="-fx-font-size:13px;-fx-text-fill:#666;-fx-padding:0 0 10 0;"/>
+                <Label text="Ajouter une Activité Écologique"
+                       style="-fx-font-size:22px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;
+                              -fx-border-color:transparent transparent #1e3c72 transparent;
+                              -fx-border-width:0 0 2 0;-fx-padding:0 0 8 0;"/>
 
-            <GridPane hgap="20" vgap="18" alignment="CENTER">
+                <Label text="Renseignez les informations de l'activité"
+                       style="-fx-font-size:12px;-fx-text-fill:#666;-fx-padding:0 0 8 0;"/>
 
-                <Label text="Nom" GridPane.rowIndex="0" GridPane.columnIndex="0"
-                       style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
-                <TextField fx:id="tfNom" promptText="Ex: Nettoyage de plage"
-                           prefWidth="350" GridPane.rowIndex="0" GridPane.columnIndex="1"
-                           style="-fx-background-radius:12;-fx-border-radius:12;
-                                  -fx-border-color:#e0e0e0;-fx-border-width:1.5;
-                                  -fx-background-color:#f8f9fa;-fx-padding:12 15;"/>
+                <GridPane hgap="15" vgap="15" alignment="CENTER">
 
-                <Label text="Description" GridPane.rowIndex="1" GridPane.columnIndex="0"
-                       style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
-                <TextField fx:id="tfDescription" promptText="Décrivez l'activité"
-                           prefWidth="350" GridPane.rowIndex="1" GridPane.columnIndex="1"
-                           style="-fx-background-radius:12;-fx-border-radius:12;
-                                  -fx-border-color:#e0e0e0;-fx-border-width:1.5;
-                                  -fx-background-color:#f8f9fa;-fx-padding:12 15;"/>
-
-                <Label text="Date début" GridPane.rowIndex="2" GridPane.columnIndex="0"
-                       style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
-                <DatePicker fx:id="datePicker" prefWidth="350"
-                            GridPane.rowIndex="2" GridPane.columnIndex="1"
-                            style="-fx-background-radius:12;-fx-border-radius:12;
-                                   -fx-border-color:#e0e0e0;-fx-border-width:1.5;
-                                   -fx-background-color:#f8f9fa;"/>
-
-                <Label text="Capacité" GridPane.rowIndex="3" GridPane.columnIndex="0"
-                       style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
-                <TextField fx:id="tfCapacite" promptText="Nombre de participants"
-                           prefWidth="350" GridPane.rowIndex="3" GridPane.columnIndex="1"
-                           style="-fx-background-radius:12;-fx-border-radius:12;
-                                  -fx-border-color:#e0e0e0;-fx-border-width:1.5;
-                                  -fx-background-color:#f8f9fa;-fx-padding:12 15;"/>
-
-                <Label text="Récurrence" GridPane.rowIndex="4" GridPane.columnIndex="0"
-                       style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
-                <CheckBox fx:id="cbRecurrence" text="Activer la récurrence"
-                          onAction="#toggleRecurrence"
-                          GridPane.rowIndex="4" GridPane.columnIndex="1"
-                          style="-fx-font-size:13px;-fx-text-fill:#1e3c72;"/>
-
-                <VBox fx:id="panneauRecurrence" spacing="14"
-                      visible="false" managed="false"
-                      GridPane.rowIndex="5" GridPane.columnIndex="0"
-                      GridPane.columnSpan="2"
-                      style="-fx-background-color:#f0f7ff;-fx-background-radius:15;
-                             -fx-border-color:#bfdbfe;-fx-border-width:1.5;
-                             -fx-border-radius:15;-fx-padding:18;">
-
-                    <Label text="Jours de répétition"
+                    <Label text="Nom" GridPane.rowIndex="0" GridPane.columnIndex="0"
                            style="-fx-font-size:13px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
+                    <TextField fx:id="tfNom" promptText="Ex: Nettoyage de plage"
+                               prefWidth="300" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                               style="-fx-background-radius:10;-fx-border-radius:10;
+                                      -fx-border-color:#e0e0e0;-fx-border-width:1.5;
+                                      -fx-background-color:#f8f9fa;-fx-padding:10 12;"/>
 
-                    <HBox spacing="10" alignment="CENTER_LEFT">
-                        <CheckBox fx:id="cbLun" text="Lun" styleClass="jour-check"/>
-                        <CheckBox fx:id="cbMar" text="Mar" styleClass="jour-check"/>
-                        <CheckBox fx:id="cbMer" text="Mer" styleClass="jour-check"/>
-                        <CheckBox fx:id="cbJeu" text="Jeu" styleClass="jour-check"/>
-                        <CheckBox fx:id="cbVen" text="Ven" styleClass="jour-check"/>
-                        <CheckBox fx:id="cbSam" text="Sam" styleClass="jour-check"/>
-                        <CheckBox fx:id="cbDim" text="Dim" styleClass="jour-check"/>
-                    </HBox>
+                    <Label text="Description" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                           style="-fx-font-size:13px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
+                    <TextArea fx:id="tfDescription" promptText="Décrivez l'activité"
+                              prefWidth="300" prefHeight="90"
+                              GridPane.rowIndex="1" GridPane.columnIndex="1"
+                              style="-fx-background-radius:10;-fx-border-radius:10;
+                                     -fx-border-color:#e0e0e0;-fx-border-width:1.5;
+                                     -fx-background-color:#f8f9fa;-fx-padding:10 12;
+                                     -fx-wrap-text:true;"/>
 
-                    <HBox spacing="20" alignment="CENTER_LEFT">
-                        <VBox spacing="5">
-                            <Label text="Date de fin"
-                                   style="-fx-font-size:12px;-fx-font-weight:bold;-fx-text-fill:#475569;"/>
-                            <DatePicker fx:id="datePickerFin" prefWidth="200"
-                                        style="-fx-background-radius:10;-fx-border-radius:10;
-                                               -fx-border-color:#e0e0e0;"/>
-                        </VBox>
-                        <VBox spacing="5">
-                            <Label text="Aperçu"
-                                   style="-fx-font-size:12px;-fx-font-weight:bold;-fx-text-fill:#475569;"/>
-                            <Label fx:id="lblApercu" text="Aucun jour sélectionné"
-                                   style="-fx-font-size:12px;-fx-text-fill:#0284c7;
-                                          -fx-background-color:#e0f2fe;
-                                          -fx-background-radius:8;-fx-padding:6 12;"/>
-                        </VBox>
-                    </HBox>
-                </VBox>
+                    <Label text="Date début" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           style="-fx-font-size:13px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
+                    <DatePicker fx:id="datePicker" prefWidth="300"
+                                GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                style="-fx-background-radius:10;-fx-border-radius:10;
+                                       -fx-border-color:#e0e0e0;-fx-border-width:1.5;
+                                       -fx-background-color:#f8f9fa;"/>
 
-            </GridPane>
+                    <Label text="Capacité" GridPane.rowIndex="3" GridPane.columnIndex="0"
+                           style="-fx-font-size:13px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
+                    <TextField fx:id="tfCapacite" promptText="Nombre de participants"
+                               prefWidth="300" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                               style="-fx-background-radius:10;-fx-border-radius:10;
+                                      -fx-border-color:#e0e0e0;-fx-border-width:1.5;
+                                      -fx-background-color:#f8f9fa;-fx-padding:10 12;"/>
 
-            <Button text="Ajouter l'activité" onAction="#ajouterActivite"
-                    prefWidth="220" prefHeight="45"
-                    style="-fx-background-color:linear-gradient(to bottom,#1e3c72,#0f2b4f);
-                           -fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:15px;
-                           -fx-background-radius:15;-fx-padding:12 25;-fx-cursor:hand;"/>
+                    <Label text="Récurrence" GridPane.rowIndex="4" GridPane.columnIndex="0"
+                           style="-fx-font-size:13px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
+                    <CheckBox fx:id="cbRecurrence" text="Activer la récurrence"
+                              onAction="#toggleRecurrence"
+                              GridPane.rowIndex="4" GridPane.columnIndex="1"
+                              style="-fx-font-size:12px;-fx-text-fill:#1e3c72;"/>
+
+                    <VBox fx:id="panneauRecurrence" spacing="12"
+                          visible="false" managed="false"
+                          GridPane.rowIndex="5" GridPane.columnIndex="0"
+                          GridPane.columnSpan="2"
+                          style="-fx-background-color:#f0f7ff;-fx-background-radius:12;
+                                 -fx-border-color:#bfdbfe;-fx-border-width:1.5;
+                                 -fx-border-radius:12;-fx-padding:15;">
+
+                        <Label text="Jours de répétition"
+                               style="-fx-font-size:12px;-fx-font-weight:bold;-fx-text-fill:#1e3c72;"/>
+
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <CheckBox fx:id="cbLun" text="Lun" styleClass="jour-check"/>
+                            <CheckBox fx:id="cbMar" text="Mar" styleClass="jour-check"/>
+                            <CheckBox fx:id="cbMer" text="Mer" styleClass="jour-check"/>
+                            <CheckBox fx:id="cbJeu" text="Jeu" styleClass="jour-check"/>
+                            <CheckBox fx:id="cbVen" text="Ven" styleClass="jour-check"/>
+                            <CheckBox fx:id="cbSam" text="Sam" styleClass="jour-check"/>
+                            <CheckBox fx:id="cbDim" text="Dim" styleClass="jour-check"/>
+                        </HBox>
+
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <VBox spacing="4">
+                                <Label text="Date de fin"
+                                       style="-fx-font-size:11px;-fx-font-weight:bold;-fx-text-fill:#475569;"/>
+                                <DatePicker fx:id="datePickerFin" prefWidth="180"
+                                            style="-fx-background-radius:8;-fx-border-radius:8;
+                                                   -fx-border-color:#e0e0e0;"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="Aperçu"
+                                       style="-fx-font-size:11px;-fx-font-weight:bold;-fx-text-fill:#475569;"/>
+                                <Label fx:id="lblApercu" text="Aucun jour sélectionné"
+                                       style="-fx-font-size:11px;-fx-text-fill:#0284c7;
+                                              -fx-background-color:#e0f2fe;
+                                              -fx-background-radius:6;-fx-padding:4 10;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                </GridPane>
+
+                <Button text="Ajouter l'activité" onAction="#ajouterActivite"
+                        prefWidth="200" prefHeight="42"
+                        style="-fx-background-color:linear-gradient(to bottom,#1e3c72,#0f2b4f);
+                               -fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:14px;
+                               -fx-background-radius:12;-fx-padding:10 20;-fx-cursor:hand;"/>
+
+            </VBox>
         </VBox>
     </children>
+
 </AnchorPane>
