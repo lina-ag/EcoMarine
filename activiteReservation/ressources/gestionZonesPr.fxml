@@ -94,8 +94,7 @@
             </VBox>
          </HBox>
 
-         <Button text="🏠 Accueil" onAction="#ouvrirAccueil" maxWidth="Infinity" styleClass="sidebar-button"/>
-
+         
          <Region VBox.vgrow="ALWAYS" />
 
       </VBox>

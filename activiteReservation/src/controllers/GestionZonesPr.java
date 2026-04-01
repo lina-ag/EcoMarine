@@ -322,7 +322,7 @@ public class GestionZonesPr {
     @FXML private void ouvrirAfficher()        { ouvrirFenetre("/AfficherZones.fxml",        "Liste des Zones"); }
     @FXML private void ouvrirSurveillance()    { ouvrirFenetre("/AfficherSurveillance.fxml", "Surveillances"); }
     @FXML private void ouvrirAjouterSurv()     { ouvrirFenetre("/AjouterSurveillance.fxml",  "Nouvelle Surveillance"); }
-    @FXML private void ouvrirAccueil()         { ouvrirFenetre("/acceuil.fxml",              "Accueil"); }
+   
     @FXML private void ouvrirRechercheVocale() { ouvrirFenetre("/RechercheVocale.fxml",      "Recherche Vocale"); }
 
     private void ouvrirFenetre(String chemin, String titre) {
@@ -333,8 +333,7 @@ public class GestionZonesPr {
             newStage.setTitle(titre);
             newStage.setScene(new Scene(root));
             newStage.setFullScreen(true);
-            Stage currentStage = (Stage) lblNbZones.getScene().getWindow();
-            currentStage.close();
+           
             
             newStage.show();
         } catch (Exception e) {
