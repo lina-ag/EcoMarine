@@ -1,6 +1,9 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -10,6 +13,8 @@ import tn.edu.esprit.entities.Reservation;
 import tn.edu.esprit.services.ServiceReservation;
 import tn.edu.esprit.services.ServiceActivite;
 import tn.edu.esprit.services.EmailService;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -146,7 +151,14 @@ public class AjouterReservation {
 
     @FXML
     private void handleBack() {
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        stage.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionActiviteReservation.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

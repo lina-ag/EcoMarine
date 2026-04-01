@@ -4,66 +4,49 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/21"
             fx:controller="controllers.AccueilController"
             stylesheets="@style.css"
             styleClass="root-pane"
-            prefWidth="1500"
-            prefHeight="800">
+            prefWidth="1400"
+            prefHeight="820">
 
-    <!-- SIDEBAR - Palette de couleurs originale -->
+    <!-- ===== SIDEBAR ===== -->
     <left>
-        <VBox spacing="12" prefWidth="220" styleClass="sidebar">
-            <padding>
-                <Insets top="20" right="10" bottom="20" left="10"/>
-            </padding>
-            
+        <VBox spacing="8" prefWidth="210" styleClass="sidebar">
+            <padding><Insets top="20" right="10" bottom="20" left="10"/></padding>
+
             <!-- Logo -->
             <StackPane alignment="CENTER">
                 <Region styleClass="header-background"/>
-                <ImageView fitWidth="150"
-                           fitHeight="150"
-                           preserveRatio="true">
+                <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
                     <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
                 </ImageView>
             </StackPane>
 
-            <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-            <Label text="Accueil" styleClass="sidebar-subtitle" style="-fx-font-size: 16px; -fx-text-fill: white;"/>
+            <Label text="ECOMARINE" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;"/>
+            <Label text="Accueil" style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7); -fx-alignment: center;"/>
 
             <Separator styleClass="sidebar-separator"/>
 
-            <!-- Menu Principal -->
-            <Label text="MENU PRINCIPAL" styleClass="sidebar-section-label" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="MENU PRINCIPAL" styleClass="sidebar-section-label"/>
 
-            <!-- SECTION 1 : GESTION ACTIVITÉS & RÉSERVATIONS -->
-            <Label text="📊 MODULE COMPLET" 
-                   styleClass="sidebar-section-label" 
-                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;">
-                <VBox.margin>
-                    <Insets top="20"/>
-                </VBox.margin>
+            <Label text="📊 MODULE COMPLET" styleClass="sidebar-section-label">
+                <VBox.margin><Insets top="10"/></VBox.margin>
             </Label>
-
             <Button text="📊 Gestion Activités et Réservations"
                     onAction="#ouvrirModuleActivitesReservations"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"
-                    />
-            
-            <!-- SECTION 2 : GESTION ZONES -->
-            <Label text="🗺️ GESTION ZONES"
-                   styleClass="sidebar-section-label"
-                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;">
-                <VBox.margin>
-                    <Insets top="15"/>
-                </VBox.margin>
-            </Label>
+                    maxWidth="Infinity" styleClass="sidebar-button"/>
 
+            <Label text="🗺️ GESTION ZONES" styleClass="sidebar-section-label">
+                <VBox.margin><Insets top="10"/></VBox.margin>
+            </Label>
             <Button text="🗺️ Gestion Zones"
                     onAction="#ouvrirGestionZones"
+<<<<<<< HEAD
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
                     
@@ -83,19 +66,16 @@
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
             <!-- ============================================ -->
+=======
+                    maxWidth="Infinity" styleClass="sidebar-button"/>
+>>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
 
-
-            <!-- SECTION 4 : PROFIL ET DÉCONNEXION -->
-            <Label text="👤 MON COMPTE"
-                   styleClass="sidebar-section-label"
-                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;">
-                <VBox.margin>
-                    <Insets top="15"/>
-                </VBox.margin>
+            <Label text="👤 MON COMPTE" styleClass="sidebar-section-label">
+                <VBox.margin><Insets top="10"/></VBox.margin>
             </Label>
-
             <Button text="👤 Mon Profil"
                     onAction="#ouvrirProfil"
+<<<<<<< HEAD
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
 
@@ -107,98 +87,273 @@
                     maxWidth="Infinity"
                     styleClass="sidebar-button"
                     style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+=======
+                    maxWidth="Infinity" styleClass="sidebar-button"/>
+            <Button text="📅 Mes Réservations"
+                    onAction="#ouvrirModuleActivitesReservations"
+                    maxWidth="Infinity" styleClass="sidebar-button"/>
+>>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
 
             <Region VBox.vgrow="ALWAYS"/>
 
+            <Button text="🚪 Déconnexion"
+                    onAction="#deconnexion"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-weight: bold; -fx-padding: 10 15;"/>
         </VBox>
     </left>
 
-    <!-- CONTENU PRINCIPAL -->
+    <!-- ===== CONTENU PRINCIPAL ===== -->
     <center>
-        <StackPane styleClass="acceuil-center">
-            <VBox alignment="CENTER" spacing="25">
-                <padding>
-                    <Insets top="30" right="30" bottom="30" left="30"/>
-                </padding>
-                
-                <!-- Header avec date et informations utilisateur -->
-                <HBox alignment="CENTER" spacing="20" maxWidth="Infinity">
-                    <Label fx:id="lblDateActuelle" 
-                           style="-fx-font-size: 14px; -fx-text-fill: #64748b; -fx-font-weight: 500;"/>
-                    <Label text="•" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
-                    <Label fx:id="lblMessageBienvenue" 
-                           text="Bienvenue sur EcoMarine ! 🌊"
-                           style="-fx-font-size: 14px; -fx-text-fill: #1e3c72; -fx-font-weight: 500;"/>
+        <ScrollPane fitToWidth="true" styleClass="accueil-scroll" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox spacing="16" styleClass="accueil-main">
+                <padding><Insets top="20" right="24" bottom="24" left="24"/></padding>
+
+                <!-- ===== TOPBAR ===== -->
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label fx:id="lblDateActuelle" styleClass="accueil-topbar-date"/>
+                        <Label fx:id="lblMessageBienvenue" styleClass="accueil-topbar-welcome"/>
+                    </VBox>
+                    <!-- Avatar + nom -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <VBox alignment="CENTER_RIGHT" spacing="2">
+                            <Label fx:id="lblNomUtilisateur" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0.2, 0, 1);"/>
+                            <Label fx:id="lblRole" style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+                        </VBox>
+                        <StackPane styleClass="accueil-avatar">
+                            <Label fx:id="lblAvatar" text="LA" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                        </StackPane>
+                    </HBox>
                 </HBox>
-                
-                <!-- Nom utilisateur et rôle -->
-                <VBox alignment="CENTER" spacing="5">
-                    <Label fx:id="lblNomUtilisateur" 
-                           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
-                    <Label fx:id="lblRole" 
-                           style="-fx-font-size: 14px; -fx-text-fill: #0284c7;"/>
-                </VBox>
-                
-                <Label text="Votre solution de gestion touristique intégrée"
-                       style="-fx-font-size: 18px; -fx-text-fill: #0284c7;"/>
-                
-                <Separator styleClass="acceuil-separator" maxWidth="350"/>
-                
-                <!-- Cartes des 3 fonctionnalités principales avec animations -->
-                <HBox fx:id="cardsContainer" spacing="20" alignment="CENTER">
-                    
-                    <!-- Carte Activités & Réservations -->
-                    <VBox styleClass="acceuil-card" 
-                          onMouseClicked="#ouvrirModuleActivitesReservations"
-                          style="-fx-cursor: hand;">
-                        <Label text="📊" styleClass="acceuil-card-icon"/>
-                        <Label text="Activités" styleClass="acceuil-card-title"/>
-                        <Label text="Réservations" styleClass="acceuil-card-title"/>
-                        <Label text="Gérer les activités et réservations" styleClass="acceuil-card-desc"/>
+
+                <!-- ===== KPI CARDS ===== -->
+                <HBox spacing="14">
+                    <!-- KPI Activités -->
+                    <VBox styleClass="accueil-kpi-card, kpi-blue-border" HBox.hgrow="ALWAYS" spacing="4">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="📊" style="-fx-font-size: 22px;"/>
+                            <Label text="Activités" styleClass="accueil-kpi-label"/>
+                        </HBox>
+                        <Label fx:id="lblTotalActivites" text="0" styleClass="accueil-kpi-value"/>
+                        <Label text="ce mois" styleClass="accueil-kpi-sub"/>
+                        <StackPane styleClass="accueil-kpi-bar-bg">
+                            <StackPane fx:id="barActivites" styleClass="accueil-kpi-bar-fill, kpi-fill-blue" alignment="CENTER_LEFT"/>
+                        </StackPane>
                     </VBox>
-                    
-                    <!-- Carte Zones -->
-                    <VBox styleClass="acceuil-card" 
-                          onMouseClicked="#ouvrirGestionZones"
-                          style="-fx-cursor: hand;">
-                        <Label text="🗺️" styleClass="acceuil-card-icon"/>
-                        <Label text="Zones" styleClass="acceuil-card-title"/>
-                        <Label text="Protégées" styleClass="acceuil-card-title"/>
-                        <Label text="Gérer les zones protégées" styleClass="acceuil-card-desc"/>
+
+                    <!-- KPI Réservations -->
+                    <VBox styleClass="accueil-kpi-card, kpi-green-border" HBox.hgrow="ALWAYS" spacing="4">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="📅" style="-fx-font-size: 22px;"/>
+                            <Label text="Réservations" styleClass="accueil-kpi-label"/>
+                        </HBox>
+                        <Label fx:id="lblTotalReservations" text="0" styleClass="accueil-kpi-value"/>
+                        <Label text="total" styleClass="accueil-kpi-sub"/>
+                        <StackPane styleClass="accueil-kpi-bar-bg">
+                            <StackPane fx:id="barReservations" styleClass="accueil-kpi-bar-fill, kpi-fill-green" alignment="CENTER_LEFT"/>
+                        </StackPane>
                     </VBox>
-                    
-                    
-                    
-                </HBox>
-                
-                <!-- Message d'instruction -->
-                <Label text="Sélectionnez une option dans le menu ou cliquez sur une carte"
-                       style="-fx-font-size: 14px; -fx-text-fill: #64748b; -fx-font-style: italic;"/>
-                
-                <!-- Statistiques rapides (optionnel) -->
-                <HBox spacing="30" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
-                    <VBox alignment="CENTER" spacing="5">
-                        <Label text="📊" style="-fx-font-size: 24px;"/>
-                        <Label text="Activités" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
-                        <Label fx:id="lblTotalActivites" text="0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+
+                    <!-- KPI Zones -->
+                    <VBox styleClass="accueil-kpi-card, kpi-orange-border" HBox.hgrow="ALWAYS" spacing="4">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="🗺️" style="-fx-font-size: 22px;"/>
+                            <Label text="Zones surveillées" styleClass="accueil-kpi-label"/>
+                        </HBox>
+                        <Label fx:id="lblTotalZones" text="0" styleClass="accueil-kpi-value"/>
+                        <Label text="zones actives" styleClass="accueil-kpi-sub"/>
+                        <StackPane styleClass="accueil-kpi-bar-bg">
+                            <StackPane fx:id="barZones" styleClass="accueil-kpi-bar-fill, kpi-fill-orange" alignment="CENTER_LEFT"/>
+                        </StackPane>
                     </VBox>
-                    <VBox alignment="CENTER" spacing="5">
-                        <Label text="🗺️" style="-fx-font-size: 24px;"/>
-                        <Label text="Zones" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
-                        <Label fx:id="lblTotalZones" text="0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+
+                    <!-- KPI Tâches -->
+                    <VBox styleClass="accueil-kpi-card, kpi-purple-border" HBox.hgrow="ALWAYS" spacing="4">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="📋" style="-fx-font-size: 22px;"/>
+                            <Label text="Tâches" styleClass="accueil-kpi-label"/>
+                        </HBox>
+                        <Label fx:id="lblTotalTaches" text="0" styleClass="accueil-kpi-value"/>
+                        <Label text="en cours" styleClass="accueil-kpi-sub"/>
+                        <StackPane styleClass="accueil-kpi-bar-bg">
+                            <StackPane fx:id="barTaches" styleClass="accueil-kpi-bar-fill, kpi-fill-purple" alignment="CENTER_LEFT"/>
+                        </StackPane>
                     </VBox>
                 </HBox>
-                
-                <!-- Conseil du jour -->
-                <VBox alignment="CENTER" spacing="8" style="-fx-padding: 10 0 0 0;">
-                    <Label text="💡 Conseil du jour" 
-                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
-                    <Label text="Utilisez la barre de recherche pour retrouver rapidement vos données"
-                           style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-font-style: italic;"/>
-                </VBox>
-                
+
+                <!-- ===== LIGNE 2 : MODULES + TIMELINE ===== -->
+                <HBox spacing="14">
+
+                    <!-- Modules (3 cartes verticales) -->
+                    <VBox spacing="12" prefWidth="340">
+                        <Label text="Accès rapide" styleClass="accueil-section-title"/>
+
+                        <!-- Carte Activités & Réservations -->
+                        <HBox styleClass="accueil-module-card" onMouseClicked="#ouvrirModuleActivitesReservations" style="-fx-cursor: hand;" spacing="14" alignment="CENTER_LEFT">
+                            <StackPane styleClass="accueil-module-icon-bg, mod-green">
+                                <Label text="🏄" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Activités &amp; Réservations" styleClass="accueil-module-title"/>
+                                <Label text="Gérer les activités et réservations" styleClass="accueil-module-desc"/>
+                            </VBox>
+                            <Label fx:id="badgeActivites" text="0" styleClass="accueil-module-badge"/>
+                        </HBox>
+
+                        <!-- Carte Tâches -->
+                        <HBox styleClass="accueil-module-card" style="-fx-cursor: hand;" spacing="14" alignment="CENTER_LEFT">
+                            <StackPane styleClass="accueil-module-icon-bg, mod-blue">
+                                <Label text="📋" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Tâches Utilisateur" styleClass="accueil-module-title"/>
+                                <Label text="Suivi des tâches assignées" styleClass="accueil-module-desc"/>
+                            </VBox>
+                            <Label fx:id="badgeTaches" text="0" styleClass="accueil-module-badge"/>
+                        </HBox>
+
+                        <!-- Carte Zones -->
+                        <HBox styleClass="accueil-module-card" onMouseClicked="#ouvrirGestionZones" style="-fx-cursor: hand;" spacing="14" alignment="CENTER_LEFT">
+                            <StackPane styleClass="accueil-module-icon-bg, mod-orange">
+                                <Label text="🗺️" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Gestion Zones Surveillées" styleClass="accueil-module-title"/>
+                                <Label text="Zones protégées de Kuriat" styleClass="accueil-module-desc"/>
+                            </VBox>
+                            <Label fx:id="badgeZones" text="0" styleClass="accueil-module-badge, badge-alert"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Timeline activité récente -->
+                    <VBox spacing="12" HBox.hgrow="ALWAYS">
+                        <Label text="Activité récente" styleClass="accueil-section-title"/>
+                        <VBox styleClass="accueil-card-box" spacing="12" VBox.vgrow="ALWAYS">
+                            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+                            <HBox styleClass="accueil-tl-item" spacing="10" alignment="CENTER_LEFT">
+                                <Region styleClass="accueil-tl-dot, tl-green"/>
+                                <VBox spacing="1">
+                                    <Label text="Nouvelle réservation — Plongée sous-marine" styleClass="accueil-tl-text"/>
+                                    <Label text="il y a 12 min" styleClass="accueil-tl-time"/>
+                                </VBox>
+                            </HBox>
+                            <Separator opacity="0.4"/>
+                            <HBox styleClass="accueil-tl-item" spacing="10" alignment="CENTER_LEFT">
+                                <Region styleClass="accueil-tl-dot, tl-blue"/>
+                                <VBox spacing="1">
+                                    <Label text="Activité ajoutée — Kayak côtier" styleClass="accueil-tl-text"/>
+                                    <Label text="il y a 1h" styleClass="accueil-tl-time"/>
+                                </VBox>
+                            </HBox>
+                            <Separator opacity="0.4"/>
+                            <HBox styleClass="accueil-tl-item" spacing="10" alignment="CENTER_LEFT">
+                                <Region styleClass="accueil-tl-dot, tl-orange"/>
+                                <VBox spacing="1">
+                                    <Label text="Tâche assignée — Rapport Zone B" styleClass="accueil-tl-text"/>
+                                    <Label text="il y a 3h" styleClass="accueil-tl-time"/>
+                                </VBox>
+                            </HBox>
+                            <Separator opacity="0.4"/>
+                            <HBox styleClass="accueil-tl-item" spacing="10" alignment="CENTER_LEFT">
+                                <Region styleClass="accueil-tl-dot, tl-red"/>
+                                <VBox spacing="1">
+                                    <Label text="Alerte Zone Nord — activité suspecte" styleClass="accueil-tl-text"/>
+                                    <Label text="hier" styleClass="accueil-tl-time"/>
+                                </VBox>
+                            </HBox>
+                            <Separator opacity="0.4"/>
+                            <HBox styleClass="accueil-tl-item" spacing="10" alignment="CENTER_LEFT">
+                                <Region styleClass="accueil-tl-dot, tl-green"/>
+                                <VBox spacing="1">
+                                    <Label text="Réservation confirmée — Snorkeling" styleClass="accueil-tl-text"/>
+                                    <Label text="hier" styleClass="accueil-tl-time"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- ===== LIGNE 3 : CARTE KURIAT + CONSEIL ===== -->
+                <HBox spacing="14">
+
+                    <!-- Mini carte Kuriat Island -->
+                    <VBox spacing="12" HBox.hgrow="ALWAYS">
+                        <Label text="Kuriat Island — Zones actives" styleClass="accueil-section-title"/>
+                        <VBox styleClass="accueil-card-box, accueil-map-box" alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                            <Label text="🌊 Monastir, Tunisie — Zone de recherche marine"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #0284c7; -fx-font-weight: 600;"/>
+                            <HBox spacing="20" alignment="CENTER" style="-fx-padding: 16 0 10 0;">
+                                <VBox alignment="CENTER" spacing="4">
+                                    <Label text="🟢" style="-fx-font-size: 20px;"/>
+                                    <Label text="Zone A" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #059669;"/>
+                                    <Label text="Active" style="-fx-font-size: 10px; -fx-text-fill: #64748b;"/>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="4">
+                                    <Label text="🟡" style="-fx-font-size: 20px;"/>
+                                    <Label text="Zone B" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #d97706;"/>
+                                    <Label text="Surveillance" style="-fx-font-size: 10px; -fx-text-fill: #64748b;"/>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="4">
+                                    <Label text="🔴" style="-fx-font-size: 20px;"/>
+                                    <Label text="Zone Nord" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #dc2626;"/>
+                                    <Label text="Alerte" style="-fx-font-size: 10px; -fx-text-fill: #64748b;"/>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="4">
+                                    <Label text="🔵" style="-fx-font-size: 20px;"/>
+                                    <Label text="Zone C" style="-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #0284c7;"/>
+                                    <Label text="Repos" style="-fx-font-size: 10px; -fx-text-fill: #64748b;"/>
+                                </VBox>
+                            </HBox>
+                            <Label text="2 alertes actives — intervention recommandée"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #dc2626; -fx-font-weight: 600; -fx-background-color: #fee2e2; -fx-background-radius: 10; -fx-padding: 4 12;"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Conseil du jour + bienvenue -->
+                    <VBox spacing="12" prefWidth="320">
+                        <Label text="Infos &amp; Conseils" styleClass="accueil-section-title"/>
+                        <VBox styleClass="accueil-card-box" spacing="14" VBox.vgrow="ALWAYS">
+                            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="💡" style="-fx-font-size: 22px;"/>
+                                <VBox spacing="3">
+                                    <Label text="Conseil du jour" style="-fx-font-weight: 700; -fx-text-fill: #1e3c72; -fx-font-size: 13px;"/>
+                                    <Label text="Utilisez la barre de recherche pour retrouver rapidement vos données"
+                                           style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-wrap-text: true; -fx-max-width: 220;"/>
+                                </VBox>
+                            </HBox>
+
+                            <Separator opacity="0.4"/>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="🔬" style="-fx-font-size: 22px;"/>
+                                <VBox spacing="3">
+                                    <Label text="Recherche marine" style="-fx-font-weight: 700; -fx-text-fill: #1e3c72; -fx-font-size: 13px;"/>
+                                    <Label text="Kuriat Island abrite une biodiversité exceptionnelle à préserver"
+                                           style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-wrap-text: true; -fx-max-width: 220;"/>
+                                </VBox>
+                            </HBox>
+
+                            <Separator opacity="0.4"/>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="📊" style="-fx-font-size: 22px;"/>
+                                <VBox spacing="3">
+                                    <Label text="Tableau de bord" style="-fx-font-weight: 700; -fx-text-fill: #1e3c72; -fx-font-size: 13px;"/>
+                                    <Label text="Accédez aux KPIs détaillés via le module Activités"
+                                           style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-wrap-text: true; -fx-max-width: 220;"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
             </VBox>
-        </StackPane>
+        </ScrollPane>
     </center>
 
 </BorderPane>
