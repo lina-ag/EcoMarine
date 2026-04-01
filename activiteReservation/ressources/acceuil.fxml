@@ -34,37 +34,64 @@
 
             <Label text="MENU PRINCIPAL" styleClass="sidebar-section-label"/>
 
-            <Label text="📊 MODULE COMPLET" styleClass="sidebar-section-label">
+            <Label text="Gestion Activite et Reservation" styleClass="sidebar-section-label">
                 <VBox.margin><Insets top="10"/></VBox.margin>
             </Label>
-            <Button text="📊 Gestion Activités et Réservations"
-                    onAction="#ouvrirModuleActivitesReservations"
-                    maxWidth="Infinity" styleClass="sidebar-button"/>
+           <Button onAction="#ouvrirModuleActivitesReservations"
+        maxWidth="Infinity" styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="20" fitHeight="20">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/reserve.png"/>
+                </image>
+            </ImageView>
+            <Label text="Gestion Activités et Réservations"/>
+        </HBox>
+    </graphic>
+</Button>
 
-            <Label text="🗺️ GESTION ZONES" styleClass="sidebar-section-label">
+            <Label text="GESTION ZONES" styleClass="sidebar-section-label">
                 <VBox.margin><Insets top="10"/></VBox.margin>
             </Label>
-            <Button text="🗺️ Gestion Zones"
-                    onAction="#ouvrirGestionZones"
-
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
-                    
+            <Button onAction="#ouvrirGestionZones"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="20" fitHeight="20">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/gestionZone.png"/> 
+                </image>
+            </ImageView>
+            <Label text="Gestion Zones"/>
+        </HBox>
+    </graphic>
+</Button>
              <!-- ============================================ -->
             <!-- 🐋 FAUNE MARINE - YOUR NEW SECTION -->
             <!-- ============================================ -->
-            <Label text="FAUNE MARINE"
-                   styleClass="sidebar-section-label"
-                   style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;">
-                <VBox.margin>
-                    <Insets top="15"/>
-                </VBox.margin>
-            </Label>
+            <Label text="FAUNE MARINE" styleClass="sidebar-section-label" 
+       style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;">
+    <VBox.margin>
+        <Insets top="15"/>
+    </VBox.margin>
+</Label>
 
-            <Button text="🐋 Gestion Faune Marine"
-                    onAction="#ouvrirFauneMarine"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
+<Button onAction="#ouvrirFauneMarine"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="20" fitHeight="20">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/fauneMarine.png"/> <!-- ton icône whale.png -->
+                </image>
+            </ImageView>
+            <Label text="Gestion Faune Marine"/>
+        </HBox>
+    </graphic>
+</Button>
             <!-- ============================================ -->
 
 
