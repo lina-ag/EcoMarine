@@ -266,6 +266,8 @@ public class AccueilController {
             stage.setTitle(titre);
             stage.setScene(new Scene(root));
             stage.show();
+            Stage stageActuel = (Stage) lblMessageBienvenue.getScene().getWindow();
+            stageActuel.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("❌ Erreur lors de l'ouverture de : " + fxml);
@@ -275,6 +277,7 @@ public class AccueilController {
 
     private void ouvrirFenetreAvecDonnees(String fxml, String titre, User user) {
         try {
+        	
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
             if (fxml.contains("Profil") || fxml.contains("MesReservations")) {
@@ -289,6 +292,8 @@ public class AccueilController {
             stage.setTitle(titre);
             stage.setScene(new Scene(root));
             stage.show();
+            Stage stageActuel = (Stage) lblMessageBienvenue.getScene().getWindow();
+            stageActuel.close();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Erreur", "Impossible d'ouvrir la fenêtre: " + titre);
@@ -307,6 +312,9 @@ public class AccueilController {
     @FXML
     private void ouvrirFauneMarine(ActionEvent event) {
         try {
+        	
+        	
+        	
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/faune/Marine/ressource/Main.fxml"));
             Parent root = loader.load();
 
@@ -314,6 +322,8 @@ public class AccueilController {
             stage.setTitle("🐋 Gestion Faune Marine & Météo");
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
 
         } catch (IOException e) {
             e.printStackTrace();

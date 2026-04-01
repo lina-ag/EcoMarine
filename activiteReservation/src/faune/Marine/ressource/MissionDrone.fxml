@@ -8,7 +8,11 @@
 <VBox spacing="15" xmlns="http://javafx.com/javafx/17" 
       xmlns:fx="http://javafx.com/fxml/1" 
       fx:controller="faune.Marine.controllers.MissionDroneController"
-      style="-fx-background-color: white; -fx-padding: 20;">
+       stylesheets="@style.css"
+       styleClass="root-pane"
+      style="-fx-background-color: white; -fx-padding: 20;"
+      prefWidth="1500"
+      prefHeight="800">
     
     <!-- ==================== EN-TÊTE SIMPLIFIÉ ==================== -->
     <HBox alignment="CENTER_LEFT" spacing="10">

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert;
 
@@ -78,6 +79,7 @@ public class DashboardController implements Initializable {
             updateStatistics();
             
             System.out.println("✅ DashboardController initialisé avec succès");
+            
             
         } catch (Exception e) {
             System.err.println("❌ Erreur d'initialisation: " + e.getMessage());
@@ -344,4 +346,6 @@ public class DashboardController implements Initializable {
         setupCharts();
         updateStatistics();
     }
+    
+   
 }

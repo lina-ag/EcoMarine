@@ -64,6 +64,7 @@ public class AccueilUtilisateur {
             stage.setTitle("Ajouter une réservation");
             stage.setScene(new Scene(root));
             stage.show();
+            
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Erreur", "Impossible d'ouvrir AjouterReservation.fxml : " + e.getMessage());

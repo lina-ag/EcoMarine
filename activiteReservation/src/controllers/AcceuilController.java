@@ -151,6 +151,7 @@ public class AcceuilController {
             stage.setTitle(titre);
             stage.setScene(new Scene(root));
             stage.show();
+            
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erreur lors de l'ouverture de : " + fxml);

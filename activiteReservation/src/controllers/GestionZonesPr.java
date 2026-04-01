@@ -332,8 +332,10 @@ public class GestionZonesPr {
             Stage newStage = new Stage();
             newStage.setTitle(titre);
             newStage.setScene(new Scene(root));
+            newStage.setFullScreen(true);
             Stage currentStage = (Stage) lblNbZones.getScene().getWindow();
             currentStage.close();
+            
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -349,4 +351,6 @@ public class GestionZonesPr {
             e.printStackTrace();
         }
     }
+    
+    
 }

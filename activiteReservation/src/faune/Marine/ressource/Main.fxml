@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainBorderPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="faune.Marine.controllers.MainController">
+<BorderPane fx:id="mainBorderPane" prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17" stylesheets="@style.css"
+            styleClass="root-pane" xmlns:fx="http://javafx.com/fxml/1" fx:controller="faune.Marine.controllers.MainController">
     
     <top>
         <VBox style="-fx-background-color: #2c3e50;">

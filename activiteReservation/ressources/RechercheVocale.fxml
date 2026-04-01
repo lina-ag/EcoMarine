@@ -13,8 +13,8 @@
              -fx-border-color: rgba(0,0,0,0.08);
              -fx-border-width: 1.5;
              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.15, 0, 5);"
-      prefWidth="1500"
-      prefHeight="800">
+      prefWidth="1535"
+      prefHeight="840">
 
     <padding>
         <Insets top="30" right="30" bottom="30" left="30"/>
@@ -131,6 +131,9 @@
                        maxWidth="Infinity"/>
             </content>
         </ScrollPane>
+        <Button text="Retour"
+        onAction="#retourner"
+        prefWidth="120"/>
     </VBox>
 
     

@@ -14,8 +14,8 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.AfficherUsers"
       spacing="18"
-      prefWidth="1500" 
-      prefHeight="800"
+      prefWidth="1535" 
+      prefHeight="840"
       style="-fx-background-color: white;
              -fx-padding: 20;
              -fx-background-radius: 0;"
@@ -155,6 +155,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
     </TableView>
+    <Button text="Retour"
+        onAction="#retourner"
+        prefWidth="120"/>
     
     
     

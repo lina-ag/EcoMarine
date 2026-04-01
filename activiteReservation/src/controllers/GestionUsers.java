@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import tn.edu.esprit.entities.User;
 import tn.edu.esprit.services.ServiceUser;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -351,6 +352,8 @@ public class GestionUsers implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle(titre);
             stage.show();
+            Stage currentStage = (Stage) adminsLabel.getScene().getWindow();
+            currentStage.close();
         } catch (Exception e) {
             System.err.println("Erreur ouverture : " + cheminFXML);
             e.printStackTrace();
@@ -364,6 +367,9 @@ public class GestionUsers implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/SignIn.fxml"));
             stage.setScene(new Scene(root));
             stage.show();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -372,5 +378,42 @@ public class GestionUsers implements Initializable {
     // Gardé de l'original pour compatibilité
     public void rafraichirStatistiques() {
         chargerDashboard();
+    }
+    
+    @FXML
+    private void ouvrirModuleActivitesReservations() {
+        ouvrirFenetre("/GestionActiviteReservation.fxml", "Module Activités & Réservations");
+    }
+    
+    @FXML
+    private void ouvrirGestionZones() {
+        ouvrirFenetre("/gestionzonespr.fxml", "Gestion des zones protégées");
+    }
+    
+    @FXML
+    private void ouvrirFauneMarine(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/faune/Marine/ressource/Main.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("🐋 Gestion Faune Marine & Météo");
+            stage.setScene(new Scene(root, 1200, 700));
+            stage.show();
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger Faune Marine:\n" + e.getMessage());
+        }
+    }
+    
+    private void showAlert(String titre, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
