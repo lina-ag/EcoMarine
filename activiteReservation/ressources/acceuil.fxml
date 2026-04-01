@@ -46,7 +46,7 @@
             </Label>
             <Button text="🗺️ Gestion Zones"
                     onAction="#ouvrirGestionZones"
-<<<<<<< HEAD
+
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
                     
@@ -66,33 +66,10 @@
                     maxWidth="Infinity"
                     styleClass="sidebar-button"/>
             <!-- ============================================ -->
-=======
-                    maxWidth="Infinity" styleClass="sidebar-button"/>
->>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
 
-            <Label text="👤 MON COMPTE" styleClass="sidebar-section-label">
-                <VBox.margin><Insets top="10"/></VBox.margin>
-            </Label>
-            <Button text="👤 Mon Profil"
-                    onAction="#ouvrirProfil"
-<<<<<<< HEAD
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
 
             
-            
-            
-            <Button text="🚪 Déconnexion"
-                    onAction="#deconnexion"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"
-                    style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
-=======
-                    maxWidth="Infinity" styleClass="sidebar-button"/>
-            <Button text="📅 Mes Réservations"
-                    onAction="#ouvrirModuleActivitesReservations"
-                    maxWidth="Infinity" styleClass="sidebar-button"/>
->>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
+
 
             <Region VBox.vgrow="ALWAYS"/>
 

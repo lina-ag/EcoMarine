@@ -48,10 +48,7 @@
             <graphic><Label text="📋" style="-fx-text-fill: white;"/></graphic>
          </Button>
 
-         <Button text="Rechercher Utilisateur" onAction="#ouvrirRechercherUser"
-                 maxWidth="Infinity" styleClass="sidebar-button">
-            <graphic><Label text="🔍" style="-fx-text-fill: white;"/></graphic>
-         </Button>
+         
 
          <Separator styleClass="sidebar-separator">
             <VBox.margin><Insets top="5"/></VBox.margin>

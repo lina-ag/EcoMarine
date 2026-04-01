@@ -342,10 +342,7 @@ public class GestionUsers implements Initializable {
         ouvrirFenetre("/AfficherUsers.fxml", "Liste des utilisateurs");
     }
 
-    @FXML
-    private void ouvrirRechercherUser() {
-        ouvrirFenetre("/RechercherUser.fxml", "Rechercher un utilisateur");
-    }
+    
 
     private void ouvrirFenetre(String cheminFXML, String titre) {
         try {
