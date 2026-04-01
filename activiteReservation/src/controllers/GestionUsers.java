@@ -361,13 +361,14 @@ public class GestionUsers implements Initializable {
 
     @FXML
     private void deconnexion(ActionEvent event) {
+    	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/SignIn.fxml"));
             stage.setScene(new Scene(root));
             stage.show();
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
+             
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -396,7 +397,7 @@ public class GestionUsers implements Initializable {
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("🐋 Gestion Faune Marine & Météo");
+            stage.setTitle(" Gestion Faune Marine & Météo");
             stage.setScene(new Scene(root, 1200, 700));
             stage.show();
             
