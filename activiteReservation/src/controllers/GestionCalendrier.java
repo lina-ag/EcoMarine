@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
@@ -24,6 +25,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseButton;
@@ -1644,7 +1647,14 @@ public class GestionCalendrier {
 
     @FXML
     private void handleBack() {
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        stage.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionActiviteReservation.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

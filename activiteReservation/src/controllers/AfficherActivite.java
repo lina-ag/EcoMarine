@@ -258,7 +258,14 @@ public class AfficherActivite implements Initializable {
 
     @FXML
     private void handleBack() {
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        stage.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionActiviteReservation.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
