@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ActionListController"
+      stylesheets="@../css/app.css"
+      styleClass="page"
+      spacing="14">
+
+    <HBox spacing="12" styleClass="topbar" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="14" right="16" bottom="14" left="16"/>
+        </padding>
+
+        <Label text="🧹 Actions Nettoyage" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="➕ Ajouter Action" onAction="#openAddForm" styleClass="btn-primary"/>
+        <Button text="⟳ Actualiser" onAction="#refresh" styleClass="btn-secondary"/>
+    </HBox>
+
+    <VBox styleClass="card-panel" spacing="12" VBox.vgrow="ALWAYS">
+        <Label text="Planification et suivi des opérations de nettoyage organisées." styleClass="muted"/>
+
+        <TableView fx:id="tableActions" styleClass="table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+                <TableColumn fx:id="colDate" text="Date" prefWidth="180"/>
+                <TableColumn fx:id="colLieu" text="Lieu" prefWidth="260"/>
+                <TableColumn fx:id="colModifier" text="Modifier" prefWidth="120"/>
+                <TableColumn fx:id="colSupprimer" text="Supprimer" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

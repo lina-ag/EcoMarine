@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ZoneListController"
+      stylesheets="@../css/app.css"
+      styleClass="page"
+      spacing="14">
+
+    <HBox spacing="12" styleClass="topbar" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="14" right="16" bottom="14" left="16"/>
+        </padding>
+
+        <Label text="📍 Gestion des Zones" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="➕ Ajouter Zone" onAction="#openAddForm" styleClass="btn-primary"/>
+        <Button text="⟳ Actualiser" onAction="#refresh" styleClass="btn-secondary"/>
+        <Button text="🗺 Voir carte" onAction="#openMap" styleClass="btn-secondary"/>
+    </HBox>
+
+    <HBox spacing="14">
+        <VBox styleClass="card-panel" spacing="8" prefWidth="220">
+            <Label text="Zones surveillées" styleClass="page-title-small"/>
+            <Label text="12" styleClass="card-number"/>
+        </VBox>
+
+        <VBox styleClass="card-panel" spacing="8" prefWidth="220">
+            <Label text="Zones propres" styleClass="page-title-small"/>
+            <Label text="7" styleClass="card-number"/>
+        </VBox>
+
+        <VBox styleClass="card-panel" spacing="8" prefWidth="220">
+            <Label text="Zones à risque" styleClass="page-title-small"/>
+            <Label text="3" styleClass="card-number"/>
+        </VBox>
+    </HBox>
+
+    <VBox styleClass="card-panel" spacing="12" VBox.vgrow="ALWAYS">
+        <Label text="Liste détaillée des zones côtières suivies par l'équipe EcoMarine." styleClass="muted"/>
+
+        <TableView fx:id="tableZones" styleClass="table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+                <TableColumn fx:id="colNom" text="Nom" prefWidth="220"/>
+                <TableColumn fx:id="colLocalisation" text="Localisation" prefWidth="260"/>
+                <TableColumn fx:id="colStatut" text="Statut" prefWidth="160"/>
+                <TableColumn fx:id="colModifier" text="Modifier" prefWidth="120"/>
+                <TableColumn fx:id="colSupprimer" text="Supprimer" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+</VBox>

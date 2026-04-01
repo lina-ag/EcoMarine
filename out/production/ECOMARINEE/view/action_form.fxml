@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ActionFormController"
+      stylesheets="@../css/app.css"
+      spacing="14" prefWidth="420">
+
+    <padding>
+        <Insets top="18" right="18" bottom="18" left="18"/>
+    </padding>
+
+    <Label fx:id="lblTitle" text="Ajouter Action" styleClass="page-title"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints prefWidth="100"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Date :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfDate" promptText="2026-03-25" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Lieu :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfLieu" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Annuler" onAction="#annuler" styleClass="btn-secondary"/>
+        <Button fx:id="btnSave" text="Ajouter" onAction="#save" styleClass="btn-primary"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,139 @@
+package controller;
+
+        import dao.VolontaireDAO;
+        import javafx.animation.ScaleTransition;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.*;
+        import javafx.stage.Stage;
+        import javafx.util.Duration;
+        import model.ActionNettoyage;
+        import model.Volontaire;
+
+        public class VolontaireFormController {
+
+        @FXML private Label lblTitle;
+        @FXML private TextField tfNom;
+        @FXML private TextField tfContact;
+        @FXML private ComboBox<ActionNettoyage> cbAction;
+    @FXML private Button btnSave;
+
+    private final VolontaireDAO dao = new VolontaireDAO();
+    private Volontaire volontaireToEdit;
+    private Runnable onSaved;
+
+    @FXML
+    public void initialize() {
+    cbAction.getItems().setAll(dao.getActions());
+
+    cbAction.setCellFactory(param -> new ListCell<>() {
+        @Override
+        protected void updateItem(ActionNettoyage item, boolean empty) {
+        super.updateItem(item, empty);
+        setText(empty || item == null ? null : item.getLieu());
+        }
+        });
+
+        cbAction.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(ActionNettoyage item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(empty || item == null ? null : item.getLieu());
+            }
+            });
+
+            addClickEffect(btnSave);
+            }
+
+            public void setOnSaved(Runnable onSaved) {
+            this.onSaved = onSaved;
+            }
+
+            public void setVolontaireToEdit(Volontaire v) {
+            volontaireToEdit = v;
+            lblTitle.setText("Modifier Volontaire");
+            btnSave.setText("Enregistrer");
+            tfNom.setText(v.getNom());
+            tfContact.setText(v.getContact());
+
+            for (ActionNettoyage a : cbAction.getItems()) {
+            if (a.getIdAction() == v.getIdAction()) {
+            cbAction.setValue(a);
+            break;
+            }
+            }
+            }
+
+            @FXML
+            private void save() {
+            try {
+            String nom = tfNom.getText().trim();
+            String contact = tfContact.getText().trim();
+            ActionNettoyage action = cbAction.getValue();
+
+            if (nom.isEmpty() || contact.isEmpty() || action == null) {
+            showWarning("Veuillez remplir tous les champs.");
+            return;
+            }
+
+            if (volontaireToEdit == null) {
+            Volontaire v = new Volontaire();
+            v.setNom(nom);
+            v.setContact(contact);
+            v.setIdAction(action.getIdAction());
+            dao.insert(v);
+            } else {
+            volontaireToEdit.setNom(nom);
+            volontaireToEdit.setContact(contact);
+            volontaireToEdit.setIdAction(action.getIdAction());
+            dao.update(volontaireToEdit);
+            }
+
+            if (onSaved != null) {
+            onSaved.run();
+            }
+
+            closeWindow();
+
+            } catch (Exception e) {
+            e.printStackTrace();
+            showError("Impossible d'enregistrer le volontaire.");
+            }
+            }
+
+            @FXML
+            private void annuler() {
+            closeWindow();
+            }
+
+            private void closeWindow() {
+            ((Stage) btnSave.getScene().getWindow()).close();
+            }
+
+            private void showWarning(String message) {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText(null);
+            a.setContentText(message);
+            a.showAndWait();
+            }
+
+            private void showError(String message) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText(null);
+            a.setContentText(message);
+            a.showAndWait();
+            }
+
+            private void addClickEffect(Button button) {
+            if (button == null) return;
+
+            button.setOnMousePressed(e -> animateScale(button, 0.96, 0.96, 100));
+            button.setOnMouseReleased(e -> animateScale(button, 1.0, 1.0, 100));
+            }
+
+            private void animateScale(Button button, double x, double y, int millis) {
+            ScaleTransition st = new ScaleTransition(Duration.millis(millis), button);
+            st.setToX(x);
+            st.setToY(y);
+            st.play();
+            }
+            }

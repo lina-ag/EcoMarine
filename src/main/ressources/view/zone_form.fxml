@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ZoneFormController"
+      stylesheets="@../css/app.css"
+      styleClass="page"
+      spacing="14"
+      prefWidth="420">
+
+    <padding>
+        <Insets top="18" right="18" bottom="18" left="18"/>
+    </padding>
+
+    <Label fx:id="lblTitle" text="Ajouter une Zone" styleClass="page-title"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints prefWidth="110"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Nom Zone :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfNom" promptText="Ex: Zone Nord"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Localisation :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfLocalisation" promptText="Ex: La Marsa"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Statut :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cbStatut"
+                  GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Annuler" onAction="#annuler" styleClass="btn-secondary"/>
+        <Button fx:id="btnSave" text="Ajouter" onAction="#save" styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>

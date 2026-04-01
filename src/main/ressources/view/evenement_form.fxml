@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.EvenementFormController"
+            stylesheets="@../css/app.css"
+            styleClass="app-root">
+
+    <center>
+        <VBox spacing="20" styleClass="content-area" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- TITLE -->
+            <Label fx:id="lblTitle"
+                   text="Ajouter Événement"
+                   styleClass="page-title"/>
+
+            <!-- FORM -->
+            <GridPane hgap="12" vgap="12" maxWidth="450">
+
+                <Label text="Nom :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfNom"
+                           promptText="Nom de l'événement"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Date :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDate"
+                           promptText="YYYY-MM-DD"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Lieu :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfLieu"
+                           promptText="Ex: La Marsa"
+                           onKeyReleased="#updateSuggestion"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Description :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDescription"
+                           promptText="Description"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <!-- SUGGESTION IA -->
+                <Label fx:id="lblSuggestion"
+                       text="Suggestion intelligente : -"
+                       styleClass="muted"
+                       wrapText="true"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            </GridPane>
+
+            <!-- BUTTONS -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="💾 Enregistrer"
+                        fx:id="btnSave"
+                        onAction="#save"
+                        styleClass="btn-primary"/>
+
+                <Button text="❌ Annuler"
+                        onAction="#annuler"
+                        styleClass="btn-secondary"/>
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
