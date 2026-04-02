@@ -9,7 +9,7 @@ public class DataSource {
 
     private Connection cnx;
     private static DataSource instance;
-    private final String url = "jdbc:mysql://localhost:3306/EcoMarine";
+    private final String url = "jdbc:mysql://localhost:3306/EcoMarine?useSSL=false&serverTimezone=UTC";
     private final String user = "root";
     private final String password = "";
 
