@@ -42,7 +42,7 @@
         maxWidth="Infinity" styleClass="sidebar-button">
     <graphic>
         <HBox spacing="8" alignment="CENTER_LEFT">
-            <ImageView fitWidth="20" fitHeight="20">
+            <ImageView fitWidth="25" fitHeight="25">
                 <image>
                     <Image url="file:/C:/Users/WSI/Downloads/reserve.png"/>
                 </image>
@@ -61,7 +61,7 @@
         styleClass="sidebar-button">
     <graphic>
         <HBox spacing="8" alignment="CENTER_LEFT">
-            <ImageView fitWidth="20" fitHeight="20">
+            <ImageView fitWidth="30" fitHeight="30">
                 <image>
                     <Image url="file:/C:/Users/WSI/Downloads/gestionZone.png"/> 
                 </image>
@@ -85,7 +85,7 @@
         styleClass="sidebar-button">
     <graphic>
         <HBox spacing="8" alignment="CENTER_LEFT">
-            <ImageView fitWidth="20" fitHeight="20">
+            <ImageView fitWidth="25" fitHeight="25">
                 <image>
                     <Image url="file:/C:/Users/WSI/Downloads/fauneMarine.png"/> <!-- ton icône whale.png -->
                 </image>
@@ -125,7 +125,7 @@
                     <HBox spacing="10" alignment="CENTER_RIGHT">
                         <VBox alignment="CENTER_RIGHT" spacing="2">
                             <Label fx:id="lblNomUtilisateur" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0.2, 0, 1);"/>
-                            <Label fx:id="lblRole" style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+                            <Label fx:id="lblRole" style="-fx-font-size: 12px; -fx-text-fill: rgba(0,0,0,0.8);"/>
                         </VBox>
                         <StackPane styleClass="accueil-avatar">
                             <Label fx:id="lblAvatar" text="LA" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
