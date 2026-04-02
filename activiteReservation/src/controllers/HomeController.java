@@ -14,6 +14,7 @@ public class HomeController {
 
     // 🔥 Déclarer le champ utilisateurConnecte
     private User utilisateurConnecte;
+    
 
     // 🔹 Bouton : Sign In
     @FXML
