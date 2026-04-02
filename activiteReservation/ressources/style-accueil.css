@@ -1,5 +1,12 @@
-/* style.css - Design Moderne avec Image de Fond */
+/* =====================================================
+   EcoMarine – style-accueil.css
+   Thème CLAIR avec image de fond
+   ===================================================== */
 
+/* ── Racine ── */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
 .root-pane {
     -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
     -fx-background-size: cover;
@@ -8,346 +15,332 @@
     -fx-background-blend-mode: overlay;
     -fx-background-color: rgba(255, 255, 255, 0.7);
 	}
+	/* ========== ORBES DÉCORATIFS ========== */
+/* Animation de pulsation (respiration) */
 
-/* style.css - Design Clair avec Orbes et Image de Fond */
-
-/* ========== ORBES DÉCORATIFS ========== */
-#orb1, #orb2, #orb3, #orb4 {
-    -fx-opacity: 0.25;
+/* Orb 1 - Grand cercle (pulsation + flottement) */
+#orb1 {
+    -fx-animation: pulse 4s ease-in-out infinite, float 8s ease-in-out infinite;
 }
 
-/* ========== TOP BAR - TRANSPARENT ========== */
-.topbar {
-    -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-padding: 16 40 14 40;
-    -fx-border-color: rgba(126, 216, 192, 0.3);
+/* Orb 2 - Cercle moyen (pulsation plus rapide) */
+#orb2 {
+    -fx-animation: pulse 3s ease-in-out infinite;
+}
+
+/* Orb 3 - Petit cercle (flottement seulement) */
+#orb3 {
+    -fx-animation: float 6s ease-in-out infinite;
+}
+
+/* Orb 4 - Très grand cercle (rotation lente) */
+#orb4 {
+    -fx-animation: rotate 20s linear infinite;
+}
+
+/* Orb 5 - Cercle moyen (pulsation + flottement inversé) */
+#orb5 {
+    -fx-animation: pulse 5s ease-in-out infinite, float 10s ease-in-out reverse infinite;
+}
+/* ══════════════════════════════════════
+   CONTENEUR PRINCIPAL
+══════════════════════════════════════ */
+.main-container {
+    -fx-background-color: transparent;
+}
+
+/* ScrollPane transparent pour laisser voir le fond */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ══════════════════════════════════════
+   BARRE DE NAVIGATION
+══════════════════════════════════════ */
+.nav-bar {
+    -fx-background-color: rgba(255, 255, 255, 0.88);
+    -fx-padding: 12 28 12 28;
+    -fx-border-color: rgba(0, 120, 180, 0.15);
     -fx-border-width: 0 0 1 0;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 80, 150, 0.15), 12, 0, 0, 3);
 }
 
-.logo-icon {
-    -fx-font-size: 28px;
-}
-
-<<<<<<< HEAD
-.logo-title {
-    -fx-font-family: "Georgia";
-=======
-/* ── Carte principale verre dépoli plus claire ──────────────────────────── */
-.glass-card {
-    -fx-background-color: rgba(255, 255, 255, 0.85);
-    -fx-background-radius: 28;
-    -fx-border-radius: 28;
-    -fx-border-color: rgba(255, 255, 255, 0.5);
-    -fx-border-width: 1;
-    -fx-padding: 44 50 50 50;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 40, 0.2, 0, 10); 
-}
-
-/* ── Icône centrale ─────────────────────────────────────────── */
-.icon-circle {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-background-radius: 50;
-    -fx-border-radius: 50;
-    -fx-border-color: rgba(56, 189, 248, 0.5);
-    -fx-border-width: 1;
-    -fx-min-width: 84;
-    -fx-min-height: 84;
-    -fx-max-width: 84;
-    -fx-max-height: 84;
-}
-
-/* ── Typographie plus claire ─────────────────────────────────────────────── */
-.section-tag {
-    -fx-text-fill: rgba(2, 106, 162, 0.8);
-    -fx-font-size: 11px;
-    -fx-font-weight: bold;
-    -fx-letter-spacing: 3px;
-}
-
-.user-name {
-    -fx-text-fill: #0c4a6e;
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-}
-
-/* ── Badge date plus clair ─────────────────────────────────────────────── */
-.date-badge {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
-    -fx-border-color: rgba(56, 189, 248, 0.3);
-    -fx-border-width: 1;
-    -fx-padding: 6 16 6 16;
-}
-
-.date-text {
-    -fx-text-fill: #0c4a6e;
-    -fx-font-size: 12px;
-}
-
-/* ── Séparateur plus clair ─────────────────────────────────────────────── */
-.glass-separator {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-min-height: 1;
-    -fx-max-height: 1;
-    -fx-pref-width: 320;
-}
-
-/* ── Boutons plus clairs ─────────────────────────────────────────────────── */
-.btn-ocean-primary {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
-        #38bdf8, #0ea5e9);
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 16;
-    -fx-padding: 15 24;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.4), 16, 0.3, 0, 4);
-}
-
-.btn-ocean-primary:hover {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,
-        #7ac7f9, #2b9ce0);
-    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.5), 22, 0.4, 0, 5);
-}
-
-.btn-ocean-secondary {
-    -fx-background-color: rgba(56, 189, 248, 0.12);
-    -fx-text-fill: #0284c7;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 16;
-    -fx-border-radius: 16;
-    -fx-border-color: rgba(56, 189, 248, 0.5);
-    -fx-border-width: 1;
-    -fx-padding: 14 24;
-    -fx-cursor: hand;
-}
-
-.btn-ocean-secondary:hover {
-    -fx-background-color: rgba(56, 189, 248, 0.25);
-    -fx-border-color: rgba(56, 189, 248, 0.8);
-}
-
-/* ── Stats plus claires ───────────────────────────────────────────────────── */
-.stats-row {
-    -fx-padding: 20 0 0 0;
-}
-
-.stat-number {
-    -fx-text-fill: #0284c7;
->>>>>>> branch 'master' of https://github.com/lina-ag/EcoMarine.git
+.nav-logo-text {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0f766e;
+    -fx-text-fill: #0077b6;
 }
 
-.logo-subtitle {
-    -fx-font-size: 9px;
-    -fx-text-fill: #5b9b8a;
+.nav-logo-sub {
+    -fx-font-size: 11px;
+    -fx-text-fill: #5a8fa8;
+    -fx-font-style: italic;
 }
 
-.mode-badge {
-    -fx-background-color: #e6f7f2;
-    -fx-border-color: #bcd9d0;
-    -fx-border-width: 1;
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-padding: 7 20 7 16;
+.nav-user-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c6e8a;
+    -fx-font-weight: bold;
 }
 
-.mode-dot {
-    -fx-fill: #0f766e;
-}
-
-.mode-text {
+.btn-logout {
+    -fx-background-color: rgba(220, 53, 69, 0.1);
+    -fx-text-fill: #dc3545;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0f766e;
+    -fx-padding: 7 18 7 18;
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(220, 53, 69, 0.35);
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+.btn-logout:hover {
+    -fx-background-color: rgba(220, 53, 69, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(220, 53, 69, 0.3), 8, 0, 0, 0);
 }
 
-/* ========== HERO SECTION ========== */
+/* ══════════════════════════════════════
+   HERO SECTION
+══════════════════════════════════════ */
 .hero-section {
-    -fx-padding: 60 40 40 40;
+    -fx-padding: 40 60 24 60;
     -fx-alignment: center;
 }
 
-.hero-eyebrow {
-    -fx-font-size: 12px;
-    -fx-text-fill: #0891b2;
-    -fx-font-weight: bold;
-    -fx-letter-spacing: 1px;
-}
-
 .hero-title {
-    -fx-font-family: "Georgia";
-    -fx-font-size: 52px;
+    -fx-font-size: 38px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0f172a;
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.8), 3, 0, 0, 1);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 0, 2);
 }
 
-.hero-desc {
-    -fx-font-size: 16px;
-    -fx-text-fill: #334155;
-    -fx-line-spacing: 5;
-    -fx-wrap-text: true;
-    -fx-max-width: 700px;
-    -fx-text-alignment: center;
+.hero-title-accent {
+    -fx-font-size: 38px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffe066;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 0, 2);
 }
 
-/* ========== GRILLE CARTES - 4 COLONNES ========== */
-.cards-grid {
-    -fx-padding: 20 40 30 40;
-    -fx-hgap: 24;
-    -fx-vgap: 24;
+.hero-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: rgba(255, 255, 255, 0.90);
+    -fx-padding: 6 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0, 0, 1);
 }
 
-.card {
-    -fx-background-color: white;
-    -fx-border-color: #e2e8f0;
+.hero-wave {
+    -fx-font-size: 26px;
+}
+
+/* ══════════════════════════════════════
+   CARTE MÉTÉO
+══════════════════════════════════════ */
+.weather-card {
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-background-radius: 18;
+    -fx-border-color: rgba(0, 150, 200, 0.2);
+    -fx-border-radius: 18;
     -fx-border-width: 1;
-    -fx-border-radius: 24;
-    -fx-background-radius: 24;
-    -fx-padding: 28 20 28 20;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 4);
+    -fx-padding: 18 24 18 24;
+    -fx-effect: dropshadow(gaussian, rgba(0, 80, 150, 0.2), 18, 0, 0, 5);
+    -fx-pref-width: 300;
+    -fx-min-width: 260;
 }
 
-.card:hover {
-    -fx-background-color: #fefefe;
-    -fx-border-color: #0891b2;
-    -fx-effect: dropshadow(gaussian, rgba(8, 145, 178, 0.2), 20, 0, 0, 8);
-    -fx-translate-y: -4px;
+.weather-title {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0077b6;
+    -fx-letter-spacing: 1.5px;
 }
 
-.card-icon {
+.weather-location {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a3a4a;
+}
+
+.weather-icon {
     -fx-font-size: 44px;
 }
 
-.card-title {
-    -fx-font-size: 20px;
+.weather-temp {
+    -fx-font-size: 42px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0f172a;
+    -fx-text-fill: #0077b6;
 }
 
-.card-desc {
+.weather-desc {
     -fx-font-size: 13px;
-    -fx-text-fill: #5b6e8c;
-    -fx-wrap-text: true;
+    -fx-text-fill: #5a8fa8;
+    -fx-font-style: italic;
 }
 
-.card-link {
-    -fx-font-size: 12px;
-    -fx-text-fill: #0891b2;
-    -fx-padding: 8 0 0 0;
-    -fx-font-weight: 600;
+.weather-detail-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7a9eb0;
 }
 
-/* Carte verrouillée */
-.card-locked {
-    -fx-background-color: #f8fafc;
-    -fx-border-color: #e2e8f0;
-    -fx-border-width: 1;
-    -fx-border-radius: 24;
-    -fx-background-radius: 24;
-    -fx-padding: 28 20 28 20;
-    -fx-opacity: 0.7;
-}
-
-.card-locked .card-title {
-    -fx-text-fill: #94a3b8;
-}
-
-.card-locked .card-desc {
-    -fx-text-fill: #94a3b8;
-}
-
-.card-locked .card-link {
-    -fx-text-fill: #94a3b8;
-}
-
-.restricted-badge {
-    -fx-background-color: #fef2f2;
-    -fx-border-color: #fecaca;
-    -fx-border-width: 1;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-padding: 5 12 5 12;
-    -fx-font-size: 10px;
+.weather-detail-value {
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-text-fill: #dc2626;
-    -fx-translate-x: -12;
-    -fx-translate-y: 12;
+    -fx-text-fill: #1a3a4a;
 }
 
-/* ========== ISLAND STRIP ========== */
-.island-strip {
-    -fx-background-color: rgba(255, 255, 255, 0.85);
-    -fx-border-color: #e2e8f0;
+.weather-separator {
+    -fx-background-color: rgba(0, 120, 180, 0.12);
+    -fx-pref-height: 1;
+}
+
+.weather-loading {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7a9eb0;
+    -fx-font-style: italic;
+}
+
+.weather-refresh-btn {
+    -fx-background-color: rgba(0, 119, 182, 0.08);
+    -fx-text-fill: #0077b6;
+    -fx-font-size: 12px;
+    -fx-padding: 4 12 4 12;
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(0, 119, 182, 0.25);
+    -fx-border-radius: 12;
     -fx-border-width: 1;
-    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+.weather-refresh-btn:hover {
+    -fx-background-color: rgba(0, 119, 182, 0.15);
+}
+
+/* ══════════════════════════════════════
+   GRILLE DES ACTIONS
+══════════════════════════════════════ */
+.actions-grid {
+    -fx-padding: 0 60 36 60;
+    -fx-hgap: 18;
+    -fx-vgap: 18;
+    -fx-alignment: center;
+}
+
+/* ── Cartes d'action ── */
+.action-card {
+    -fx-background-color: rgba(255, 255, 255, 0.88);
     -fx-background-radius: 16;
-    -fx-padding: 18 28 18 28;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
+    -fx-border-color: rgba(0, 150, 200, 0.18);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-padding: 26 20 26 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 80, 150, 0.15), 14, 0, 0, 4);
+    -fx-pref-width: 195;
+    -fx-pref-height: 175;
+    -fx-alignment: center;
 }
 
-.island-icon {
-    -fx-font-size: 34px;
+.action-card:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.97);
+    -fx-border-color: rgba(0, 119, 182, 0.45);
+    -fx-effect: dropshadow(gaussian, rgba(0, 100, 200, 0.30), 20, 0, 0, 6);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
 }
 
-.island-title {
+.action-card-violet:hover {
+    -fx-border-color: rgba(108, 99, 255, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(108, 99, 255, 0.30), 20, 0, 0, 6);
+}
+
+.action-card-green:hover {
+    -fx-border-color: rgba(16, 163, 127, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(16, 163, 127, 0.30), 20, 0, 0, 6);
+}
+
+.action-card-coral:hover {
+    -fx-border-color: rgba(249, 115, 22, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(249, 115, 22, 0.30), 20, 0, 0, 6);
+}
+
+.action-icon {
+    -fx-font-size: 38px;
+    -fx-padding: 0 0 8 0;
+}
+
+.action-title {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0f172a;
+    -fx-text-fill: #1a3a4a;
+    -fx-text-alignment: center;
 }
 
-.island-desc {
-    -fx-font-size: 12px;
-    -fx-text-fill: #5b6e8c;
+.action-desc {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6a8fa0;
+    -fx-text-alignment: center;
     -fx-wrap-text: true;
+    -fx-padding: 3 0 0 0;
 }
 
-/* ========== BOUTON CTA ========== */
-.cta-container {
-    -fx-padding: 20 40 40 40;
-}
-
-.btn-primary {
-    -fx-background-color: #0891b2;
+/* ── Bouton réserver ── */
+.btn-reserve-main {
+    -fx-background-color: linear-gradient(to right, #0077b6, #6c63ff);
     -fx-text-fill: white;
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-background-radius: 14;
-    -fx-border-radius: 14;
-    -fx-padding: 16 0 16 0;
+    -fx-padding: 9 20 9 20;
+    -fx-background-radius: 18;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(8, 145, 178, 0.3), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 119, 182, 0.4), 10, 0, 0, 3);
+}
+.btn-reserve-main:hover {
+    -fx-background-color: linear-gradient(to right, #005f92, #5548e0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 119, 182, 0.55), 14, 0, 0, 4);
 }
 
-.btn-primary:hover {
-    -fx-background-color: #0e7c9e;
-    -fx-effect: dropshadow(gaussian, rgba(8, 145, 178, 0.4), 12, 0, 0, 4);
-    -fx-translate-y: -2px;
+/* ══════════════════════════════════════
+   BANDE STATISTIQUES
+══════════════════════════════════════ */
+.info-band {
+    -fx-background-color: rgba(255, 255, 255, 0.82);
+    -fx-padding: 16 60 16 60;
+    -fx-border-color: rgba(0, 120, 180, 0.12);
+    -fx-border-width: 1 0 0 0;
 }
 
-/* ========== SCROLLBAR ========== */
-.scroll-pane {
-    -fx-background-color: transparent;
+.info-stat-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0077b6;
 }
 
-.scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 8px;
+.info-stat-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6a8fa0;
+    -fx-text-alignment: center;
 }
 
-.scroll-bar:vertical .thumb {
-    -fx-background-color: #cbd5e1;
-    -fx-background-radius: 10;
+.info-divider {
+    -fx-background-color: rgba(0, 120, 180, 0.15);
+    -fx-pref-width: 1;
+    -fx-pref-height: 32;
 }
 
-.scroll-bar:vertical .track {
-    -fx-background-color: #f1f5f9;
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer-bar {
+    -fx-background-color: rgba(255, 255, 255, 0.80);
+    -fx-padding: 11 28 11 28;
+    -fx-border-color: rgba(0, 120, 180, 0.10);
+    -fx-border-width: 1 0 0 0;
+}
+
+.footer-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6a8fa0;
 }

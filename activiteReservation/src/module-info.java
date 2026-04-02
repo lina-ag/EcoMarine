@@ -33,6 +33,7 @@ module activiteReservation {
 	requires vosk;
 	requires java.net.http;
 	requires javafx.base;
+	requires org.json;
 	opens faune.Marine.controllers to javafx.fxml;
 	opens faune.Marine.entities to javafx.base;
 

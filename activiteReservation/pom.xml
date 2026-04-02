@@ -106,7 +106,11 @@
       <artifactId>okio</artifactId>
       <version>3.6.0</version>
     </dependency>
-    
+    <dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20240303</version>
+</dependency>
     <!-- Gson pour parser le JSON -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
