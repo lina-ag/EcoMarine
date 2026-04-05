@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.GestionActiviteReservation"
@@ -19,7 +22,9 @@
             <!-- Replace this entire StackPane -->
 <StackPane alignment="CENTER">
     <Region styleClass="header-background"/>
-    <Label text="🌊" style="-fx-font-size: 80px;"/>
+    <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+                    <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
+                </ImageView>
 </StackPane>
 
             <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-font-size: 20px; -fx-font-weight: none; -fx-text-fill: white;"/>
@@ -34,20 +39,50 @@
             </HBox>
 
    
-            <Button text="➕ Ajouter Activité"
-                    onAction="#ouvrirAjouterActivite"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
+            <Button onAction="#ouvrirAjouterActivite"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/addEvent.png"/>
+                </image>
+            </ImageView>
+            <Label text="Ajouter Activité" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
 
-            <Button text="📋 Liste Activités"
-                    onAction="#ouvrirAfficherActivites"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
-            <Button text="📅 Calendrier"
-                    onAction="#ouvrirCalendrier"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
+<Button onAction="#ouvrirAfficherActivites"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/listEvent.png"/>
+                </image>
+            </ImageView>
+            <Label text="Liste Activités" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
 
+<Button onAction="#ouvrirCalendrier"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/calendar.png"/>
+                </image>
+            </ImageView>
+            <Label text="Calendrier" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
             <!-- RESERVATIONS -->
             <Label text="RÉSERVATIONS"
                    styleClass="sidebar-section-label"
@@ -59,16 +94,35 @@
 
           
 
-            <Button text="➕ Ajouter Réservation"
-                    onAction="#ouvrirAjouterReservation"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
-             
+           <Button onAction="#ouvrirAjouterReservation"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/reserve.png"/>
+                </image>
+            </ImageView>
+            <Label text="Ajouter Réservation" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
 
-            <Button text="📋 Liste Réservations"
-                    onAction="#ouvrirAfficherReservation"
-                    maxWidth="Infinity"
-                    styleClass="sidebar-button"/>
+<Button onAction="#ouvrirAfficherReservation"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/listEvent.png"/>
+                </image>
+            </ImageView>
+            <Label text="Liste Réservations" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
 
            
 

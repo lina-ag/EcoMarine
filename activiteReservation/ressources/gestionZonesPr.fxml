@@ -52,7 +52,20 @@
             </graphic>
          </Button>
 
-         <Button text="Recherche Vocale" onAction="#ouvrirRechercheVocale" maxWidth="Infinity" styleClass="sidebar-button"/>
+        <Button onAction="#ouvrirRechercheVocale"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="20" fitHeight="20">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/microphone.png"/> 
+                </image>
+            </ImageView>
+            <Label text="Recherche Vocale" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
 
          <Label text="SURVEILLANCE" styleClass="sidebar-section-label" style="-fx-text-fill: rgba(255,255,255,0.7);">
             <VBox.margin><Insets top="10" /></VBox.margin>

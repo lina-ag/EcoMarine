@@ -12,7 +12,7 @@ public class ActionNettoyage {
     }
     @Override
     public String toString() {
-        return idAction + " | " + dateAction + " | " + lieu;
+        return  dateAction + " | " + lieu;
     }
 
     public int getIdAction() { return idAction; }

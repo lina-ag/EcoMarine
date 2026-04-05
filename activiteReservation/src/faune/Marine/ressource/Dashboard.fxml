@@ -23,9 +23,9 @@
          <!-- En-tête avec logo marin -->
          <StackPane styleClass="sidebar-header">
             <Region styleClass="header-background" />
-            <Label text="🌊"
-                   style="-fx-font-size: 56px; 
-                          -fx-text-fill: white;" />
+            <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+                    <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
+                </ImageView>
          </StackPane>
 
          <!-- TITRES -->

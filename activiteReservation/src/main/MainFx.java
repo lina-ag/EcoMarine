@@ -13,12 +13,12 @@ public class MainFx extends Application {
         try {
         	  System.setProperty("sun.net.http.allowRestrictedHeaders", "true"); 
 
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
+           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
 
 
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
 
 
             Scene scene = new Scene(loader.load());
