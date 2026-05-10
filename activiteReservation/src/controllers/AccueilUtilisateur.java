@@ -333,6 +333,21 @@ public class AccueilUtilisateur implements Initializable {
         ouvrirVue("/AjouterReservation.fxml", "Nouvelle Réservation");
     }
 
+    @FXML
+    private void handleDechets() {
+        ouvrirVue("/DechetModule.fxml", "Gestion des Dechets");
+    }
+
+    @FXML
+    private void handleNettoyage() {
+        ouvrirVue("/actions.fxml", "Actions de Nettoyage");
+    }
+
+    @FXML
+    private void handleBiodiversite() {
+        ouvrirVue("/faune/Marine/ressource/Main.fxml", "Biodiversite marine");
+    }
+
    
 
     @FXML

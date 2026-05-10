@@ -82,6 +82,12 @@ public class GestionUsers implements Initializable {
     // ── Services ──
     private ServiceUser serviceUser = new ServiceUser();
     private User utilisateurConnecte;
+
+    @FXML
+    private void ouvrirModuleDechets() {
+        ouvrirFenetre("/DechetModule.fxml", "Gestion des Dechets");
+    }
+
     @FXML
     private void ouvrirActionsNettoyage() {
         ouvrirFenetre("/actions.fxml", "Actions de Nettoyage");

@@ -53,6 +53,16 @@
                  maxWidth="Infinity" styleClass="sidebar-button">
             <graphic><Label text="📋" style="-fx-text-fill: white;"/></graphic>
          </Button>
+
+         <Label text="MODULES ECO-MARINE" styleClass="sidebar-section-label"
+                style="-fx-text-fill: rgba(255,255,255,0.7);">
+            <VBox.margin><Insets top="10"/></VBox.margin>
+         </Label>
+
+         <Button text="Gestion Déchets"
+        onAction="#ouvrirModuleDechets"
+        maxWidth="Infinity"
+        styleClass="sidebar-button"/>
          
          <Button text="🧹 Actions de Nettoyage"
         onAction="#ouvrirActionsNettoyage"

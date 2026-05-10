@@ -34,6 +34,22 @@
 
             <Label text="MENU PRINCIPAL" styleClass="sidebar-section-label"/>
 
+            <Label text="GESTION DECHETS" styleClass="sidebar-section-label">
+                <VBox.margin><Insets top="10"/></VBox.margin>
+            </Label>
+            <Button text="Gestion Déchets"
+                    onAction="#ouvrirModuleDechets"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"/>
+
+            <Label text="NETTOYAGE" styleClass="sidebar-section-label">
+                <VBox.margin><Insets top="10"/></VBox.margin>
+            </Label>
+            <Button text="Actions de Nettoyage"
+                    onAction="#ouvrirActionsNettoyage"
+                    maxWidth="Infinity"
+                    styleClass="sidebar-button"/>
+
             <Label text="Gestion Activite et Reservation" styleClass="sidebar-section-label">
                 <VBox.margin><Insets top="10"/></VBox.margin>
             </Label>

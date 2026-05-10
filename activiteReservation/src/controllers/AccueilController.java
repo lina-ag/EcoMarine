@@ -204,6 +204,16 @@ public class AccueilController {
     @FXML private void ouvrirAccueil() { System.out.println("Déjà sur la page d'accueil"); }
 
     @FXML
+    private void ouvrirModuleDechets() {
+        ouvrirFenetre("/DechetModule.fxml", "Gestion des Dechets");
+    }
+
+    @FXML
+    private void ouvrirActionsNettoyage() {
+        ouvrirFenetre("/actions.fxml", "Actions de Nettoyage");
+    }
+
+    @FXML
     private void ouvrirModuleActivitesReservations() {
         ouvrirFenetre("/GestionActiviteReservation.fxml", "Module Activités & Réservations");
     }

@@ -127,27 +127,59 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="220" />
             </columnConstraints>
 
-            <!-- ── Carte 1 : Nouvelle Réservation ── -->
             <VBox styleClass="action-card, action-card-violet"
                   alignment="CENTER" spacing="10"
                   GridPane.columnIndex="0" GridPane.rowIndex="0"
-                  onMouseClicked="#handleNouvelleReservation">
-                <Label styleClass="action-icon" text="🏖️" />
+                  onMouseClicked="#handleDechets">
+                <Label styleClass="action-icon" text="D" />
                 <VBox alignment="CENTER" spacing="4">
-                    <Label styleClass="action-title" text="Nouvelle Réservation" />
-                    <Label styleClass="action-desc" text="Réservez une activité écotouristique sur Kuriat Island" />
+                    <Label styleClass="action-title" text="Gestion Déchets" />
+                    <Label styleClass="action-desc" text="Signalements, statistiques et documents terrain" />
                 </VBox>
                 <Button styleClass="btn-reserve-main"
-                        text="+ Réserver"
-                        onAction="#handleNouvelleReservation" />
+                        text="Ouvrir"
+                        onAction="#handleDechets" />
             </VBox>
 
-         
+            <VBox styleClass="action-card, action-card-violet"
+                  alignment="CENTER" spacing="10"
+                  GridPane.columnIndex="1" GridPane.rowIndex="0"
+                  onMouseClicked="#handleNettoyage">
+                <Label styleClass="action-icon" text="N" />
+                <VBox alignment="CENTER" spacing="4">
+                    <Label styleClass="action-title" text="Nettoyage" />
+                    <Label styleClass="action-desc" text="Missions, volontaires et suivi des actions" />
+                </VBox>
+                <Button styleClass="btn-reserve-main"
+                        text="Ouvrir"
+                        onAction="#handleNettoyage" />
+            </VBox>
 
-            <!-- ── Carte 3 : Calendrier ── -->
             <VBox styleClass="action-card, action-card-green"
                   alignment="CENTER" spacing="10"
                   GridPane.columnIndex="2" GridPane.rowIndex="0"
+                  onMouseClicked="#handleActivites">
+                <Label styleClass="action-icon" text="E" />
+                <VBox alignment="CENTER" spacing="4">
+                    <Label styleClass="action-title" text="Événement" />
+                    <Label styleClass="action-desc" text="Agenda, activités et réservations" />
+                </VBox>
+            </VBox>
+
+            <VBox styleClass="action-card, action-card-coral"
+                  alignment="CENTER" spacing="10"
+                  GridPane.columnIndex="0" GridPane.rowIndex="1"
+                  onMouseClicked="#handleBiodiversite">
+                <Label styleClass="action-icon" text="B" />
+                <VBox alignment="CENTER" spacing="4">
+                    <Label styleClass="action-title" text="Biodiversité" />
+                    <Label styleClass="action-desc" text="Faune marine, observations et prédictions" />
+                </VBox>
+            </VBox>
+
+            <VBox styleClass="action-card"
+                  alignment="CENTER" spacing="10"
+                  GridPane.columnIndex="1" GridPane.rowIndex="1"
                   onMouseClicked="#handleCalendrier">
                 <Label styleClass="action-icon" text="📅" />
                 <VBox alignment="CENTER" spacing="4">
@@ -156,21 +188,6 @@
                 </VBox>
             </VBox>
 
-           
-
-            <!-- ── Carte 5 : Profil ── -->
-            <VBox styleClass="action-card, action-card-coral"
-                  alignment="CENTER" spacing="10"
-                  GridPane.columnIndex="0" GridPane.rowIndex="1"
-                  onMouseClicked="#handleProfil">
-                <Label styleClass="action-icon" text="👤" />
-                <VBox alignment="CENTER" spacing="4">
-                    <Label styleClass="action-title" text="Mon Profil" />
-                    <Label styleClass="action-desc" text="Gérez vos informations personnelles et préférences" />
-                </VBox>
-            </VBox>
-
-            <!-- ── Carte 6 : À propos de Kuriat ── -->
             <VBox styleClass="action-card"
                   alignment="CENTER" spacing="10"
                   GridPane.columnIndex="2" GridPane.rowIndex="1"
