@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.DechetDocumentsController"
+      spacing="22"
+      stylesheets="@eco-wow.css"
+      styleClass="eco-root eco-shell"
+      prefWidth="1320"
+      prefHeight="820">
+
+    <VBox spacing="12" styleClass="hero-panel">
+        <Label text="DOCUMENTS OPERATIONNELS" styleClass="hero-kicker"/>
+        <Label text="Transformer les donnees terrain en actions partageables" styleClass="hero-title"/>
+        <Label text="Guides, rapports, dernieres alertes et contacts utiles pour coordonner les equipes sans perdre le fil." wrapText="true" styleClass="hero-subtitle"/>
+    </VBox>
+
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" styleClass="document-tabs">
+        <tabs>
+            <Tab text="Documents">
+                <GridPane hgap="18" vgap="18" style="-fx-padding: 18;">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="33"/>
+                        <ColumnConstraints percentWidth="33"/>
+                        <ColumnConstraints percentWidth="34"/>
+                    </columnConstraints>
+                    <VBox spacing="14" styleClass="document-card">
+                        <Label text="Guide tri littoral" styleClass="section-title"/>
+                        <Label text="Protocole clair pour separer plastique, verre, metal, cordages et dechets dangereux pendant une mission." wrapText="true" styleClass="mini-text"/>
+                        <Button text="Ouvrir le guide" onAction="#openSortingGuide" styleClass="primary-button"/>
+                    </VBox>
+                    <VBox spacing="14" styleClass="document-card" GridPane.columnIndex="1">
+                        <Label text="Rapport intervention" styleClass="section-title"/>
+                        <Label text="Modele terrain avec photos avant/apres, quantite collectee, zone nettoyee et equipe participante." wrapText="true" styleClass="mini-text"/>
+                        <Button text="Exporter le rapport" onAction="#exportInterventionReport" styleClass="ghost-button"/>
+                    </VBox>
+                    <VBox spacing="14" styleClass="document-card" GridPane.columnIndex="2">
+                        <Label text="Kit sensibilisation" styleClass="section-title"/>
+                        <Label text="Messages prets pour panneaux, stories, annonces micro et ateliers avec les visiteurs." wrapText="true" styleClass="mini-text"/>
+                        <Button text="Consulter le kit" onAction="#openAwarenessKit" styleClass="ghost-button"/>
+                    </VBox>
+                </GridPane>
+            </Tab>
+            <Tab text="Latest">
+                <GridPane hgap="18" vgap="18" style="-fx-padding: 18;">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="58"/>
+                        <ColumnConstraints percentWidth="42"/>
+                    </columnConstraints>
+                    <VBox spacing="14" styleClass="document-card">
+                        <Label text="Dernieres informations terrain" styleClass="section-title"/>
+                        <ListView prefHeight="380" styleClass="document-list">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Plage nord : hausse des bouteilles plastiques apres weekend."/>
+                                    <String fx:value="Port : filets et cordages detectes pres des rochers."/>
+                                    <String fx:value="Zone touristique : besoin de poubelles visibles."/>
+                                    <String fx:value="Biodiversite : risque eleve pour oiseaux marins."/>
+                                </FXCollections>
+                            </items>
+                        </ListView>
+                    </VBox>
+                    <VBox spacing="12" styleClass="document-card" GridPane.columnIndex="1">
+                        <Label text="Actions prioritaires" styleClass="section-title"/>
+                        <Label text="1. Nettoyer la plage nord avant le prochain vent fort." wrapText="true" styleClass="mini-title"/>
+                        <Label text="2. Ajouter deux points de tri visibles pres des entrees." wrapText="true" styleClass="mini-title"/>
+                        <Label text="3. Recontroler la zone apres 72 heures avec photo." wrapText="true" styleClass="mini-title"/>
+                    </VBox>
+                </GridPane>
+            </Tab>
+            <Tab text="Contact">
+                <GridPane hgap="18" vgap="18" style="-fx-padding: 18;">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+                    <VBox spacing="12" styleClass="document-card">
+                        <Label text="Equipe intervention" styleClass="section-title"/>
+                        <Label text="Responsable terrain : +21629612863" styleClass="mini-text"/>
+                        <Label text="Coordination volontaires : meryemfarhat601@gmail.com" styleClass="mini-text"/>
+                        <Label text="Urgence pollution : canal prioritaire" styleClass="chip"/>
+                    </VBox>
+                    <VBox spacing="12" styleClass="document-card" GridPane.columnIndex="1">
+                        <Label text="Message rapide" styleClass="section-title"/>
+                        <Label text="Preparer une alerte lisible : zone, photo, type de dechet, niveau de priorite et equipe a prevenir." wrapText="true" styleClass="mini-text"/>
+                        <Button text="Preparer une alerte" onAction="#prepareAlert" styleClass="primary-button"/>
+                    </VBox>
+                </GridPane>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>
