@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="app.ActionsController"
+      spacing="10" style="-fx-padding: 12;">
+
+    <TableView fx:id="tableActions">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
+            <TableColumn fx:id="colDate" text="Date" prefWidth="180"/>
+            <TableColumn fx:id="colLieu" text="Lieu" prefWidth="420"/>
+            <TableColumn fx:id="colParticipants" text="Participants" prefWidth="140"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="txtDate" promptText="Date (DD/MM/YYYY ou YYYY-MM-DD)" prefWidth="220"/>
+        <TextField fx:id="txtLieu" promptText="Lieu" prefWidth="320"/>
+        <Button text="Ajouter" onAction="#addAction"/>
+        <Button text="Modifier" onAction="#updateAction"/>
+        <Button text="Supprimer" onAction="#deleteAction"/>
+        <Button text="Vider" onAction="#clearAction"/>
+    </HBox>
+</VBox>

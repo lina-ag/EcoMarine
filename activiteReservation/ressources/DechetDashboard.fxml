@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DechetDashboardController"
+            fitToWidth="true"
+            fitToHeight="true"
+            stylesheets="@eco-wow.css"
+            styleClass="eco-scroll">
+    <content>
+        <VBox spacing="22" styleClass="eco-root eco-shell" prefWidth="1320">
+            <HBox spacing="24" alignment="CENTER_LEFT" styleClass="hero-panel">
+                <VBox spacing="13" HBox.hgrow="ALWAYS">
+                    <Label text="GESTION INTELLIGENTE DES DECHETS" styleClass="hero-kicker"/>
+                    <Label text="Scanner, prioriser et proteger le littoral" styleClass="hero-title"/>
+                    <Label text="Un cockpit JavaFX pour transformer une photo de pollution en diagnostic terrain, score de priorite et plan d'action." wrapText="true" styleClass="hero-subtitle"/>
+                    <HBox spacing="12">
+                        <Button text="+ Ajouter une photo" onAction="#chooseImage" styleClass="primary-button"/>
+                        <Button text="Lancer l'analyse IA" onAction="#analyzeImage" styleClass="secondary-button"/>
+                    </HBox>
+                </VBox>
+
+                <StackPane styleClass="radar-panel" prefWidth="390" prefHeight="285">
+                    <Circle radius="105" styleClass="radar-ring"/>
+                    <Circle radius="70" styleClass="radar-ring"/>
+                    <Circle radius="35" styleClass="radar-ring"/>
+                    <Line startX="-120" endX="120" startY="0" endY="0" styleClass="radar-line"/>
+                    <Line startX="0" endX="0" startY="-120" endY="120" styleClass="radar-line"/>
+                    <Circle translateX="-64" translateY="-38" radius="7" styleClass="radar-dot"/>
+                    <Circle translateX="52" translateY="48" radius="6" styleClass="radar-dot"/>
+                    <Circle translateX="18" translateY="-80" radius="5" styleClass="radar-dot"/>
+                    <Label text="AI" style="-fx-text-fill: white; -fx-font-size: 38px; -fx-font-weight: 900;"/>
+                </StackPane>
+            </HBox>
+
+            <GridPane hgap="18" vgap="18">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                </columnConstraints>
+                <VBox styleClass="metric-card" spacing="5">
+                    <Label text="13" styleClass="metric-number"/>
+                    <Label text="Signalements actifs" styleClass="metric-label"/>
+                </VBox>
+                <VBox styleClass="metric-card" spacing="5" GridPane.columnIndex="1">
+                    <Label text="82%" styleClass="metric-number"/>
+                    <Label text="Priorite moyenne" styleClass="metric-label"/>
+                </VBox>
+                <VBox styleClass="metric-card" spacing="5" GridPane.columnIndex="2">
+                    <Label text="7" styleClass="metric-number"/>
+                    <Label text="Zones touchees" styleClass="metric-label"/>
+                </VBox>
+                <VBox styleClass="metric-card" spacing="5" GridPane.columnIndex="3">
+                    <Label text="+31%" styleClass="metric-number"/>
+                    <Label text="Nettoyage semaine" styleClass="metric-label"/>
+                </VBox>
+            </GridPane>
+
+            <GridPane hgap="22" vgap="22">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="42"/>
+                    <ColumnConstraints percentWidth="58"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/>
+                </rowConstraints>
+
+                <VBox spacing="16" styleClass="glass-card">
+                    <Label text="Assistant IA Dechets" styleClass="section-title"/>
+                    <Label text="Ajoute une photo, lance l'analyse, puis genere un message de sensibilisation ou un mini plan d'action." wrapText="true" styleClass="section-caption"/>
+
+                    <VBox spacing="8" styleClass="deep-card">
+                        <Label text="Photo source" styleClass="mini-title"/>
+                        <Label fx:id="imageNameLabel" text="Aucune image selectionnee" styleClass="mini-text"/>
+                        <Button text="Choisir un fichier" onAction="#chooseImage" styleClass="secondary-button"/>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="deep-card">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="Score terrain" styleClass="mini-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="priorityLabel" text="En attente" styleClass="chip"/>
+                        </HBox>
+                        <ProgressBar fx:id="priorityBar" progress="0.18" maxWidth="Infinity"/>
+                        <Button text="Analyser l'image" onAction="#analyzeImage" maxWidth="Infinity" styleClass="primary-button"/>
+                    </VBox>
+
+                    <HBox spacing="12">
+                        <Button text="Voix de la nature" onAction="#generateNatureVoice" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="secondary-button"/>
+                        <Button text="Guide ecologique" onAction="#generateEcoGuide" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="secondary-button"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="16" styleClass="glass-card" GridPane.columnIndex="1">
+                    <Label text="Resultat intelligent" styleClass="section-title"/>
+                    <TextArea fx:id="analysisArea"
+                              text="Le resultat apparait ici : type de dechets, origine probable, risque biodiversite et recommandations."
+                              wrapText="true"
+                              prefRowCount="18"
+                              styleClass="field-wow"/>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </content>
+</ScrollPane>

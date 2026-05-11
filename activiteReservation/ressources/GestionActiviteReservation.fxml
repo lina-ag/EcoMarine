@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.GestionActiviteReservation"
+            stylesheets="@style.css"
+            styleClass="root-pane"
+            prefWidth="1535"
+            prefHeight="840">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox spacing="12" prefWidth="260" styleClass="sidebar">
+
+            <!-- Replace this entire StackPane -->
+<StackPane alignment="CENTER">
+    <Region styleClass="header-background"/>
+    <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+                    <Image url="file:/C:/Users/WSI/Downloads/logoEco.png"/>
+                </ImageView>
+</StackPane>
+
+            <Label text="ECOMARINE" styleClass="sidebar-title" style="-fx-font-size: 20px; -fx-font-weight: none; -fx-text-fill: white;"/>
+            <Label text="Gestion Touristique" styleClass="sidebar-subtitle" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
+
+
+            <!-- ACTIVITES -->
+            <Label text="ACTIVITÉS" styleClass="sidebar-section-label" style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;"/>
+
+            <HBox>
+                <Button fx:id="btnBack" text="← Retour" styleClass="btn-back" onAction="#handleBack" />
+            </HBox>
+
+   
+            <Button onAction="#ouvrirAjouterActivite"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/addEvent.png"/>
+                </image>
+            </ImageView>
+            <Label text="Ajouter Activité" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
+
+<Button onAction="#ouvrirAfficherActivites"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/listEvent.png"/>
+                </image>
+            </ImageView>
+            <Label text="Liste Activités" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
+
+<Button onAction="#ouvrirCalendrier"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/calendar.png"/>
+                </image>
+            </ImageView>
+            <Label text="Calendrier" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
+            <!-- RESERVATIONS -->
+            <Label text="RÉSERVATIONS"
+                   styleClass="sidebar-section-label"
+                   style="-fx-font-size: 16px; -fx-font-weight: none; -fx-text-fill: white;">
+                <VBox.margin>
+                    <Insets top="15"/>
+                </VBox.margin>
+            </Label>
+
+          
+
+           <Button onAction="#ouvrirAjouterReservation"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/reserve.png"/>
+                </image>
+            </ImageView>
+            <Label text="Ajouter Réservation" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
+
+<Button onAction="#ouvrirAfficherReservation"
+        maxWidth="Infinity"
+        styleClass="sidebar-button">
+    <graphic>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ImageView fitWidth="18" fitHeight="18">
+                <image>
+                    <Image url="file:/C:/Users/WSI/Downloads/listEvent.png"/>
+                </image>
+            </ImageView>
+            <Label text="Liste Réservations" style="-fx-text-fill: white;"/>
+        </HBox>
+    </graphic>
+</Button>
+
+           
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Separator styleClass="sidebar-separator"/>
+
+            <!-- STATS -->
+            <HBox spacing="20" alignment="CENTER" styleClass="stats-container">
+                <VBox alignment="CENTER">
+                    <Label fx:id="activitesCount" text="0" styleClass="stats-number" style="-fx-font-size: 26px; -fx-font-weight: none; -fx-text-fill: white;"/>
+                    <Label text="Activités" styleClass="stats-label" style="-fx-font-size: 14px; -fx-font-weight: none; -fx-text-fill: white;"/>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <Label fx:id="reservationsCount" text="0" styleClass="stats-number" style="-fx-font-size: 26px; -fx-font-weight: none; -fx-text-fill: white;"/>
+                    <Label text="Réservations" styleClass="stats-label" style="-fx-font-size: 14px; -fx-font-weight: none; -fx-text-fill: white;"/>
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </left>
+
+    <!-- CONTENU -->
+    <center>
+        <StackPane fx:id="mainContent" styleClass="root-pane"/>
+    </center>
+
+</BorderPane>

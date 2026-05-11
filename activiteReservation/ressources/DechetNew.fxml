@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="22"
+      stylesheets="@eco-wow.css"
+      styleClass="eco-root eco-shell"
+      prefWidth="1320"
+      prefHeight="820">
+
+    <VBox spacing="12" styleClass="hero-panel">
+        <Label text="NOUVEAU SIGNALEMENT" styleClass="hero-kicker"/>
+        <Label text="Capturer une situation terrain claire et actionnable" styleClass="hero-title"/>
+        <Label text="Cette page reprend l'idee /dechet/new : localisation, type de pollution, photo, priorite et recommandation automatique." wrapText="true" styleClass="hero-subtitle"/>
+    </VBox>
+
+    <GridPane hgap="22" vgap="22">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="58"/>
+            <ColumnConstraints percentWidth="42"/>
+        </columnConstraints>
+
+        <VBox spacing="16" styleClass="glass-card">
+            <Label text="Formulaire signalement" styleClass="section-title"/>
+            <GridPane hgap="14" vgap="14">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+                <VBox spacing="7">
+                    <Label text="Zone" styleClass="mini-title"/>
+                    <TextField promptText="Ex: Plage nord" styleClass="field-wow"/>
+                </VBox>
+                <VBox spacing="7" GridPane.columnIndex="1">
+                    <Label text="Date" styleClass="mini-title"/>
+                    <DatePicker maxWidth="Infinity" styleClass="field-wow"/>
+                </VBox>
+                <VBox spacing="7" GridPane.rowIndex="1">
+                    <Label text="Type dominant" styleClass="mini-title"/>
+                    <ComboBox promptText="Choisir" maxWidth="Infinity" styleClass="field-wow">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Plastique"/>
+                                <String fx:value="Metal / canettes"/>
+                                <String fx:value="Verre"/>
+                                <String fx:value="Filets / peche"/>
+                                <String fx:value="Mixte"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </VBox>
+                <VBox spacing="7" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <Label text="Priorite estimee" styleClass="mini-title"/>
+                    <Slider min="0" max="100" value="72" showTickLabels="true" showTickMarks="true"/>
+                </VBox>
+            </GridPane>
+            <VBox spacing="7">
+                <Label text="Description" styleClass="mini-title"/>
+                <TextArea promptText="Quantite, origine probable, danger visible, acces..." prefRowCount="7" wrapText="true" styleClass="field-wow"/>
+            </VBox>
+            <HBox spacing="12">
+                <Button text="Ajouter une photo" styleClass="secondary-button"/>
+                <Button text="Enregistrer le signalement" styleClass="primary-button"/>
+            </HBox>
+        </VBox>
+
+        <VBox spacing="16" styleClass="glass-card" GridPane.columnIndex="1">
+            <Label text="Assistant terrain" styleClass="section-title"/>
+            <VBox spacing="8" styleClass="deep-card">
+                <Label text="Lecture IA" styleClass="mini-title"/>
+                <Label text="Le signalement sera classe selon impact biodiversite, dispersion par le vent et proximite de l'eau." wrapText="true" styleClass="mini-text"/>
+            </VBox>
+            <VBox spacing="8" styleClass="deep-card">
+                <Label text="Plan conseille" styleClass="mini-title"/>
+                <Label text="1 equipe de 4 personnes, 45 minutes, tri plastique/metal/verre, photo avant/apres." wrapText="true" styleClass="mini-text"/>
+            </VBox>
+            <VBox spacing="8" styleClass="deep-card">
+                <Label text="Message public" styleClass="mini-title"/>
+                <Label text="Cette zone a besoin d'une intervention rapide : gardons le littoral respirable." wrapText="true" styleClass="mini-text"/>
+            </VBox>
+        </VBox>
+    </GridPane>
+</VBox>

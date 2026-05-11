@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+    }
+
+    #btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: #1e3c72;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    #btn.listening {
+      background: #e74c3c;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(231,76,60,0.5); }
+      70%  { box-shadow: 0 0 0 10px rgba(231,76,60,0); }
+      100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); }
+    }
+
+    #status {
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn" onclick="toggleListen()">🎤</button>
+  <span id="status">Cliquer pour parler</span>
+
+  <script>
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      document.getElementById('status').textContent =
+        'Navigateur non supporté';
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'fr-FR';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    let listening = false;
+
+    function toggleListen() {
+      if (listening) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    recognition.onstart = function () {
+      listening = true;
+      document.getElementById('btn').classList.add('listening');
+      document.getElementById('btn').textContent = '⏹';
+      document.getElementById('status').textContent = 'Écoute en cours...';
+    };
+
+    recognition.onend = function () {
+      listening = false;
+      document.getElementById('btn').classList.remove('listening');
+      document.getElementById('btn').textContent = '🎤';
+      document.getElementById('status').textContent = 'Cliquer pour parler';
+    };
+
+    recognition.onerror = function (e) {
+      document.getElementById('status').textContent = 'Erreur : ' + e.error;
+    };
+
+    // C'est ici que le résultat est envoyé à JavaFX
+    recognition.onresult = function (event) {
+      const texte = event.results[0][0].transcript;
+      document.getElementById('status').textContent = '"' + texte + '"';
+
+      // Appel vers Java via le bridge JavaFX
+      if (window.javaFxBridge) {
+        window.javaFxBridge.onSpeechResult(texte);
+      }
+    };
+  </script>
+</body>
+</html>

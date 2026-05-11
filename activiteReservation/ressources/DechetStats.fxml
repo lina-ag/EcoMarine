@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="22"
+      stylesheets="@eco-wow.css"
+      styleClass="eco-root eco-shell"
+      prefWidth="1320"
+      prefHeight="820">
+
+    <VBox spacing="12" styleClass="hero-panel">
+        <Label text="STATISTIQUES DECHETS" styleClass="hero-kicker"/>
+        <Label text="Comprendre les tendances et agir plus vite" styleClass="hero-title"/>
+        <Label text="Equivalent JavaFX de /dechet/stats : volumes, zones touchees, repartition des types et progression nettoyage." wrapText="true" styleClass="hero-subtitle"/>
+    </VBox>
+
+    <GridPane hgap="18" vgap="18">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <VBox styleClass="metric-card">
+            <Label text="13" styleClass="metric-number"/>
+            <Label text="Signalements" styleClass="metric-label"/>
+        </VBox>
+        <VBox styleClass="metric-card" GridPane.columnIndex="1">
+            <Label text="93 kg" styleClass="metric-number"/>
+            <Label text="Quantite totale" styleClass="metric-label"/>
+        </VBox>
+        <VBox styleClass="metric-card" GridPane.columnIndex="2">
+            <Label text="7" styleClass="metric-number"/>
+            <Label text="Zones touchees" styleClass="metric-label"/>
+        </VBox>
+        <VBox styleClass="metric-card" GridPane.columnIndex="3">
+            <Label text="+31%" styleClass="metric-number"/>
+            <Label text="Progression nettoyage" styleClass="metric-label"/>
+        </VBox>
+    </GridPane>
+
+    <GridPane hgap="22" vgap="22" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="48"/>
+            <ColumnConstraints percentWidth="52"/>
+        </columnConstraints>
+
+        <VBox spacing="12" styleClass="glass-card">
+            <Label text="Repartition par type" styleClass="section-title"/>
+            <PieChart legendVisible="true" labelsVisible="true" prefHeight="360"/>
+            <Label text="Plastique dominant, puis metal/canettes, papier/carton et dechets mixtes." wrapText="true" styleClass="section-caption"/>
+        </VBox>
+
+        <VBox spacing="12" styleClass="glass-card" GridPane.columnIndex="1">
+            <Label text="Signalements par zone" styleClass="section-title"/>
+            <BarChart legendVisible="false" animated="false" prefHeight="380">
+                <xAxis>
+                    <CategoryAxis label="Zone"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Nombre"/>
+                </yAxis>
+            </BarChart>
+        </VBox>
+    </GridPane>
+</VBox>
