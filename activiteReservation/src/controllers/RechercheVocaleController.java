@@ -16,6 +16,9 @@ import tn.edu.esprit.entities.ZoneProtegee;
 import tn.edu.esprit.services.ServiceZoneP;
 
 import javax.sound.sampled.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,8 +35,7 @@ public class RechercheVocaleController {
     private Thread recognitionThread;
 
     // ⚠️ mets ton chemin
-    private static final String MODEL_PATH =
-            "C:\\Users\\WSI\\Downloads\\vosk-model-small-fr-0.22\\vosk-model-small-fr-0.22";
+    private static final String MODEL_DIR = "vosk-model-small-fr-0.22";
 
     @FXML
     public void initialize() {
@@ -42,7 +44,7 @@ public class RechercheVocaleController {
 
         new Thread(() -> {
             try {
-                model = new Model(MODEL_PATH);
+                model = new Model(resolveModelPath());
                 Platform.runLater(() -> {
                     lblStatut.setText("Prêt — clique pour parler");
                     btnMicro.setDisable(false);
@@ -53,6 +55,24 @@ public class RechercheVocaleController {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    private String resolveModelPath() throws Exception {
+        List<Path> candidates = List.of(
+                Paths.get("target", "classes", MODEL_DIR),
+                Paths.get("ressources", MODEL_DIR),
+                Paths.get("src", MODEL_DIR)
+        );
+
+        for (Path candidate : candidates) {
+            if (Files.isDirectory(candidate.resolve("am"))
+                    && Files.isDirectory(candidate.resolve("conf"))
+                    && Files.isDirectory(candidate.resolve("graph"))) {
+                return candidate.toAbsolutePath().toString();
+            }
+        }
+
+        throw new IllegalStateException("Modele Vosk introuvable dans target/classes, ressources ou src");
     }
 
     @FXML

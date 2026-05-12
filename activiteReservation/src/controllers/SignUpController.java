@@ -75,7 +75,7 @@ public class SignUpController {
             }
         });
 
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        FaceRecognitionService.loadOpenCV();
         
         // Désactiver la capture faciale par défaut (Utilisateur simple)
         enableFaceCapture(false);

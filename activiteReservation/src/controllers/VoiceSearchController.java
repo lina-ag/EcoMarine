@@ -10,6 +10,10 @@ import org.vosk.Recognizer;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class VoiceSearchController {
 
@@ -21,7 +25,7 @@ public class VoiceSearchController {
 
     // 🔴 MODIFIEZ CE CHEMIN AVEC LE VOTRE 🔴
     // Chemin absolu vers le dossier du modèle
-    private static final String MODEL_PATH =  "C:\\Users\\WSI\\Downloads\\vosk-model-small-fr-0.22\\vosk-model-small-fr-0.22";
+    private static final String MODEL_DIR = "vosk-model-small-fr-0.22";
     
     public void setSearchField(TextField searchField) {
         this.searchField = searchField;
@@ -39,9 +43,10 @@ public class VoiceSearchController {
             LibVosk.setLogLevel(LogLevel.WARNINGS);
 
             // Vérifier que le dossier existe
-            File modelDir = new File(MODEL_PATH);
+            String modelPath = resolveModelPath();
+            File modelDir = new File(modelPath);
             if (!modelDir.exists()) {
-                System.err.println("❌ Dossier modèle introuvable: " + MODEL_PATH);
+                System.err.println("Dossier modele introuvable: " + modelPath);
                 System.err.println("Vérifiez que le dossier existe et contient les fichiers.");
                 Platform.runLater(() -> {
                     if (voiceButton != null) {
@@ -55,12 +60,12 @@ public class VoiceSearchController {
             // Vérifier que le dossier contient les sous-dossiers nécessaires
             File amDir = new File(modelDir, "am");
             if (!amDir.exists() || amDir.listFiles().length == 0) {
-                System.err.println("❌ Le dossier 'am' est vide ou n'existe pas dans: " + MODEL_PATH);
+                System.err.println("Le dossier 'am' est vide ou n'existe pas dans: " + modelPath);
                 return;
             }
 
-            System.out.println("✅ Chargement du modèle depuis: " + MODEL_PATH);
-            model = new Model(MODEL_PATH);
+            System.out.println("Chargement du modele depuis: " + modelPath);
+            model = new Model(modelPath);
             recognizer = new Recognizer(model, 16000);
             
             System.out.println("🎉 Modèle Vosk chargé avec succès !");
@@ -74,6 +79,24 @@ public class VoiceSearchController {
                 }
             });
         }
+    }
+
+    private String resolveModelPath() {
+        List<Path> candidates = List.of(
+                Paths.get("target", "classes", MODEL_DIR),
+                Paths.get("ressources", MODEL_DIR),
+                Paths.get("src", MODEL_DIR)
+        );
+
+        for (Path candidate : candidates) {
+            if (Files.isDirectory(candidate.resolve("am"))
+                    && Files.isDirectory(candidate.resolve("conf"))
+                    && Files.isDirectory(candidate.resolve("graph"))) {
+                return candidate.toAbsolutePath().toString();
+            }
+        }
+
+        return Paths.get("ressources", MODEL_DIR).toAbsolutePath().toString();
     }
 
     public void startVoiceRecognition() {

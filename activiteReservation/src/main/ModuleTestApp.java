@@ -37,7 +37,7 @@ public class ModuleTestApp extends Application {
         Label title = new Label("EcoMarine JavaFX");
         title.setStyle("-fx-text-fill: white; -fx-font-weight: 900; -fx-font-size: 42px;");
 
-        Label subtitle = new Label("Choisis uniquement les parties a tester : dechets, nettoyage, biodiversite et evenement.");
+        Label subtitle = new Label("Choisis uniquement les parties a tester : dechets, evenement et biodiversite.");
         subtitle.setWrapText(true);
         subtitle.setStyle("-fx-text-fill: #c8e6f4; -fx-font-size: 16px;");
 
@@ -46,9 +46,8 @@ public class ModuleTestApp extends Application {
         grid.setVgap(18);
 
         grid.add(moduleButton("Dechets", "Dashboard, nouveau signalement, statistiques et documents", "/DechetModule.fxml"), 0, 0);
-        grid.add(moduleButton("Nettoyage", "Missions, volontaires et suivi terrain", "/actions.fxml"), 1, 0);
-        grid.add(moduleButton("Evenement", "Agenda, recherche et filtres rapides", "/AfficherActivite.fxml"), 0, 1);
-        grid.add(moduleButton("Biodiversite", "Observatoire faune marine", "/faune/Marine/ressource/FauneMarine.fxml"), 1, 1);
+        grid.add(moduleButton("Evenement", "Agenda, recherche et filtres rapides", "/AfficherActivite.fxml"), 1, 0);
+        grid.add(moduleButton("Biodiversite", "Observatoire faune marine", "/faune/Marine/ressource/Main.fxml"), 0, 1);
 
         VBox panel = new VBox(20, kicker, title, subtitle, grid);
         panel.setMaxWidth(920);

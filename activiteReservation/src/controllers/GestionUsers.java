@@ -17,6 +17,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -364,7 +365,7 @@ public class GestionUsers implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(cheminFXML));
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(rendreScrollable(root), 1200, 760));
             stage.setTitle(titre);
             stage.show();
             
@@ -372,6 +373,18 @@ public class GestionUsers implements Initializable {
             System.err.println("Erreur ouverture : " + cheminFXML);
             e.printStackTrace();
         }
+    }
+
+    private Parent rendreScrollable(Parent root) {
+        if (root instanceof ScrollPane) {
+            return root;
+        }
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(false);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        return scrollPane;
     }
 
     @FXML

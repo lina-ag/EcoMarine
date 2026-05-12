@@ -72,7 +72,7 @@ public class AjouterUser {
                 "Utilisateur"
         );
         
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        FaceRecognitionService.loadOpenCV();
         
         if (lblFaceStatus != null) {
             lblFaceStatus.setText("⚠️ Aucun visage capturé");

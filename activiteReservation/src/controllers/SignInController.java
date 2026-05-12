@@ -45,7 +45,7 @@ public class SignInController {
 
     @FXML
     public void initialize() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        FaceRecognitionService.loadOpenCV();
     }
 
     @FXML

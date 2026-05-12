@@ -4,17 +4,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.RechercheVocaleController"
+            fitToWidth="true"
+            fitToHeight="false"
+            vbarPolicy="AS_NEEDED"
+            hbarPolicy="NEVER"
+            style="-fx-background: white; -fx-background-color: white;">
+    <content>
 <VBox spacing="20" alignment="CENTER"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controllers.RechercheVocaleController"
       style="-fx-background-color: white;
              -fx-background-radius: 25;
              -fx-border-radius: 25;
              -fx-border-color: rgba(0,0,0,0.08);
              -fx-border-width: 1.5;
              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.15, 0, 5);"
-      prefWidth="1535"
-      prefHeight="840">
+      prefWidth="900"
+      minHeight="840">
 
     <padding>
         <Insets top="30" right="30" bottom="30" left="30"/>
@@ -138,4 +144,6 @@
 
     
 
-</VBox>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -21,7 +21,11 @@
    <!--  SIDEBAR                               -->
    <!-- ══════════════════════════════════════ -->
    <left>
-      <VBox spacing="8" prefWidth="265" styleClass="sidebar">
+      <ScrollPane fitToWidth="true" fitToHeight="false" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true"
+                  prefWidth="265"
+                  style="-fx-background: transparent; -fx-background-color: transparent;">
+         <content>
+      <VBox spacing="8" prefWidth="265" minHeight="-Infinity" styleClass="sidebar">
 
          <StackPane styleClass="sidebar-header">
             <Region styleClass="header-background"/>
@@ -202,13 +206,15 @@
          <Region VBox.vgrow="ALWAYS"/>
 
       </VBox>
+         </content>
+      </ScrollPane>
    </left>
 
    <!-- ══════════════════════════════════════ -->
    <!--  CENTRE — DASHBOARD                    -->
    <!-- ══════════════════════════════════════ -->
    <center>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+      <ScrollPane fitToWidth="true" fitToHeight="false" hbarPolicy="NEVER" vbarPolicy="ALWAYS" pannable="true"
                   style="-fx-background: transparent; -fx-background-color: transparent;">
          <VBox spacing="20" style="-fx-padding: 30;">
 

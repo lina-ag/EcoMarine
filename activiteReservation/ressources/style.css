@@ -12,13 +12,20 @@
 }
 
 .root-pane {
-    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
+    -fx-background-image: url("BACKGROUND.jpg");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
     -fx-background-blend-mode: overlay;
-    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-color: rgba(255, 255, 255, 0.42);
 	}
+
+.root-pane .scroll-pane,
+.root-pane .scroll-pane > .viewport,
+.root-pane .scroll-pane > .corner {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
 
 
 	/* Tableau des réservations */
@@ -2613,7 +2620,7 @@
 
 /* ---- FOND PRINCIPAL CENTER ---- */
 .acceuil-center {
-    -fx-background-image: url("file:/C:/Users/WSI/Downloads/1234.png");
+    -fx-background-image: url("BACKGROUND.jpg");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;

@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -274,7 +275,7 @@ public class AccueilController {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle(titre);
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(rendreScrollable(root), 1200, 760));
             stage.show();
             
         } catch (IOException e) {
@@ -299,7 +300,7 @@ public class AccueilController {
             }
             Stage stage = new Stage();
             stage.setTitle(titre);
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(rendreScrollable(root), 1200, 760));
             stage.show();
             
         } catch (IOException e) {
@@ -314,6 +315,18 @@ public class AccueilController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private Parent rendreScrollable(Parent root) {
+        if (root instanceof ScrollPane) {
+            return root;
+        }
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(false);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        return scrollPane;
     }
 
     

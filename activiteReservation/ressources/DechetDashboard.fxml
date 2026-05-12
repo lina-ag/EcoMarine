@@ -21,7 +21,9 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.DechetDashboardController"
             fitToWidth="true"
-            fitToHeight="true"
+            fitToHeight="false"
+            vbarPolicy="AS_NEEDED"
+            hbarPolicy="NEVER"
             stylesheets="@eco-wow.css"
             styleClass="eco-scroll">
     <content>

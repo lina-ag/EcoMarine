@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -14,13 +15,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      spacing="22"
-      stylesheets="@eco-wow.css"
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fitToWidth="true"
+            fitToHeight="false"
+            vbarPolicy="AS_NEEDED"
+            hbarPolicy="NEVER"
+            stylesheets="@eco-wow.css"
+            styleClass="eco-scroll">
+    <content>
+<VBox spacing="22"
       styleClass="eco-root eco-shell"
-      prefWidth="1320"
-      prefHeight="820">
+      prefWidth="1320">
 
     <VBox spacing="12" styleClass="hero-panel">
         <Label text="NOUVEAU SIGNALEMENT" styleClass="hero-kicker"/>
@@ -94,4 +100,6 @@
             </VBox>
         </VBox>
     </GridPane>
-</VBox>
+        </VBox>
+    </content>
+</ScrollPane>

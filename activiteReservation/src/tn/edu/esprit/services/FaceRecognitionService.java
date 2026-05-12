@@ -4,6 +4,7 @@ import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
+import nu.pattern.OpenCV;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,10 +14,18 @@ public class FaceRecognitionService {
     
     private CascadeClassifier faceDetector;
     private static final String HAAR_CASCADE_PATH = "/haarcascade_frontalface_default.xml";
+    private static boolean opencvLoaded = false;
     
     public FaceRecognitionService() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        loadOpenCV();
         loadFaceDetector();
+    }
+
+    public static synchronized void loadOpenCV() {
+        if (!opencvLoaded) {
+            OpenCV.loadLocally();
+            opencvLoaded = true;
+        }
     }
     
     private void loadFaceDetector() {

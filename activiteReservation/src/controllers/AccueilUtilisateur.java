@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -407,7 +408,7 @@ public class AccueilUtilisateur implements Initializable {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle(titre);
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(rendreScrollable(root), 1200, 760));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -415,6 +416,18 @@ public class AccueilUtilisateur implements Initializable {
                 "Impossible d'ouvrir : " + fxmlPath,
                 ButtonType.OK).showAndWait();
         }
+    }
+
+    private Parent rendreScrollable(Parent root) {
+        if (root instanceof ScrollPane) {
+            return root;
+        }
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(false);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        return scrollPane;
     }
 
     private void ouvrirLogin() {

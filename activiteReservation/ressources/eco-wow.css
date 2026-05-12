@@ -1,0 +1,311 @@
+.eco-root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #e0f7ff, #f0fbff, #ffffff);
+}
+
+.eco-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.eco-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.eco-shell {
+    -fx-padding: 26;
+}
+
+.dechet-topbar {
+    -fx-background-color: linear-gradient(to right, #0a4d7a, #0284c7, #14b8a6);
+    -fx-padding: 14 20;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.22), 16, 0.20, 0, 4);
+}
+
+.dechet-top-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+}
+
+.dechet-top-subtitle {
+    -fx-text-fill: #d8f7ff;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+.hero-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 22;
+    -fx-border-color: linear-gradient(to right, #bae6fd, #99f6e4);
+    -fx-border-radius: 22;
+    -fx-border-width: 1.4;
+    -fx-effect: dropshadow(gaussian, rgba(14, 116, 144, 0.16), 20, 0.20, 0, 7);
+    -fx-padding: 28;
+}
+
+.hero-kicker {
+    -fx-text-fill: #0284c7;
+    -fx-font-size: 12px;
+    -fx-font-weight: 900;
+}
+
+.hero-title {
+    -fx-text-fill: #0f3f5f;
+    -fx-font-size: 34px;
+    -fx-font-weight: 900;
+}
+
+.hero-subtitle {
+    -fx-text-fill: #46677a;
+    -fx-font-size: 15px;
+    -fx-line-spacing: 4;
+}
+
+.glass-card,
+.document-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #dbeafe;
+    -fx-border-radius: 20;
+    -fx-border-width: 1.2;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(15, 79, 115, 0.13), 18, 0.18, 0, 6);
+}
+
+.deep-card {
+    -fx-background-color: #f0f9ff;
+    -fx-background-radius: 18;
+    -fx-border-color: #bae6fd;
+    -fx-border-radius: 18;
+    -fx-padding: 18;
+}
+
+.metric-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: #bae6fd;
+    -fx-border-radius: 18;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.14), 14, 0.18, 0, 5);
+}
+
+.metric-number {
+    -fx-text-fill: #0284c7;
+    -fx-font-size: 31px;
+    -fx-font-weight: 900;
+}
+
+.metric-label {
+    -fx-text-fill: #0f4f6e;
+    -fx-font-size: 12px;
+    -fx-font-weight: 800;
+}
+
+.section-title {
+    -fx-text-fill: #0a4d7a;
+    -fx-font-size: 21px;
+    -fx-font-weight: 900;
+}
+
+.section-caption {
+    -fx-text-fill: #607d8b;
+    -fx-font-size: 13px;
+}
+
+.mini-title {
+    -fx-text-fill: #0f4f6e;
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+}
+
+.mini-text {
+    -fx-text-fill: #46677a;
+    -fx-font-size: 13px;
+}
+
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #0284c7, #14b8a6);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 900;
+    -fx-background-radius: 18;
+    -fx-padding: 11 22;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #0369a1, #0f9f92);
+}
+
+.secondary-button,
+.ghost-button {
+    -fx-background-color: #eef8ff;
+    -fx-text-fill: #0a4d7a;
+    -fx-font-weight: 800;
+    -fx-background-radius: 18;
+    -fx-border-color: #bae6fd;
+    -fx-border-radius: 18;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover,
+.ghost-button:hover {
+    -fx-background-color: #dff6ff;
+    -fx-border-color: #67e8f9;
+}
+
+.danger-button {
+    -fx-background-color: linear-gradient(to right, #ef4444, #f97316);
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-background-radius: 18;
+    -fx-padding: 11 20;
+}
+
+.field-wow {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0f3f5f;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-background-radius: 15;
+    -fx-border-color: #cfe8f7;
+    -fx-border-radius: 15;
+    -fx-padding: 10 13;
+}
+
+.field-wow:focused {
+    -fx-border-color: #38bdf8;
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.22), 12, 0.18, 0, 2);
+}
+
+.field-wow .content {
+    -fx-background-color: white;
+}
+
+.chip {
+    -fx-background-color: #dcfce7;
+    -fx-text-fill: #047857;
+    -fx-font-size: 12px;
+    -fx-font-weight: 900;
+    -fx-background-radius: 999;
+    -fx-padding: 8 13;
+}
+
+.document-tabs {
+    -fx-background-color: transparent;
+}
+
+.document-tabs .tab-header-area {
+    -fx-padding: 0 0 12 0;
+}
+
+.document-tabs .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.document-tabs .tab {
+    -fx-background-color: #e0f2fe;
+    -fx-background-radius: 14 14 0 0;
+    -fx-padding: 10 18;
+}
+
+.document-tabs .tab:selected {
+    -fx-background-color: linear-gradient(to right, #0284c7, #14b8a6);
+}
+
+.document-tabs .tab-label {
+    -fx-text-fill: #0a4d7a;
+    -fx-font-weight: 900;
+}
+
+.document-tabs .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+.document-tabs .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 6 0 0 0;
+}
+
+.document-list {
+    -fx-background-color: #f8fcff;
+    -fx-background-radius: 16;
+    -fx-border-color: #dbeafe;
+    -fx-border-radius: 16;
+}
+
+.document-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #0f4f6e;
+    -fx-font-size: 14px;
+    -fx-padding: 13;
+}
+
+.document-list .list-cell:odd {
+    -fx-background-color: #eff8ff;
+}
+
+.table-wow {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: #dbeafe;
+    -fx-border-radius: 18;
+}
+
+.table-wow .column-header-background {
+    -fx-background-color: #f0f9ff;
+    -fx-background-radius: 16 16 0 0;
+}
+
+.table-wow .column-header,
+.table-wow .filler {
+    -fx-background-color: transparent;
+}
+
+.table-wow .column-header .label {
+    -fx-text-fill: #0a4d7a;
+    -fx-font-weight: 900;
+}
+
+.table-wow .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #eef7ff;
+}
+
+.table-wow .table-row-cell:odd {
+    -fx-background-color: #f8fcff;
+}
+
+.table-wow .table-row-cell:selected {
+    -fx-background-color: #bae6fd;
+}
+
+.table-wow .table-cell {
+    -fx-text-fill: #0f3f5f;
+    -fx-padding: 10;
+}
+
+.radar-panel {
+    -fx-background-color: linear-gradient(to bottom right, #e0f7ff, #ffffff);
+    -fx-background-radius: 24;
+    -fx-border-color: #bae6fd;
+    -fx-border-radius: 24;
+    -fx-min-height: 270;
+}
+
+.radar-ring {
+    -fx-fill: transparent;
+    -fx-stroke: rgba(2, 132, 199, 0.28);
+    -fx-stroke-width: 2;
+}
+
+.radar-line {
+    -fx-stroke: rgba(20, 184, 166, 0.26);
+    -fx-stroke-width: 1.4;
+}
+
+.radar-dot {
+    -fx-fill: #14b8a6;
+    -fx-effect: dropshadow(gaussian, rgba(20, 184, 166, 0.50), 12, 0.35, 0, 0);
+}
